@@ -1,0 +1,24 @@
+@import 'normalize.css';
+
+:root { 
+    --primary-color : #0cc0df;
+    --color-white : #fff;
+    --color-black : black;
+    --var-font-family : 'Open Sans', sans-serif;
+    --var-font-weight : 600;
+    --var-border-radius :5px;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    text-rendering: optimizeSpeed;
+    font-family: var(--var-font-family);
+}
