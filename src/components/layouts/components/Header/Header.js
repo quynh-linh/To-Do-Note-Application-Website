@@ -1,7 +1,6 @@
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowAltCircleLeft, faArrowAltCircleRight, faArrowLeft, faArrowRight, faBell, faCaretLeft, faCaretRight, faCoffee, faPlus, faStepBackward } from '@fortawesome/free-solid-svg-icons'
-// 
+import { faBell, faCaretLeft, faCaretRight,faPlus } from '@fortawesome/free-solid-svg-icons'
 import styles from './Header.module.scss'
 import images from '~/assets/images';
 const cx = className.bind(styles);
@@ -10,7 +9,6 @@ function Header(){
         <header className={cx('wrapper')}>
             <div  className={cx('wrapper-logo')} >
                 <img className={cx('logo')} src={images.logo} alt="logo"/>
-                <h2>Tom</h2>
             </div>
             <div className={cx('wrapper-controls')}>
                 <FontAwesomeIcon className={cx('icon-notification')} icon={faBell}/>

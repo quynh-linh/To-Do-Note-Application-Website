@@ -1,7 +1,8 @@
 @import 'normalize.css';
 
 :root { 
-    --primary-color : #0cc0df;
+    --background-color : #1e1f26;
+    --primary-color : #4d648d;
     --color-white : #fff;
     --color-black : black;
     --var-font-family : 'Open Sans', sans-serif;
@@ -21,4 +22,20 @@ body {
     font-size: 1.6rem;
     text-rendering: optimizeSpeed;
     font-family: var(--var-font-family);
+    background-color: var(--background-color);
+}
+// CSS React Calendar
+.react-calendar{
+    background-color: #2e384e;
+    border: none;
+    border-radius: var(--var-border-radius);
+}
+
+.react-calendar button,
+.react-calendar__month-view__weekdays{
+    color: var(--color-white);
+}
+.react-calendar__tile--active{
+    background: var(--primary-color);
+    font-weight: bold;
 }
