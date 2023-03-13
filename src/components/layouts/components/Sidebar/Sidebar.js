@@ -1,28 +1,35 @@
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight , faPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faCaretRight , faPlus} from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import { TextField } from '@mui/material';
 // 
 import styles from './Sidebar.module.scss'
 import { publicRoutes } from "~/routes";
+import ProjectData from './ProjectData';
+import SubProject from './SubProject';
+import CustomInput from '~/components/input/input';
+
 const cx = className.bind(styles);
-function Header(){
+
+function Sidebar(){
+
+
     return(
-       <div className={cx('wrapper')}>
+        <div className={cx('wrapper')}>
             <div className={cx('wrapper-list')}>
                 <ul className={cx('wrapper-list_ul')}>
                     {
                         publicRoutes.map((item, index) => {
-                        return (
-                            
+                            return (
+        
                                 <li key={index} className={cx('wrapper-list_li')}>
                                     <Link to={item.path} className={cx('wrapper-list_link')}>
                                         {<FontAwesomeIcon icon={item.icon}/>}
                                         <h4>{item.name}</h4>
                                     </Link>
                                 </li>
-                            
-                        )
+                            )
                         })
                     }
                 </ul>
@@ -37,16 +44,21 @@ function Header(){
                     <button className={cx('wrapper-project_btn')}>CHAT</button>
                 </div>
                 <div className={cx('search-project')}>
-                    <input className={cx('search-project_input')} type="text" placeholder='Go to Project'/>
-                    <button className={cx('create-project')}>
-                        <FontAwesomeIcon className={cx('icon-faPlus')} icon={faPlus}/>
-                    </button>
+                    <CustomInput/>
                 </div>
-                <div className={cx('detail-project')}>
-                        
+                <div className={cx('project')}>
+                    <ul className={cx('project-ul')}>
+                        <li className={cx('project-li')}>
+                            {
+                                ProjectData.map((item, index) => {
+                                    return <SubProject item={item} key={index}></SubProject>
+                                })
+                            }
+                        </li>
+                    </ul>
                 </div>
             </div>
-       </div>
+        </div>
     )
 }
-export default Header;
+export default Sidebar;

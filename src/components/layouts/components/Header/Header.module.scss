@@ -29,7 +29,7 @@
         justify-content: center;
     }
     .input-search{
-        width: 750px;
+        width: 730px;
         text-align: center;
         padding: 8px;
         margin-left: 20px;
@@ -70,5 +70,8 @@
         border-radius: var(--var-border-radius);
         margin: 0 2px;
         color: var(--color-white);
+    }
+    .icon-faPlus{
+        padding-right: 10px;
     }
 }   

@@ -39,7 +39,7 @@ function Overview(){
                                 // How long animation takes to go from one percentageCompleted to another, in seconds
                                 pathTransitionDuration: 0.5,
                                 // Colors
-                                pathColor: `rgba(62, 152, 199, ${percentageCompleted / 100})`,
+                                pathColor: `rgba(255, 255, 0, ${percentageCompleted / 100})`,
                                 textColor: '#fff',
                                 fontWeight: 'bold',
                                 trailColor: '#d6d6d6',
@@ -70,10 +70,11 @@ function Overview(){
                                 // How long animation takes to go from one percentage to another, in seconds
                                 pathTransitionDuration: 0.5,
                                 // Colors
-                                pathColor: `rgba(62, 152, 199, ${percentageInprogress / 100})`,
+                                pathColor: `rgba(255, 255, 0, ${percentageInprogress / 100})`,
                                 textColor: '#fff',
                                 fontWeight: 'bold',
                                 trailColor: '#d6d6d6',
+                                
                                 backgroundColor: '#d0e1f9 ',
                               })} />;
                         </div>

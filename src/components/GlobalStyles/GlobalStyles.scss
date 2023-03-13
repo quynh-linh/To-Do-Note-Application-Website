@@ -5,9 +5,28 @@
     --primary-color : #4d648d;
     --color-white : #fff;
     --color-black : black;
-    --var-font-family : 'Open Sans', sans-serif;
+    --var-font-family : 'Poppins', sans-serif;;
     --var-font-weight : 600;
     --var-border-radius :5px;
+}
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 5px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #dfdede;
 }
 * {
     box-sizing: border-box;
@@ -34,8 +53,10 @@ body {
 .react-calendar button,
 .react-calendar__month-view__weekdays{
     color: var(--color-white);
+    font-family: var(--var-font-family);
 }
 .react-calendar__tile--active{
     background: var(--primary-color);
     font-weight: bold;
+    font-family: var(--var-font-family);
 }
