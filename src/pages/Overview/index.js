@@ -2,6 +2,7 @@ import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faListCheck} from '@fortawesome/free-solid-svg-icons';
 import { CircularProgressbar ,buildStyles } from 'react-circular-progressbar';
+
 import 'react-circular-progressbar/dist/styles.css';
 import styles from "./Overview.module.scss";
 import WeekPieChart from "./Chart.js"

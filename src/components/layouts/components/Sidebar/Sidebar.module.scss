@@ -92,7 +92,7 @@ $color: #a4a9aa;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 22px;
+        padding: 3px;
         .create-project{
             margin-left: 10px;
             color: var(--color-white);
@@ -140,6 +140,12 @@ $color: #a4a9aa;
         justify-content: space-between;
         padding: 5px 20px;
         font-size: 13px;
+    }
+    // 
+    .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected{
+        color: #fff;
+        font-size: 15px;
+        font-weight: var(--var-font-weight);
     }
 }
 

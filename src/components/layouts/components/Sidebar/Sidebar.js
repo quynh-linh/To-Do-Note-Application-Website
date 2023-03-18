@@ -1,19 +1,15 @@
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCaretRight , faPlus} from '@fortawesome/free-solid-svg-icons';
+import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
-import { TextField } from '@mui/material';
-// 
+ 
 import styles from './Sidebar.module.scss'
 import { publicRoutes } from "~/routes";
-import ProjectData from './ProjectData';
-import SubProject from './SubProject';
-import CustomInput from '~/components/input/input';
+import BasicTabs from './TabPanel';
 
 const cx = className.bind(styles);
 
 function Sidebar(){
-
 
     return(
         <div className={cx('wrapper')}>
@@ -40,23 +36,8 @@ function Sidebar(){
             </div>
             <div>
                 <div className={cx('wrapper-project')}>
-                    <button className={cx('wrapper-project_btn')}>PROJECT</button>
-                    <button className={cx('wrapper-project_btn')}>CHAT</button>
-                </div>
-                <div className={cx('search-project')}>
-                    <CustomInput/>
-                </div>
-                <div className={cx('project')}>
-                    <ul className={cx('project-ul')}>
-                        <li className={cx('project-li')}>
-                            {
-                                ProjectData.map((item, index) => {
-                                    return <SubProject item={item} key={index}></SubProject>
-                                })
-                            }
-                        </li>
-                    </ul>
-                </div>
+                   <BasicTabs/>
+                </div> 
             </div>
         </div>
     )
