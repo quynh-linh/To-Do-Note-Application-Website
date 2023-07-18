@@ -74,4 +74,57 @@
     .controls-menu_btn:hover{
        color: #ccc;
     }
+    .info-menu{
+        width: 320px;
+        .info-menu_header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px;
+        }
+        .info-menu_header-img{
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, 
+            rgba(0, 0, 0, 0.12) 0px -12px 30px, 
+            rgba(0, 0, 0, 0.12) 0px 4px 6px, 
+            rgba(0, 0, 0, 0.17) 0px 12px 13px, 
+            rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+        .info-menu_logOut{
+            color: var(--font-color-secondary);
+            font-family: var(--var-font-family);
+            font-weight: bold;
+            text-decoration: none;
+            padding-right: 15px;
+            font-size: 15px;
+            &:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+        .menu_header-list{
+            display: flex;
+            align-items: center;
+            & ul {
+                list-style: none;
+            }
+            & li {
+                margin-top: 5px;
+            }
+            .header-list_img{
+                padding: 10px;
+
+            }
+            .header-list_imgUser{
+                height: 88px;
+                width: 88px;
+                border-radius: 50%;
+            }
+            .info-list_account,
+            .info-list_file{
+                font-size: 13px;
+                color: var(--font-color-secondary);
+                font-weight: bold;
+            }
+        }
+    }
 }   
