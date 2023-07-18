@@ -1,5 +1,5 @@
 {
-  "name": "tank-shooting",
+  "name": "todo-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,8 +14,11 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@tippyjs/react": "^4.2.6",
+    "axios": "^1.3.4",
     "classnames": "^2.3.2",
     "customize-cra": "^1.0.0",
+    "express": "^4.18.2",
     "moment": "^2.29.4",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
@@ -24,9 +27,11 @@
     "react-calendar": "^4.0.0",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
     "recharts": "^2.4.3",
+    "tippy.js": "^6.3.7",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

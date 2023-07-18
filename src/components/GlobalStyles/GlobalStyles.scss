@@ -1,13 +1,17 @@
 @import 'normalize.css';
-
+@import 'react-big-calendar/lib/sass/styles';
 :root { 
     --background-color : #1e1f26;
     --primary-color : #4d648d;
     --color-white : #fff;
     --color-black : black;
-    --var-font-family : 'Poppins', sans-serif;;
+    --var-font-family: 'Poppins', sans-serif;;
     --var-font-weight : 600;
     --var-border-radius :5px;
+    --background-primary: #fff;
+    --font-color-primary: #292827;
+    --bg-secondary: #faf9f8;
+    --font-color-secondary: #605e5c;
 }
 ::-webkit-scrollbar-track
 {
@@ -41,7 +45,7 @@ body {
     font-size: 1.6rem;
     text-rendering: optimizeSpeed;
     font-family: var(--var-font-family);
-    background-color: var(--background-color);
+    background-color: var(--bg-secondary);
 }
 // CSS React Calendar
 .react-calendar{

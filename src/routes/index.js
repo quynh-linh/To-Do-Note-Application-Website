@@ -1,40 +1,46 @@
-import { faBars, faCloudUpload, faHouse, faListCheck } from '@fortawesome/free-solid-svg-icons';
+import { faHouse} from '@fortawesome/free-solid-svg-icons';
 import Overview from '~/pages/Overview';
-import Calendar from '~/pages/Calendar';
-import AllTask from '~/pages/AllTask';
-import MyWorks from '~/pages/MyWorks';
-import Workloads from '~/pages/Workloads';
-import { faCalendarPlus } from '@fortawesome/free-regular-svg-icons';
+import MyDay from '~/pages/MyDay';
+import Important from '~/pages/Important';
+import Planned from '~/pages/Planned';
+import AssignedToMe from '~/pages/AssignedToMe';
+import { faCalendar, faStar, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
 const publicRoutes =[
-    {   path : '/', 
+    {   
+        path : '/', 
         component: Overview,
         icon : faHouse,
-        name : 'Overview'
+        name : 'Trang chủ',
+        index : 0
     },
     {
-        path : '/calendar', 
-        component: Calendar,
-        icon : faCalendarPlus,
-        name : 'Calendar'
+        path : '/myday', 
+        component: MyDay,
+        icon : faSun,
+        name : 'Ngày của tôi',
+        index : 1
     },
     {
-        path : '/alltask', 
-        component: AllTask,
-        icon : faListCheck,
-        name : 'All Tasks'
+        path : '/important', 
+        component: Important,
+        icon : faStar,
+        name : 'Quan trọng',
+        index : 2
     },
     {
-        path : '/myworks', 
-        component: MyWorks,
-        icon : faBars,
-        name : 'My Works'
+        path : '/planned', 
+        component: Planned,
+        icon : faCalendar,
+        name : 'Đã lập kế hoạch',
+        index : 3
     },
     {
-        path : '/workloads', 
-        component: Workloads,
-        icon : faCloudUpload,
-        name : 'Workloads'
-    },
+        path : '/assigned_to_me', 
+        component: AssignedToMe,
+        icon : faUser,
+        name : 'Đã giao cho tôi',
+        index : 4
+    }
 ]
 const privateRoutes =[
     

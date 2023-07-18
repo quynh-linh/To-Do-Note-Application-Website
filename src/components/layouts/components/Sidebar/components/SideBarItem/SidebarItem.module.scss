@@ -1,0 +1,26 @@
+.wrapper-list_li{
+    padding: 12px;
+    margin: 12px 0;
+    width: 100%;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    &.selected{
+        background-color: aqua;
+    }
+}
+.wrapper-list_li h4 {
+    padding-left: 10px;
+}
+.wrapper-list_link{
+    text-decoration: none;
+    color: var(--font-color-primary);
+    font-size: 15px;
+    display: flex;
+    width: 100%;
+    &.selected{
+        background-color: lightblue;
+        font-weight: bold;
+    }
+}

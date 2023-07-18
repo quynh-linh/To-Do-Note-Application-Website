@@ -9,14 +9,20 @@
     .wrapper-logo{
         display: flex;
         align-items: center;
-        width: 240px;
-        margin-left: 20px;
+        width: 18%;
+        padding-left: 20px;
     }
     .icon-notification{
         color: #d0e1f9;
         font-size: 20px;
         padding: 0 10px;
         margin: 0 30px;
+    }
+    .wrapper-right{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 82%;
     }
     .wrapper-controls{
         display: flex;
@@ -41,6 +47,10 @@
         rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, 
         rgb(197 197 197 / 35%) 0px -2px 6px 0px inset;
     }
+    .controls-region{
+        display: flex;
+        align-items: center;
+    }
     .controls-menu_user{
         width: 40px;
         border-radius: 50%;
@@ -56,22 +66,12 @@
         align-items: center;
         padding: 8px;
         color: var(--color-white);
-        background-color: var(--primary-color);
-        border: 1px solid var(--primary-color);
-        border-radius: var(--var-border-radius);
         margin-right: 10px;
-        font-weight: var(--var-font-weight);
-    }
-    .icon-faCaretLeft ,
-    .icon-faCaretRight{
         font-size: 20px;
-        background-color: var(--primary-color);
-        padding: 3px 8px;
-        border-radius: var(--var-border-radius);
-        margin: 0 2px;
-        color: var(--color-white);
+        font-weight: var(--var-font-weight);
+        cursor: pointer;
     }
-    .icon-faPlus{
-        padding-right: 10px;
+    .controls-menu_btn:hover{
+       color: #ccc;
     }
 }   

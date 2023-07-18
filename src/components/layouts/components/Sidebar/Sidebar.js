@@ -1,30 +1,22 @@
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
-import { Link } from "react-router-dom";
- 
+ import { useState } from 'react';
 import styles from './Sidebar.module.scss'
 import { publicRoutes } from "~/routes";
 import BasicTabs from './TabPanel';
-
-const cx = className.bind(styles);
+import SidebarItem from './components/SideBarItem/SideBarItem';
 
 function Sidebar(){
-
+    const cx = className.bind(styles);
     return(
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-list')}>
                 <ul className={cx('wrapper-list_ul')}>
                     {
                         publicRoutes.map((item, index) => {
-                            return (
-        
-                                <li key={index} className={cx('wrapper-list_li')}>
-                                    <Link to={item.path} className={cx('wrapper-list_link')}>
-                                        {<FontAwesomeIcon icon={item.icon}/>}
-                                        <h4>{item.name}</h4>
-                                    </Link>
-                                </li>
+                            return (           
+                                <SidebarItem title={item} keyboard={index} ></SidebarItem>
                             )
                         })
                     }

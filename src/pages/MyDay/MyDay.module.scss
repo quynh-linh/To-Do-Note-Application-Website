@@ -1,0 +1,124 @@
+.header{
+    .wrapper-header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+    }
+    .wrapper-header_left p{
+        font-family: var(--var-font-family);
+        margin-top: 10px;
+    }
+    .wrapper-header_list{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .wrapper-header_list-title{
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--font-color-primary);
+            padding: 0 20px;
+        }
+        .wrapper-header_list-icon{
+            font-size: 20px;
+            color: #7a7978;
+        }
+    }
+    .wrapper-header_control,
+    .wrapper-header_list{
+        list-style: none;
+    }
+    .wrapper-header_control{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;      
+    }
+    .wrapper-header_control li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 15px;
+        color: var(--font-color-secondary);
+    }
+    .wrapper-header_control li:hover{
+        cursor: pointer;
+        border-radius: 5px;
+        border: 1px solid white;
+        background-color: white;
+    }
+    .wrapper-header_control li span{
+        padding-left: 5px;
+    }
+    .wrapper-header_real-time{
+        font-size: 1.2rem;
+        color: var(--font-color-secondary);
+    }
+}
+// Container
+.container{
+    margin-top: 30px;
+    .taskCreation{
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        .taskCreation_addTask{
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+        .taskCreation_addTaskBtn{
+            width: 5%;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #00b3f0;
+            cursor: pointer;
+        }
+        .taskCreation_addTaskInput{
+            width: 95%;
+            border: none;
+            min-height: 52px;
+            border-top-right-radius: 5px;
+        }
+        .taskCreation_addTaskInput:focus{
+            outline: none;
+        }
+        .taskCreation_MenuControl{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            background-color: #faf9f8;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            .btnAddTask{
+                margin-right: 10px;
+            }
+            .btnAddTask button{
+                padding: 5px 10px;
+                background: white;
+                border: 1px solid;
+                border-radius: 3px;
+            }
+            .btnAddTask button:hover{
+                cursor: pointer;
+            }
+        }
+        .taskCreation_MenuList{
+            padding-left: 10px;
+        }
+        .taskCreation_MenuList ul{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .taskCreation_MenuList li{
+            list-style: none;
+            padding: 5px 10px;
+            color: var(--font-color-secondary);
+        }
+        .taskCreation_MenuList li:hover{
+            background-color: white;
+            border-radius: 4px;
+        }
+    }
+}
