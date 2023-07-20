@@ -1,0 +1,17 @@
+.controls-menu_btn{
+    display: flex;
+    align-items: center;
+    color: var(--color-white);
+    font-size: 20px;
+    font-weight: var(--var-font-weight);
+    cursor: pointer;
+    width: 48px;
+    height: 100%;
+    justify-content: center;
+}
+.controls-menu_btn:hover{
+   color: #ccc;
+}
+.selected{
+    background-color: #494949;
+}

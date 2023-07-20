@@ -6,12 +6,17 @@ import Tippy from '@tippyjs/react';
 
 import styles from './Header.module.scss'
 import images from '~/assets/images';
+import InfoUser from './components/InfoUser/InfoUser';
+import Drawer from './components/Drawer/Drawer';
+import ToolControls from './components/ToolControls/ToolControls';
 import 'tippy.js/dist/tippy.css';
-
 
 function Header(){
     const cx = className.bind(styles);
+
     const [isMenuVisible, setMenuVisible] = useState(false);
+    const [numberControls, setNumberControls] = useState(0);
+    const [isControls, setIsControls] = useState(false);
     const menuRef = useRef();
     const imgRef = useRef();
 
@@ -24,9 +29,22 @@ function Header(){
     const itemClasses = className(styles['info-menu_user'], {
         [styles.selected]: isMenuVisible,
     });
+    
     const toggleMenu = () => {
         setMenuVisible(!isMenuVisible);
+        setNumberControls(0)
     };
+
+    const handleClickControls = (item) => {
+        setNumberControls(item)
+        setIsControls(!isControls)
+    }
+
+    const handleCloseDrawer = () => {
+        setNumberControls(0)
+        setIsControls(false)
+    }
+    console.log(isControls)
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutside, true);
@@ -35,71 +53,62 @@ function Header(){
         };
     }, []);
     return(
-        <header className={cx('wrapper')}>
-            <div  className={cx('wrapper-logo')} >
-                <img className={cx('logo')} src={images.logo} alt="logo"/>
-            </div>
-            <div className={cx('wrapper-right')}>
-                <div className={cx('wrapper-controls')}>
-                    <span className={cx('wrapper-controls_search')} >
-                        <input className={cx('input-search')} spellCheck="false" type="text" placeholder="Tìm kiếm" autoComplete="off"/>
-                    </span>
+        <div>
+            <header className={cx('wrapper')}>
+                <div  className={cx('wrapper-logo')} >
+                    <img className={cx('logo')} src={images.logo} alt="logo"/>
                 </div>
-                <div className={cx('controls-menu')}>
-                    <ul className={cx('controls-region')}>
-                        <Tippy  content="Cài đặt">
-                            <li className={cx('controls-menu_btn')}>
-                                <FontAwesomeIcon className={cx('icon-faPlus')} icon={faGear}/>
-                            </li>
-                        </Tippy>
-                        <Tippy content="Trợ giúp & phản hồi">
-                            <li className={cx('controls-menu_btn')}>
-                                <FontAwesomeIcon className={cx('icon-faPlus')} icon={faQuestion}/>
-                            </li>
-                        </Tippy>
-                        <Tippy content="Có gì mới !">
-                            <li className={cx('controls-menu_btn')}>
-                                <FontAwesomeIcon className={cx('icon-faPlus')} icon={faNewspaper}/>
-                            </li>
-                        </Tippy>
-                    </ul>
-                    <div className={cx('menu_user')}>
-                        <div className={cx(itemClasses)} >
-                            <img onClick={toggleMenu}  ref={imgRef} className={cx('controls-menu_user')} src={images.user} alt="user"/>
+                <div className={cx('wrapper-right')}>
+                    <div className={cx('wrapper-controls')}>
+                        <span className={cx('wrapper-controls_search')} >
+                            <input className={cx('input-search')} spellCheck="false" type="text" placeholder="Tìm kiếm" autoComplete="off"/>
+                        </span>
+                    </div>
+                    <div className={cx('controls-menu')}>
+                        <ul className={cx('controls-region')}>
+                            <ToolControls isBool={isControls} isControls={setIsControls}  idNumber={numberControls} handleClick={handleClickControls}></ToolControls>
+                        </ul>
+                        <div className={cx('menu_user')}>
+                            <div className={cx(itemClasses)} >
+                                <img onClick={toggleMenu}  ref={imgRef} className={cx('controls-menu_user')} src={images.user} alt="user"/>
+                            </div>
+                            {
+                                isMenuVisible && (
+                                    <InfoUser menuRef={menuRef}></InfoUser>
+                                )
+                            }
                         </div>
-                        {
-                            isMenuVisible && (
-                                <div ref={menuRef} id='menu-result' className={cx('info-menu')} >
-                                    <div className={cx('info-menu_header')}>
-                                        <img className={cx('info-menu_header-img')} src={images.logo} alt="user"/>
-                                        <a href='' className={cx('info-menu_logOut')} role='button'>Đăng xuất</a>
-                                    </div>
-                                    <div className={cx('menu_header-list')}>
-                                        <div className={cx('header-list_img')}>
-                                            <img className={cx('header-list_imgUser')} src={images.user} alt="user"/>
-                                        </div>
-                                        <ul>
-                                            <li>
-                                                <h4 className={cx('info-list_name')}>Nguyễn Thanh Quỳnh Linh</h4>
-                                            </li>
-                                            <li>
-                                                <h6 className={cx('info-list_email')}>nguyenthanhquynhlinh@gmail.com</h6>
-                                            </li>
-                                            <li>
-                                                <a className={cx('info-list_account')} href=''>Tài khoản Todo của tôi</a>
-                                            </li>
-                                            <li>
-                                                <a className={cx('info-list_file')} href=''>Hồ sơ của tôi</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            )
-                        }
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
+            {
+                (numberControls === 1 && isControls) && (
+                    <Drawer title="Cài đặt" onClose={handleCloseDrawer}>
+                        <div className={cx('wide')}>
+
+                        </div>
+                    </Drawer>
+                )
+            } 
+            {
+                (numberControls === 2 && isControls) && (
+                    <Drawer title="Trợ giúp" onClose={handleCloseDrawer}>
+                        <div className={cx('wide')}>
+
+                        </div>
+                    </Drawer>
+                )
+            } 
+            {
+                (numberControls === 3 && isControls) && (
+                    <Drawer title="Có gì mới" onClose={handleCloseDrawer}>
+                        <div className={cx('wide')}>
+
+                        </div>
+                    </Drawer>
+                )
+            } 
+        </div>
     )
 }
 export default Header;
