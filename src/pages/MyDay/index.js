@@ -62,7 +62,7 @@ function MyDay(){
                         <button className={cx('taskCreation_addTaskBtn')} type='button' aria-label='Thêm tác vụ' tabIndex='0'>
                             <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                         </button>
-                        <input className={cx('taskCreation_addTaskInput')} type='text' maxLength='255' placeholder='Thêm tác vụ' autocomplete="off"></input>
+                        <input className={cx('taskCreation_addTaskInput')} type='text' maxLength='255' placeholder='Thêm tác vụ'></input>
                     </div>
                     <div className={cx('taskCreation_MenuControl')}>
                           <div className={cx('taskCreation_MenuList')}>

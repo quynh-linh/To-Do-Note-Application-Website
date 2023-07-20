@@ -7,39 +7,39 @@ import AssignedToMe from '~/pages/AssignedToMe';
 import { faCalendar, faStar, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
 const publicRoutes =[
     {   
-        path : '/', 
+        path : '/home', 
         component: Overview,
         icon : faHouse,
         name : 'Trang chủ',
-        index : 0
+        id : 1
     },
     {
         path : '/myday', 
         component: MyDay,
         icon : faSun,
         name : 'Ngày của tôi',
-        index : 1
+        id : 2
     },
     {
         path : '/important', 
         component: Important,
         icon : faStar,
         name : 'Quan trọng',
-        index : 2
+        id : 3
     },
     {
         path : '/planned', 
         component: Planned,
         icon : faCalendar,
         name : 'Đã lập kế hoạch',
-        index : 3
+        id : 4
     },
     {
         path : '/assigned_to_me', 
         component: AssignedToMe,
         icon : faUser,
         name : 'Đã giao cho tôi',
-        index : 4
+        id : 5
     }
 ]
 const privateRoutes =[

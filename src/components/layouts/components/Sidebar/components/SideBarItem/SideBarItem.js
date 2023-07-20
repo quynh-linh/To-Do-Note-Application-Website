@@ -4,25 +4,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import className from 'classnames/bind';
 import styles from './SidebarItem.module.scss';
+import { publicRoutes } from '~/routes';
+
 const cx = className.bind(styles);
-const SidebarItem = ({ title , keyboard}) => {
+const SidebarItem = () => {
     const [itemSelected, setItemSelected] = useState(null);
-    const name = 'wrapper-list_li';
-    const handleClick = () => {
-        setItemSelected(keyboard);
-        console.log(setItemSelected);
+    const handleItemClick = (itemId) => {
+        setItemSelected(itemId)
     };
-    console.log(keyboard);
     const itemClasses = classNames(styles['wrapper-list_li'], {
-        [styles.selected]: itemSelected === keyboard,
+        [styles.selected]: itemSelected,
     });
     return (
-        <li key={keyboard} className={cx(itemSelected === keyboard ? itemClasses : name)} onClick={handleClick}>
-            <Link to={title.path} className={cx('wrapper-list_link')}>
-                {<FontAwesomeIcon icon={title.icon}/>}
-                    <h4>{title.name}</h4>
-            </Link>
-        </li>
+        publicRoutes.map((item) => {
+            return (           
+                <li 
+                    key={item.id} 
+                    className={item.id === itemSelected ? cx(itemClasses) : cx('wrapper-list_li')} 
+                    onClick={() => handleItemClick(item.id)}>
+                    <Link  to={item.path} className={cx('wrapper-list_link')}>
+                        <FontAwesomeIcon className={cx('wrapper-list_icon')} icon={item.icon}/>
+                        <span>{item.name}</span>
+                    </Link>
+                </li>
+            )
+        })
     );
 };
 
