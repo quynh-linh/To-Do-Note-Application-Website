@@ -1,0 +1,39 @@
+.wrapper-content{
+    margin: 20px 0;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: var(--var-border-radius);
+    padding-bottom: 10px;
+    .wrapper-img{
+        width: 100%;
+        max-height: 200px;
+        border-top-left-radius: var(--var-border-radius);
+        border-top-right-radius: var(--var-border-radius);
+    }
+    .wrapper-title{
+        padding: 20px 28px;
+        font-size: 1.2em;
+        min-height: 100px;
+    }
+    .wrapper-btn{
+        margin: 0 28px; 
+        margin: 0 28px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: var(--var-border-radius);
+        &:hover{
+            cursor: pointer;
+            background-color: #eeeeee;
+        }
+    }
+}
+.wrapper-footer{
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    .wide-icon{
+        padding-left: 5px;
+        font-size: 30px;
+        fill: #323130;
+    }
+}

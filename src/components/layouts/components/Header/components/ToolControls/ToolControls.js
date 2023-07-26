@@ -2,10 +2,10 @@ import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGear,faNewspaper, faQuestion } from '@fortawesome/free-solid-svg-icons'
 import Tippy from '@tippyjs/react';
+import { useState } from 'react';
 
 import 'tippy.js/dist/tippy.css';
 import styles from './ToolControls.module.scss'
-import { useState } from 'react';
 function ToolControls({handleClick , isControls , isBool}) {
     const data = [
         {
