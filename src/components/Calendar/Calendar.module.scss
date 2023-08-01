@@ -1,0 +1,17 @@
+.wrapper-btn{
+    text-align: center;
+    & button {
+        padding: 10px 15px;
+        background-color: #4d648d;
+        border: 1px solid white;
+        border-radius: var(--var-border-radius);
+        color: white;
+        font-weight: 600;
+        width: 150px;
+        margin: 10px 0;
+    }
+    & button:hover{
+        cursor: pointer;
+        background-color: #555f68;
+    }
+}

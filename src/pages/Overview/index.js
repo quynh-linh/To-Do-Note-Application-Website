@@ -6,13 +6,12 @@ import { CircularProgressbar ,buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styles from "./Overview.module.scss";
 import WeekPieChart from "./Chart.js"
-import MyCalendar from './Calendar';
-
-const cx = className.bind(styles);
-const percentageCompleted = 100;
-const percentageInprogress = 40;
+import MyCalendar from '../../components/Calendar/Calendar';
 
 function Overview(){
+    const cx = className.bind(styles);
+    const percentageCompleted = 100;
+    const percentageInprogress = 40;
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-box_left')}>

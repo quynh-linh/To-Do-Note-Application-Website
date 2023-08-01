@@ -50,14 +50,13 @@ body {
 }
 // CSS React Calendar
 .react-calendar{
-    background-color: #2e384e;
-    border: none;
+    border: none !important;
     border-radius: var(--var-border-radius);
+    width: 280px !important;
 }
 
 .react-calendar button,
 .react-calendar__month-view__weekdays{
-    color: var(--color-white);
     font-family: var(--var-font-family);
 }
 .react-calendar__tile--active{
@@ -65,9 +64,16 @@ body {
     font-weight: bold;
     font-family: var(--var-font-family);
 }
+.react-calendar__month-view__days__day--weekend{
+    color: #4d648d !important;
+    font-weight: 600 !important;
+}
 // CSS React Big Calendar
 .rbc-toolbar button{
     color: var(--color-white);
+}
+.react-calendar__navigation button {
+    font-weight: 700 !important;
 }
 .rbc-toolbar button.rbc-active{
     background-color: var(--primary-color);

@@ -38,7 +38,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 8px 15px;
-        color: var(--font-color-secondary);
+        color: var(--font-color-secondary) ;
     }
     .wrapper-header_control li:hover{
         cursor: pointer;
@@ -78,6 +78,7 @@
             border: none;
             min-height: 52px;
             border-top-right-radius: 5px;
+            transition: all 0.15s ease-in-out;
         }
         .taskCreation_addTaskInput:focus{
             outline: none;
@@ -90,6 +91,7 @@
             background-color: #faf9f8;
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
+            transition: height 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;
             .btnAddTask{
                 margin-right: 10px;
             }
@@ -112,13 +114,12 @@
             justify-content: space-between;
         }
         .taskCreation_MenuList li{
-            list-style: none;
-            padding: 5px 10px;
-            color: var(--font-color-secondary);
+            list-style: none !important;
+            color: var(--font-color-secondary) !important;
         }
         .taskCreation_MenuList li:hover{
-            background-color: white;
-            border-radius: 4px;
+            background-color: white !important;
+            border-radius: 4px !important;
         }
     }
 }
