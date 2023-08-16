@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from "react-router-dom";
 import className from 'classnames/bind';
 import styles from './SidebarItem.module.scss';
-import { publicRoutes } from '~/routes';
+import { sidebarRoutes } from '~/routes';
 
 const cx = className.bind(styles);
 const SidebarItem = () => {
@@ -16,7 +16,7 @@ const SidebarItem = () => {
         [styles.selected]: itemSelected,
     });
     return (
-        publicRoutes.map((item) => {
+        sidebarRoutes.map((item) => {
             return (           
                 <li 
                     key={item.id} 

@@ -1,5 +1,6 @@
 import className from 'classnames/bind';
 import { useRef, useState , useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss'
 import 'tippy.js/dist/tippy.css';
@@ -161,7 +162,9 @@ function Header(){
         <div>
             <header className={cx('wrapper')}>
                 <div  className={cx('wrapper-logo')} >
-                    <img className={cx('logo')} src={images.logo} alt="logo"/>
+                    <Link to='/'>
+                        <img className={cx('logo')} src={images.logo} alt="logo"/>
+                    </Link>
                 </div>
                 <div className={cx('wrapper-right')}>
                     <div className={cx('wrapper-controls')}>

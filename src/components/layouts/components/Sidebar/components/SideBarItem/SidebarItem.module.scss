@@ -9,10 +9,10 @@
         padding-left: 15px;
     }
     &.selected{
-        background-color: #eff6fc;
+        background-color: #e8bcef;
         font-weight: bold;
         &:hover{
-            background-color: #eff6fc;
+            background-color: #e8bcef;
         }
         &::before{
             content: "";
@@ -27,7 +27,7 @@
     }
     &:hover{
         cursor: pointer;
-        background-color: #f5f5f5;
+        background-color: #e8bcef;
     }
     .wrapper-list_icon{
         width: 15px;
