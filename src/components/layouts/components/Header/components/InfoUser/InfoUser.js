@@ -8,7 +8,7 @@ const InfoUser = ({menuRef}) => {
         <div ref={menuRef} id='menu-result' className={cx('info-menu')} >
             <div className={cx('info-menu_header')}>
                 <img className={cx('info-menu_header-img')} src={images.logo} alt="user"/>
-                <a href='' className={cx('info-menu_logOut')} role='button'>Đăng xuất</a>
+                <a href='https://twitter.com' className={cx('info-menu_logOut')} role='button'>Đăng xuất</a>
             </div>
             <div className={cx('menu_header-list')}>
                 <div className={cx('header-list_img')}>
@@ -22,10 +22,10 @@ const InfoUser = ({menuRef}) => {
                         <h6 className={cx('info-list_email')}>nguyenthanhquynhlinh@gmail.com</h6>
                     </li>
                     <li>
-                        <a className={cx('info-list_account')} href=''>Tài khoản Todo của tôi</a>
+                        <a href='https://twitter.com' className={cx('info-list_account')}>Tài khoản Todo của tôi</a>
                     </li>
                     <li>
-                        <a className={cx('info-list_file')} href=''>Hồ sơ của tôi</a>
+                        <a href='https://twitter.com' className={cx('info-list_file')}>Hồ sơ của tôi</a>
                     </li>
                 </ul>
             </div>

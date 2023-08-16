@@ -22,7 +22,7 @@ function WhatNewsItem() {
                 data.map((item,index) =>{
                     return (
                         <div key={index} className={cx('wrapper-content')}>
-                            <img className={cx('wrapper-img')} src={item.image}></img>
+                            <img className={cx('wrapper-img')} src={item.image} alt="Girl in a jacket" ></img>
                             <p className={cx('wrapper-title')}>{item.name}</p>
                             <button className={cx('wrapper-btn')}>Dùng thử</button>
                         </div>

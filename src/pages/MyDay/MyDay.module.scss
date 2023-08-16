@@ -43,7 +43,6 @@
     .wrapper-header_control li:hover{
         cursor: pointer;
         border-radius: 5px;
-        border: 1px solid white;
         background-color: white;
     }
     .wrapper-header_control li span{
@@ -87,7 +86,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 0;
+            padding: 5px 0;
             background-color: #faf9f8;
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
@@ -120,6 +119,32 @@
         .taskCreation_MenuList li:hover{
             background-color: white !important;
             border-radius: 4px !important;
+        }
+        // 
+        .btnMenuItemTaskCreation{
+            padding: 10px;
+            margin: 0 5px;
+            font-size: 15px;
+            border: none;
+            background: #faf9f8;
+            color: var(--font-color-secondary);
+            &:hover{
+                background-color: white;
+                cursor: pointer;
+            }
+        }
+        .btnMenuItemTaskCreationCheck{
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: var(--var-border-radius);
+            padding: 10px;
+            margin: 0 5px;
+            font-size: 15px;
+            color: var(--font-color-secondary);
+            &:hover{
+                background-color: white;
+                cursor: pointer;
+            }
         }
     }
 }

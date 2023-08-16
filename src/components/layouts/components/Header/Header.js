@@ -215,19 +215,19 @@ function Header(){
                             <div className={cx('wide-contact')}>
                                 <h4 className={cx('wide-title')}>Kết nối</h4>
                                 <div className={cx('wide-contact')}>
-                                    <a className={cx('wide-link')}>
+                                    <a href='https://twitter.com' className={cx('wide-link')}>
                                         <span className={cx('wide-twitter')}>
                                             <Twitter  className={cx('icon-twitter')}></Twitter>
                                         </span>
                                         <span className={cx('wide-label')}>Theo dõi chúng tôi trên Twitter</span>
                                     </a>
-                                    <a className={cx('wide-link')}>
+                                    <a href='https://twitter.com' className={cx('wide-link')}>
                                         <span className={cx('wide-face')}>
                                             <Facebook  className={cx('icon-face')}></Facebook>
                                         </span>
                                         <span className={cx('wide-label')}>Theo dõi chúng tôi trên Facebook</span>
                                     </a>
-                                    <a className={cx('wide-link')}>
+                                    <a href='https://twitter.com' className={cx('wide-link')}>
                                         <span className={cx('wide-github')}>
                                             <GitHub  className={cx('icon-github')}></GitHub>
                                         </span>
