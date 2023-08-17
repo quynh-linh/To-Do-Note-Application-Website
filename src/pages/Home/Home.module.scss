@@ -1,0 +1,80 @@
+.wrapper{
+    overflow-y: scroll;
+}
+.content{
+    background-color: var(--background-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .welcome-Left,
+    .welcome-Right{
+        height: 458px;
+    }
+    .center-logo,
+    .center-title,
+    .center-des,
+    .center-starts{
+        margin-bottom: 25px;
+    }
+    .content-center{
+        text-align: center;
+    }
+    .center-title{
+        color: white;
+        font-size: 25px;
+    }
+    .center-des{
+        color: white;
+        font-size: 20px;
+    }
+    .center-starts{
+        padding-bottom: 30px;
+        padding-top: 20px;
+        & button{
+            padding: 10px 35px;
+            border-radius: var(--var-border-radius);
+            border: 1px solid rgb(250, 243, 243);
+            background-color: white;
+            font-size: 18px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        }
+    }
+    .center-outMore{
+        color: white;
+        font-weight: 600;
+        text-decoration: none;
+        padding-top: 10px;
+    }
+    .center-download{
+        display: grid;
+        justify-content: center;
+        & ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+        & li {
+            padding: 5px 10px;
+        }
+    }
+    .download-icon{
+        background-color: white;
+        padding: 5px;
+        border-radius: var(--var-border-radius);
+        border: 1px solid #393939;
+        width: 40px;
+    }
+    .download-title{
+        color: white;
+        padding-bottom: 15px;
+        font-weight: 500;    
+    }
+    .download-icon_window{
+        background-color: white;
+        padding: 7px;
+        border-radius: var(--var-border-radius);
+        border: 1px solid #393939;
+        font-size: 25px;
+        color: var(--background-color);
+    }
+}
