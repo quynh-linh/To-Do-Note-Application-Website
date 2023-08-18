@@ -5,6 +5,7 @@ import Important from '~/pages/Important';
 import Planned from '~/pages/Planned';
 import AssignedToMe from '~/pages/AssignedToMe';
 import Home from '~/pages/Home';
+import Login from '~/pages/Login';
 import { faCalendar, faStar, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
 const publicRoutes =[
     {   
@@ -12,42 +13,14 @@ const publicRoutes =[
         component: Home,
         icon : faHouse,
         name : 'Trang chủ',
-        id : 1
+        pageCode : 1
     },
     {   
-        path : '/overview', 
-        component: Overview,
+        path : '/login', 
+        component: Login,
         icon : faHouse,
-        name : 'Tổng quan',
-        id : 2
-    },
-    {
-        path : '/myday', 
-        component: MyDay,
-        icon : faSun,
-        name : 'Ngày của tôi',
-        id : 3
-    },
-    {
-        path : '/important', 
-        component: Important,
-        icon : faStar,
-        name : 'Quan trọng',
-        id : 4
-    },
-    {
-        path : '/planned', 
-        component: Planned,
-        icon : faCalendar,
-        name : 'Đã lập kế hoạch',
-        id : 5
-    },
-    {
-        path : '/assigned_to_me', 
-        component: AssignedToMe,
-        icon : faUser,
-        name : 'Đã giao cho tôi',
-        id : 6
+        name : 'Đăng nhập',
+        pageCode : 2
     }
 ]
 const sidebarRoutes = [
@@ -88,7 +61,41 @@ const sidebarRoutes = [
     }
 ]
 const privateRoutes =[
-    
+    {   
+        path : '/overview', 
+        component: Overview,
+        icon : faHouse,
+        name : 'Tổng quan',
+        id : 1
+    },
+    {
+        path : '/myday', 
+        component: MyDay,
+        icon : faSun,
+        name : 'Ngày của tôi',
+        id : 2
+    },
+    {
+        path : '/important', 
+        component: Important,
+        icon : faStar,
+        name : 'Quan trọng',
+        id : 3
+    },
+    {
+        path : '/planned', 
+        component: Planned,
+        icon : faCalendar,
+        name : 'Đã lập kế hoạch',
+        id : 4
+    },
+    {
+        path : '/assigned_to_me', 
+        component: AssignedToMe,
+        icon : faUser,
+        name : 'Đã giao cho tôi',
+        id : 5
+    }
 ]
 
 export {publicRoutes , privateRoutes , sidebarRoutes};

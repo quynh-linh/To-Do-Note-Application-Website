@@ -1,27 +1,18 @@
 import { BrowserRouter as Router, Route , Routes } from "react-router-dom";
 import { Fragment } from "react";
-import { publicRoutes } from "~/routes";
+import { publicRoutes , privateRoutes } from "~/routes";
 import {DefaultLayout} from "~/components/layouts";
+import WebLayout from "./components/layouts/WebLayout/WebLayout";
+import AccountManagementLayout from "./components/layouts/AccountManagementLayout/AccountManagementLayout";
 function App() {
   return (
     <Router>
       <div className="App">
         <Routes>
           {
-            publicRoutes.map((route,index) => {
+            privateRoutes.map((route, index) =>{
               const Layout = route.layout === null ? Fragment : DefaultLayout;
               const Page = route.component;
-              if (route.id === 1) {
-                return (
-                  <Route 
-                    key={index} 
-                    path={route.path} 
-                    element={
-                      <Page/>
-                    }
-                  />
-                )
-              } else {
                 return (
                   <Route 
                     key={index} 
@@ -33,10 +24,25 @@ function App() {
                     }
                   />
                 )
-              }
             })
           }
-          
+          {
+            publicRoutes.map((route,index) => {
+              const Layout = route.layout !== null ? (route.pageCode === 1 ? WebLayout : AccountManagementLayout) : Fragment ;
+              const Page = route.component;
+                return (
+                  <Route 
+                    key={index} 
+                    path={route.path} 
+                    element={
+                      <Layout>
+                        <Page/>
+                      </Layout>
+                    }
+                  />
+                )
+            })
+          }     
         </Routes> 
       </div>
     </Router>

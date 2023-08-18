@@ -1,0 +1,19 @@
+.wrapper-container{
+    display: flex;
+    align-items: center;
+}
+.wrapper-left,
+.wrapper-right{
+    width: 50%;
+    height: 100%;
+}
+.img-left,
+.img-right{
+    filter: grayscale(50%);
+}
+.wrapper-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

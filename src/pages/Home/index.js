@@ -1,7 +1,5 @@
 import className from 'classnames/bind';
 import styles from './Home.module.scss'
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
 import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +8,6 @@ function Home() {
     const cx = className.bind(styles);
     return ( 
         <div className={cx('wrapper')}>
-            <Header/>
             <div className={cx('content')}>
                 <div className={cx('content-left')}>
                     <img className={cx('welcome-Left')} src={images.welcomeLeft} alt="welcome left"/>
@@ -27,7 +24,7 @@ function Home() {
                         </p>
                     </div>
                     <div className={cx('center-starts')}>
-                        <button type='submit'>Bắt đầu</button>
+                        <button type='submit'><span>Bắt đầu</span></button>
                         <Link to='/overview'>
                             <div className={cx('center-outMore')}>Tìm hiểu thêm</div>
                         </Link>
@@ -51,7 +48,6 @@ function Home() {
                     <img className={cx('welcome-Right')} src={images.welcomeRight} alt="welcome right"/>
                 </div>
             </div>
-            <Footer/>
         </div>
     );
 }

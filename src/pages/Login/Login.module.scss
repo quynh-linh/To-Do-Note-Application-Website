@@ -1,0 +1,54 @@
+.wrapper{
+    width: 430px;
+    .wrapper-logo{
+        margin-top: 20px;
+        color: #1b1b1b;
+        font-size: 2.5rem;
+        font-weight: 600;
+    }
+    .wrapper-content{
+        padding: 40px;
+    }
+    .wrapper-input input{
+        padding: 6px 10px;
+        border-width: 1px;
+        border-color: #666;
+        border-color: rgba(0,0,0,0.6);
+        height: 36px;
+        outline: none;
+        border-radius: 0;
+        width: 100%;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+    }
+    .wrapper-btn{
+        text-align: end;
+        margin-top : 20px;
+        & button{
+            padding: 9px 15px;
+            background-color: var(--background-color);
+            border-color: var(--background-color);
+            border: none;
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        & button:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+    .change-phone,
+    .new-email{
+        padding-top: 20px;
+        font-size: 13px;
+        color: var(--background-color);
+        font-weight: 600;
+    }
+    .change-phone:hover,
+    .new-email:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}

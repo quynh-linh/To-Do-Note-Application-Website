@@ -1,6 +1,3 @@
-.wrapper{
-    overflow-y: scroll;
-}
 .content{
     background-color: var(--background-color);
     display: flex;
@@ -37,6 +34,13 @@
             background-color: white;
             font-size: 18px;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        }
+        & button:hover{
+            cursor: pointer;
+            background-color: #e8bcef;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--background-color);
         }
     }
     .center-outMore{
