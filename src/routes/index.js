@@ -7,6 +7,7 @@ import AssignedToMe from '~/pages/AssignedToMe';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import { faCalendar, faStar, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
+import Register from '~/pages/Register';
 const publicRoutes =[
     {   
         path : '/', 
@@ -20,6 +21,14 @@ const publicRoutes =[
         component: Login,
         icon : faHouse,
         name : 'Đăng nhập',
+        pageCode : 2
+    }
+    ,
+    {   
+        path : '/register', 
+        component: Register,
+        icon : faHouse,
+        name : 'Tạo tài khoản',
         pageCode : 2
     }
 ]
