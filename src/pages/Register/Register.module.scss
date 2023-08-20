@@ -1,0 +1,55 @@
+.new-email:hover,
+.changeTo-phone:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.changeTo-phone,
+.new-email{
+    padding-top: 20px;
+    text-decoration: none;
+    font-size: 13px;
+    color: var(--background-color);
+    font-weight: 600;
+}
+.wrapper-select{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.wrapper-select_country{
+    width: 20%;
+}
+.wrapper-input-phone,
+.wrapper-select_country{
+    border-width: 1px;
+    border-color: #666;
+    border-color: rgba(0,0,0,0.6);
+    height: 36px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    margin-top: 15px;
+    outline: none;
+}
+  
+.wrapper-input-phone{
+    padding: 6px 10px;
+    width: 75%;
+}
+.wrapper-btn{
+    text-align: end;
+    margin-top : 20px;
+    & button{
+        padding: 9px 15px;
+        background-color: var(--background-color);
+        border-color: var(--background-color);
+        border: none;
+        color: white;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    & button:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}

@@ -2,13 +2,9 @@
     display: flex;
     align-items: center;
 }
-.wrapper-left,
-.wrapper-right{
-    width: 50%;
-    height: 100%;
-}
 .img-left,
 .img-right{
+    width: 50%;
     filter: grayscale(50%);
 }
 .wrapper-box{
