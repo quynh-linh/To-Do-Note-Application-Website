@@ -2,7 +2,7 @@ import { useState , useEffect } from "react";
 import className from 'classnames/bind';
 import styles from './Register.module.scss'
 import Form from "~/components/Form/Form";
-import InputEmail from "~/components/input/InputEmail";
+import InputEmail from "~/components/input/InputAccountManagement";
 function Register() {
     const cx = className.bind(styles);
     const [isChangeByPhone,setChangeByPhone] = useState(false);

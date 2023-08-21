@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import className from 'classnames/bind';
 
 import SubProject from './SubProject';
-import CustomInput from '~/components/input/input';
+import CustomInput from '~/components/input';
 import ProjectData from './ProjectData';
 import styles from './Sidebar.module.scss'
 

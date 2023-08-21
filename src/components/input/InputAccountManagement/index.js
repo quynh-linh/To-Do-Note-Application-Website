@@ -1,7 +1,7 @@
 import { useState} from "react";
 import className from 'classnames/bind';
-import styles from './InputEmail.module.scss'
-function InputEmail({placeholderEmail='',validError,validInput,checkEmail}) {
+import styles from '../input.module.scss'
+function InputAccountManagement({placeholder='',validError,validInput,checkEmail}) {
     const cx = className.bind(styles);
     const [inputEmailValue,setInputEmailValue] = useState('');
     const [isValidError, setValidError] = useState('');
@@ -24,17 +24,17 @@ function InputEmail({placeholderEmail='',validError,validInput,checkEmail}) {
             console.log(isValidEmail);
         }
     };
-    const itemClassesInputEmail = className(styles['wrapper-input-email'], {
+    const itemClassesInputEmail = className(styles['wrapper-input'], {
         [styles.selected]: isValidError,
     });
     return (  
-        <input id='inputEmail' 
+        <input 
             value={inputEmailValue} 
             onChange={handleInputEmailChange} 
             className={cx(itemClassesInputEmail)} 
-            placeholder={placeholderEmail}>
+            placeholder={placeholder}>
         </input>
     );
 }
 
-export default InputEmail;
+export default InputAccountManagement;

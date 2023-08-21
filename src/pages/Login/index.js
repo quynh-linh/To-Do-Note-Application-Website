@@ -3,7 +3,7 @@ import className from 'classnames/bind';
 import styles from './Login.module.scss';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import InputEmail from "~/components/input/InputEmail";
+import InputAccountManagement from '~/components/input/InputAccountManagement';
 import PassWordLogin from './PasswordLogin/PasswordLogin';
 function Login() {
     const cx = className.bind(styles);
@@ -15,7 +15,6 @@ function Login() {
         setValidError(event);
     };
     const handleClickToPassWordLogin = () => {
-        console.log(inputEmailValue);
         if(inputEmailValue !== ''){
             if(isValidEmail){
                 setOpenFormLogin(false);
@@ -34,8 +33,8 @@ function Login() {
     };
     return ( 
         openFormLogin ? (
-            <Form formType={'login'} title={'Đăng nhập'} validError={isValidError}>
-                <InputEmail placeholderEmail="Email, Điện thoại hoặc Skype" validError={handleChangeError} validInput={handleValidInput} checkEmail={handleCheckEmail}/>
+            <Form title={'Đăng nhập'} validError={isValidError}>
+                <InputAccountManagement placeholder="Email, Điện thoại hoặc Skype" validError={handleChangeError} validInput={handleValidInput} checkEmail={handleCheckEmail}/>
                 <div>
                     <div className={cx('question-register')}>
                         <p>Bạn không có tài khoản?</p>
