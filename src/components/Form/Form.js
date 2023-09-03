@@ -3,10 +3,10 @@ import className from 'classnames/bind';
 import styles from './Form.module.scss'
 import { Wrapper } from '~/components/Popper';
 import images from '~/assets/images';
-function Form({children,title='',validError=''}) {
+function Form({children,title='',validError='',method=''}) {
     const cx = className.bind(styles);
     return ( 
-        <form action='#' className={cx('wrapper')}>
+        <form method={method} className={cx('wrapper')}>
             <Wrapper>
                 <div className={cx('wrapper-content')}>
                     <div className={cx('wrapper-logo')}>
