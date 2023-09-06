@@ -1,97 +1,33 @@
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faCalendarDays, faCircle, faClock, faLightbulb } from '@fortawesome/free-regular-svg-icons';
+import { faBell, faCalendarCheck, faCalendarDays, faCalendarPlus, faCircle, faClock, faLightbulb, faStar } from '@fortawesome/free-regular-svg-icons';
 import { useState} from 'react';
-import { faArrowUpWideShort,faEllipsisH, faObjectGroup, faPlus, faRepeat, faUmbrellaBeach } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpWideShort,faEllipsisH, faFilter, faNoteSticky, faObjectGroup, faPlus, faRepeat, faUmbrellaBeach, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import styles from "./MyDay.module.scss";
 import 'tippy.js/dist/tippy.css';
 import Menu from '~/components/Popper/Menu';
 import Toolbar from '~/components/Popper/Toolbar';
+import { MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP } from '~/const';
 function MyDay(){
     const cx = className.bind(styles);
+    // 
     const [isInputFocused, setInputFocused] = useState(false);
     const [isBtnDeadline, setBtnDeadline] = useState(false);
     const [isBtnRemind, setBtnRemind] = useState(false);
     const [isBtnRepeat, setBtnRepeat] = useState(false);
+    const [isSortByCreation , setSortByCreation] = useState(false);
+    const [isGroupByCategories , setGroupByCategories] = useState(false);
+    // 
     const [inputValue, setInputValue] = useState('');
     const [valueMenuDeadline, setValueMenuDeadline] = useState('');
     const [valueMenuRemind, setValueMenuRemind] = useState('');
     const [valueMenuRepeat, setValueMenuRepeat] = useState('');
+    const [valueByCreation , setValueSortByCreation] = useState('');
+    const [valueGroupByCategories , setValueGroupByCategories] = useState('');
     var today = new Date();
 
-    const MENU_ITEMS_DEADLINE = [
-        {
-            id : 1,
-            icon : faCalendarDays,
-            title : 'Hôm nay',
-            day  : 'T3'
-        },
-        {
-            id : 2,
-            icon : faCalendarDays,
-            title : 'Ngày mai',
-            day  : 'T4'
-        },
-        {
-            id : 3,
-            icon : faCalendarDays,
-            title : 'Tuần tới',
-            day  : 'T2'
-        }
-    ];
-    const MENU_ITEMS_REMIND = [
-        {
-            id : 1,
-            icon : faClock,
-            title : 'Cuối ngày',
-            day  : 'T3'
-        },
-        {
-            id : 2,
-            icon : faClock,
-            title : 'Ngày mai',
-            day  : 'T4'
-        },
-        {
-            id : 3,
-            icon : faClock,
-            title : 'Tuần tới',
-            day  : 'T2'
-        }
-    ];
-    const MENU_ITEMS_REPEAT = [
-        {
-            id : 1,
-            icon : faCalendarDays,
-            title : 'Hằng ngày',
-            day  : 'T3'
-        },
-        {
-            id : 2,
-            icon : faCalendarDays,
-            title : 'Ngày trong tuần',
-            day  : 'T4'
-        },
-        {
-            id : 3,
-            icon : faCalendarDays,
-            title : 'Hằng tuần',
-            day  : 'T2'
-        },
-        {
-            id : 3,
-            icon : faCalendarDays,
-            title : 'Hằng tháng',
-            day  : 'T2'
-        },
-        {
-            id : 3,
-            icon : faCalendarDays,
-            title : 'Hằng năm',
-            day  : 'T2'
-        }
-    ];
+    
     var days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
     var date = "ngày " + today.getDate() + " tháng " + (today.getMonth()+1);
     var dayName = days[today.getDay()];
@@ -108,6 +44,28 @@ function MyDay(){
         setBtnRemind(false);
         setBtnRepeat(false);
     };
+
+    // HANDLE CLICK SORT CREATION
+    const handleClickSortCreation = () => {
+        setSortByCreation(!isSortByCreation);
+        setGroupByCategories(false);
+    }
+
+    // HANDLE CLICK GROUP BY CATEGORIES
+    const handleClickGroupCategories = () => {
+        setGroupByCategories(!isSortByCreation);
+        setSortByCreation(false);
+    }
+
+    // HANDLE REMOVE SORT CREATION ITEM
+    const handleRemoveSortFilter = () => {
+        setValueSortByCreation('');
+    }
+
+    // HANDLE REMOVE GROUP BY CATEGORIES ITEM
+    const handleRemoveGroupBy = () => {
+        setValueGroupByCategories('');
+    }
 
     const handleClickButtonRemind = () => {
         setBtnRemind(!isBtnRemind);
@@ -150,16 +108,28 @@ function MyDay(){
                         <ul className={cx('wrapper-header_control')} >
                             <Toolbar
                                 title={'Sắp xếp'}
+                                items = {MENU_ITEMS_SORT}
+                                state={isSortByCreation}
+                                handleCLick = {(item) => {
+                                    setValueSortByCreation(item);
+                                    setSortByCreation(false);
+                                }}
                             >
-                                <li>
+                                <li onClick={handleClickSortCreation}>
                                     <FontAwesomeIcon icon={faArrowUpWideShort}></FontAwesomeIcon>
                                     <span>Sắp xếp</span>
                                 </li>
                             </Toolbar>
                             <Toolbar
                                 title={'Nhóm'}
+                                items = {MENU_ITEMS_GROUP}
+                                state={isGroupByCategories}
+                                handleCLick = {(item) => {
+                                    setValueGroupByCategories(item);
+                                    setGroupByCategories(false);
+                                }}
                             >
-                                <li>
+                                <li onClick={handleClickGroupCategories}>
                                     <FontAwesomeIcon icon={faObjectGroup}></FontAwesomeIcon>
                                     <span>Nhóm</span>
                                 </li>
@@ -175,7 +145,27 @@ function MyDay(){
                         </ul>
                     </span>
                 </div>
-                <p className={cx('wrapper-header_real-time')}>{real_time}</p>
+                <div>
+                    <p className={cx('wrapper-header_real-time')}>{real_time}</p>
+                </div>
+                <div className={cx('wrapper-sortFilter')}>
+                    { valueByCreation.length > 0 && (
+                        <div className={cx('sort-descriptions')}>
+                            <p>Sắp xếp theo {valueByCreation}</p>
+                            <button onClick={handleRemoveSortFilter} className={cx('remove-sortFilter')} type='button'>
+                                <FontAwesomeIcon className={cx('icon-close')} icon={faXmark}/>
+                            </button>
+                        </div>
+                    )}
+                    { valueGroupByCategories.length > 0 && (
+                        <div className={cx('sort-descriptions')}>
+                            <p>Nhóm theo danh mục</p>
+                            <button onClick={handleRemoveGroupBy} className={cx('remove-sortFilter')} type='button'>
+                                <FontAwesomeIcon className={cx('icon-close')} icon={faXmark}/>
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
             <div className={cx('container')}>
                 <div  className={cx('taskCreation')}>

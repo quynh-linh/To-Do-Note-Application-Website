@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useEffect, useState} from "react";
 import className from 'classnames/bind';
 import styles from '../input.module.scss'
 function AuthInput({validError=null,validInput=null,checkEmail=null,typeInput='',nameInput='',placeholder=''}) {
@@ -7,13 +7,25 @@ function AuthInput({validError=null,validInput=null,checkEmail=null,typeInput=''
     const [isValidError, setValidError] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(false);
     const handleInputEmailChange = (event) => {
+        setInputValue(event.target.value);
+        
+        setValidError('');
+        // checkEmail(isValidEmail);
+        // validInput(email);
+        //validError(isValidError);
+    };
+    const handleBlurInputChange = (event) => {
         const email = event.target.value;
-        setInputValue(email);
-        validateEmail(email);
-        checkEmail(isValidEmail);
+        console.log('Blur:'+event.target.value);
+        validateEmail(event.target.value);
         validInput(email);
+        checkEmail(isValidEmail);
+        console.log(isValidError);
         validError(isValidError);
     };
+    useEffect(() => {
+        
+    })
     const handleInputPassChange = (event) => {
         const pass = event.target.value;
         setInputValue(pass);
@@ -22,7 +34,7 @@ function AuthInput({validError=null,validInput=null,checkEmail=null,typeInput=''
     };
     const validateEmail = (inputEmail) => {
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        if(inputEmail.length === 1){
+        if(inputEmail === ''){
             setValidError('Cần nhập địa chỉ email');
         } else {
             if(!emailPattern.test(inputEmail)){
@@ -33,8 +45,9 @@ function AuthInput({validError=null,validInput=null,checkEmail=null,typeInput=''
             }
         }   
     };
+    console.log(inputValue);
     const itemClassesInputEmail = className(styles['wrapper-input'], {
-        [styles.selected]: isValidError,
+        [styles.selected]: isValidError.length > 0,
     });
     return (  
         <input
@@ -42,7 +55,8 @@ function AuthInput({validError=null,validInput=null,checkEmail=null,typeInput=''
             type={typeInput}
             value={inputValue} 
             autoComplete={typeInput === 'password' ? 'new-password' : ''}
-            onChange={typeInput === 'email' ? handleInputEmailChange : handleInputPassChange} 
+            onInput={typeInput === 'email' ? handleInputEmailChange : handleInputPassChange} 
+            onBlur={handleBlurInputChange}
             className={cx(itemClassesInputEmail)} 
             placeholder={placeholder}
         >

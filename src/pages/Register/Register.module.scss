@@ -1,10 +1,18 @@
-.new-email:hover,
 .changeTo-phone:hover{
     text-decoration: underline;
     cursor: pointer;
 }
-.changeTo-phone,
-.new-email{
+.error-border{
+    border-color:#e81123;
+}
+.error-text{
+    color: #e81123;
+    margin-top: 10px;
+    padding-left: 10px;
+    font-size: 14px;
+}
+.changeTo-phone
+{
     padding-top: 20px;
     text-decoration: none;
     font-size: 13px;
@@ -20,6 +28,7 @@
     width: 20%;
 }
 .wrapper-input-phone,
+.input-yourName,
 .wrapper-select_country{
     border-width: 1px;
     border-color: #666;
@@ -30,6 +39,9 @@
     border-left: none;
     margin-top: 15px;
     outline: none;
+}
+.input-yourName{
+    width: 100%;
 }
   
 .wrapper-input-phone{

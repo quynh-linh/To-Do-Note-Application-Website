@@ -2,12 +2,15 @@ import { useState , useEffect } from "react";
 import className from 'classnames/bind';
 import styles from './Register.module.scss'
 import Form from "~/components/Form/Form";
-import InputEmail from "~/components/input/auth";
+import AuthInput from "~/components/input/auth";
 function Register() {
     const cx = className.bind(styles);
     const [isChangeByPhone,setChangeByPhone] = useState(false);
+    const [isValidEmail, setIsValidEmail] = useState(true);
     const [selectedOption, setSelectedOption] = useState('');
     const [inputEmailValue,setInputEmailValue] = useState('');
+    const [inputPassValue,setInputPassValue] = useState('');
+    const [inputConfirmPassValue,setInputConfirmPasslValue] = useState('');
     const [isValidError, setValidError] = useState('');  
     const [data, setData] = useState([]);
     const handleOptionChange = (event) => {
@@ -16,17 +19,12 @@ function Register() {
     const handleChangeByPhone = () => {
         setChangeByPhone(!isChangeByPhone);
     }
-    const handleValidInput = (event) => {
-        setInputEmailValue(event);
-    };
     const handleClickToPassWordLogin = () => {
         if(inputEmailValue === ''){
             setValidError('Cần nhập địa chỉ email');
         }
     };
-    const handleChangeError = (event) => {
-        setValidError(event);
-    };
+    // CALL COUNTRY API
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -40,7 +38,10 @@ function Register() {
         fetchData();
     }, []);
     return ( 
-        <Form formType={'register'} title={'Tạo tài khoản'} validError={isValidError}>
+        <Form formType={'register'} title={'Tạo tài khoản'}>
+            <div>
+                <input className={cx('input-yourName')} placeholder="Nhập tên của bạn"></input>
+            </div>
             <div className={cx('wrapper-input')}>
                 {
                     isChangeByPhone ? (
@@ -53,10 +54,21 @@ function Register() {
                                 </option>
                                 ))}
                             </select>
-                            <input id='inputPhone' className={cx('wrapper-input-phone')} placeholder='Số điện thoại'></input>
+                            <input id='inputPhone' className={cx('wrapper-input-phone')} placeholder='Nhập số điện thoại'></input>
                         </div>
                     ) : (
-                        <InputEmail placeholderEmail="abc@example" validError={handleChangeError} validInput={handleValidInput}/>
+                        <div>
+                            <div className={cx('error-text')}>
+                                {isValidError}
+                            </div>
+                            <AuthInput
+                                typeInput="email"
+                                placeholder="Nhập email (VD: abc@example)"
+                                validError={(e) => setValidError(e)}
+                                validInput={(e) => setInputEmailValue(e)}
+                                checkEmail={(e) => setIsValidEmail(e)}
+                            />
+                        </div>
                     )
                 }
             </div>
@@ -67,10 +79,24 @@ function Register() {
                 (
                     <div>
                         <div onClick={handleChangeByPhone} className={cx('changeTo-phone')}>Sử dụng số điện thoại thay vào đó</div>
-                        <div className={cx('new-email')}>Nhập địa chỉ email mới!</div>
                     </div>
                 )
             }
+            <div>
+                <AuthInput
+                    typeInput="password"
+                    placeholder="Nhập mật khẩu"
+                    validError={(e) => setValidError(e)}
+                    validInput={(e) => setInputPassValue(e)}
+                />
+            </div>
+            <div>
+                <AuthInput
+                    typeInput="password"
+                    placeholder="Nhập lại mật khẩu"
+                    validInput={(e) => setInputConfirmPasslValue(e)}
+                />
+            </div>
             <div className={cx('wrapper-btn')}>
                 <button type='button' onClick={handleClickToPassWordLogin}>Tiếp theo</button>
             </div>
