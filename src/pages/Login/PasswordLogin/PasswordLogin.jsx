@@ -3,7 +3,7 @@ import Form from '~/components/Form/Form';
 import styles from './PasswordLogin.module.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signInUser } from '~/components/redux/authSlice';
+import { signInUser } from '~/redux/authSlice';
 import AuthInput from '~/components/input/auth';
 import { useNavigate } from 'react-router-dom';
 function PassWordLogin({email}) {

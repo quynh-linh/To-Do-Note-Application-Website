@@ -1,5 +1,6 @@
-const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+import { URL_API } from "~/config";
 
+const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const  initialState = {
     msg : '',
     user: '',
@@ -9,7 +10,7 @@ const  initialState = {
     error: '',
 }
 const signInUser = createAsyncThunk('signInUser',async(body)=> {
-    const res = await fetch('http://127.0.0.1:5000/login/check-login',{
+    const res = await fetch(URL_API+'/login/check-login',{
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -20,7 +21,7 @@ const signInUser = createAsyncThunk('signInUser',async(body)=> {
     return await res.json();
 });
 const emailUser = createAsyncThunk('emailUser',async(body)=> {
-    const res = await fetch('http://127.0.0.1:5000/login/email',{
+    const res = await fetch(URL_API+'/login/email',{
         method: 'POST',
         headers: {
             'Accept': 'application/json',

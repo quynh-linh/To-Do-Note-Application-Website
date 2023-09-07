@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import AuthInput from '~/components/input/auth';
 import PassWordLogin from './PasswordLogin/PasswordLogin';
 import { useDispatch, useSelector } from 'react-redux';
-import { emailUser } from '~/components/redux/authSlice';
+import { emailUser } from '~/redux/authSlice';
 function Login() {
     const cx = className.bind(styles);
     const auth = useSelector(state => state.auth);

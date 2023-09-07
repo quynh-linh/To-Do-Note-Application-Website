@@ -1,8 +1,8 @@
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faCalendarCheck, faCalendarDays, faCalendarPlus, faCircle, faClock, faLightbulb, faStar } from '@fortawesome/free-regular-svg-icons';
+import { faBell,  faCalendarDays, faCircle,  faLightbulb,  } from '@fortawesome/free-regular-svg-icons';
 import { useState} from 'react';
-import { faArrowUpWideShort,faEllipsisH, faFilter, faNoteSticky, faObjectGroup, faPlus, faRepeat, faUmbrellaBeach, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpWideShort,faEllipsisH, faObjectGroup, faPlus, faRepeat, faUmbrellaBeach, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import styles from "./MyDay.module.scss";
 import 'tippy.js/dist/tippy.css';
@@ -53,7 +53,7 @@ function MyDay(){
 
     // HANDLE CLICK GROUP BY CATEGORIES
     const handleClickGroupCategories = () => {
-        setGroupByCategories(!isSortByCreation);
+        setGroupByCategories(!isGroupByCategories);
         setSortByCreation(false);
     }
 

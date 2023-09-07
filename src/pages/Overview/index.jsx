@@ -5,7 +5,7 @@ import { CircularProgressbar ,buildStyles } from 'react-circular-progressbar';
 
 import 'react-circular-progressbar/dist/styles.css';
 import styles from "./Overview.module.scss";
-import WeekPieChart from "./Chart.js"
+import WeekPieChart from "./Chart.jsx"
 import MyCalendar from '../../components/Calendar/Calendar';
 
 function Overview(){

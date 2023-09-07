@@ -45,7 +45,6 @@ function AuthInput({validError=null,validInput=null,checkEmail=null,typeInput=''
             }
         }   
     };
-    console.log(inputValue);
     const itemClassesInputEmail = className(styles['wrapper-input'], {
         [styles.selected]: isValidError.length > 0,
     });

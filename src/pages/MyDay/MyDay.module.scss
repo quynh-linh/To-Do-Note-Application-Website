@@ -56,11 +56,11 @@
     .wrapper-sortFilter{
         display: flex;
         align-content: center;
-        justify-content: end;
+        justify-content: flex-end;
         .sort-descriptions {
             display: flex;
             align-items: center;
-            justify-content: end;
+            justify-content: flex-end;
             padding-right: 10px;
             & p{
                 font-size: 1.2rem;
