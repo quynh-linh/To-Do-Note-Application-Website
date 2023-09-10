@@ -13,7 +13,8 @@ function MenuItem({data, onClick=undefined}) {
                 <span className={cx('menu-box_name')}>{data.title}</span>
             </div>
             <div>
-                T4
+                <span>{data.day}</span>
+                <span>{data.hours ? data.hours : ''}</span>
             </div>
         </div>
     );

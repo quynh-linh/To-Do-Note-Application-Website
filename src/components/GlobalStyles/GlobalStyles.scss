@@ -39,14 +39,20 @@
 }
 html {
     font-size: 62.5%;
+    height: 100%;
     //overflow: hidden;
 }
 
 body {
+    overflow: hidden;
     font-size: 1.6rem;
     text-rendering: optimizeSpeed;
     font-family: var(--var-font-family);
     background-color: var(--bg-secondary);
+    height: 100%;
+}
+#root{
+    height: 100%;
 }
 // CSS React Calendar
 .react-calendar{

@@ -1,14 +1,17 @@
 import className from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell,  faCalendarDays, faCircle,  faLightbulb,  } from '@fortawesome/free-regular-svg-icons';
+import { faBell,  faCalendarDays, faCircle,  faLightbulb, faStar,  } from '@fortawesome/free-regular-svg-icons';
 import { useState} from 'react';
-import { faArrowUpWideShort,faEllipsisH, faObjectGroup, faPlus, faRepeat, faUmbrellaBeach, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUpWideShort,faEllipsisH, faObjectGroup, faPlus, faRepeat, faShare, faUmbrellaBeach, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import styles from "./MyDay.module.scss";
 import 'tippy.js/dist/tippy.css';
 import Menu from '~/components/Popper/Menu';
 import Toolbar from '~/components/Popper/Toolbar';
-import { MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP } from '~/const';
+import { MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP,LIST_TODO } from '~/const';
+import Todo from '~/components/Todo';
+import Drawer from '~/components/layouts/components/Header/components/Drawer/Drawer';
+import Tippy from '@tippyjs/react';
 function MyDay(){
     const cx = className.bind(styles);
     // 
@@ -18,6 +21,7 @@ function MyDay(){
     const [isBtnRepeat, setBtnRepeat] = useState(false);
     const [isSortByCreation , setSortByCreation] = useState(false);
     const [isGroupByCategories , setGroupByCategories] = useState(false);
+    const [isClickHandleTodo,setClickHandleTodo] = useState(false);
     // 
     const [inputValue, setInputValue] = useState('');
     const [valueMenuDeadline, setValueMenuDeadline] = useState('');
@@ -86,166 +90,217 @@ function MyDay(){
         setInputValue(event.target.value);
     };
 
+    // HANDLE CLICK TODO ITEM
+    const handleClickTodoItem = (event) => {
+        setClickHandleTodo(event);
+    };
+
+    // HANDLE CLOSE MENU TODO ITEM
+    const handleCloseTodoItemDes = () => {
+        setClickHandleTodo(false);
+    };
 
     return (
         <div className={cx('wrapper')}> 
-            <div className={cx('header')}>
-                <div className={cx('wrapper-header')}>
-                    <span className={cx('wrapper-header_left')}>
-                        <ul className={cx('wrapper-header_list')} >
-                            <li>
-                                <FontAwesomeIcon className={cx('wrapper-header_list-icon')} icon={faUmbrellaBeach}></FontAwesomeIcon>
-                            </li>
-                            <li>
-                                <h4 className={cx('wrapper-header_list-title')}>Ngày của tôi</h4>
-                            </li>
-                            <li>
-                                <FontAwesomeIcon className={cx('wrapper-header_list-icon')} icon={faEllipsisH}></FontAwesomeIcon>
-                            </li>
-                        </ul>
-                    </span>
-                    <span className={cx('wrapper-header_right')}>
-                        <ul className={cx('wrapper-header_control')} >
-                            <Toolbar
-                                title={'Sắp xếp'}
-                                items = {MENU_ITEMS_SORT}
-                                state={isSortByCreation}
-                                handleCLick = {(item) => {
-                                    setValueSortByCreation(item);
-                                    setSortByCreation(false);
-                                }}
-                            >
-                                <li onClick={handleClickSortCreation}>
-                                    <FontAwesomeIcon icon={faArrowUpWideShort}></FontAwesomeIcon>
-                                    <span>Sắp xếp</span>
-                                </li>
-                            </Toolbar>
-                            <Toolbar
-                                title={'Nhóm'}
-                                items = {MENU_ITEMS_GROUP}
-                                state={isGroupByCategories}
-                                handleCLick = {(item) => {
-                                    setValueGroupByCategories(item);
-                                    setGroupByCategories(false);
-                                }}
-                            >
-                                <li onClick={handleClickGroupCategories}>
-                                    <FontAwesomeIcon icon={faObjectGroup}></FontAwesomeIcon>
-                                    <span>Nhóm</span>
-                                </li>
-                            </Toolbar>
-                            <Toolbar
-                                title={'Đề xuất'}
-                            >
+            <div className={cx(isClickHandleTodo ? 'wrapper-todo-check' : 'wrapper-todo')}>
+                <div className={cx('header')}>
+                    <div className={cx('wrapper-header')}>
+                        <span className={cx('wrapper-header_left')}>
+                            <ul className={cx('wrapper-header_list')} >
                                 <li>
-                                    <FontAwesomeIcon icon={faLightbulb}></FontAwesomeIcon>
-                                    <span>Đề xuất</span>
+                                    <FontAwesomeIcon className={cx('wrapper-header_list-icon')} icon={faUmbrellaBeach}></FontAwesomeIcon>
                                 </li>
-                            </Toolbar>
-                        </ul>
-                    </span>
-                </div>
-                <div>
-                    <p className={cx('wrapper-header_real-time')}>{real_time}</p>
-                </div>
-                <div className={cx('wrapper-sortFilter')}>
-                    { valueByCreation.length > 0 && (
-                        <div className={cx('sort-descriptions')}>
-                            <p>Sắp xếp theo {valueByCreation}</p>
-                            <button onClick={handleRemoveSortFilter} className={cx('remove-sortFilter')} type='button'>
-                                <FontAwesomeIcon className={cx('icon-close')} icon={faXmark}/>
-                            </button>
-                        </div>
-                    )}
-                    { valueGroupByCategories.length > 0 && (
-                        <div className={cx('sort-descriptions')}>
-                            <p>Nhóm theo danh mục</p>
-                            <button onClick={handleRemoveGroupBy} className={cx('remove-sortFilter')} type='button'>
-                                <FontAwesomeIcon className={cx('icon-close')} icon={faXmark}/>
-                            </button>
-                        </div>
-                    )}
-                </div>
-            </div>
-            <div className={cx('container')}>
-                <div  className={cx('taskCreation')}>
-                    <div className={cx('taskCreation_addTask')}>
-                        <button 
-                            onClick={handleInputFocus} 
-                            id='taskCreation_addTaskBtn' 
-                            className={cx('taskCreation_addTaskBtn')} 
-                            type='button' 
-                            aria-label='Thêm tác vụ' 
-                            tabIndex='0'>
-                            <FontAwesomeIcon icon={isInputFocused ? faCircle : faPlus}></FontAwesomeIcon>
-                        </button>
-                        <input 
-                            value={inputValue} 
-                            onChange={handleInputChange} 
-                            onClick={handleInputFocus} 
-                            className={cx('taskCreation_addTaskInput')} 
-                            type='text' 
-                            maxLength='255' 
-                            placeholder='Thêm tác vụ'></input>
+                                <li>
+                                    <h4 className={cx('wrapper-header_list-title')}>Ngày của tôi</h4>
+                                </li>
+                                <li>
+                                    <FontAwesomeIcon className={cx('wrapper-header_list-icon')} icon={faEllipsisH}></FontAwesomeIcon>
+                                </li>
+                            </ul>
+                        </span>
+                        <span className={cx('wrapper-header_right')}>
+                            <ul className={cx('wrapper-header_control')} >
+                                <Toolbar
+                                    title={'Sắp xếp'}
+                                    items = {MENU_ITEMS_SORT}
+                                    state={isSortByCreation}
+                                    handleCLick = {(item) => {
+                                        setValueSortByCreation(item);
+                                        setSortByCreation(false);
+                                    }}
+                                >
+                                    <li onClick={handleClickSortCreation}>
+                                        <FontAwesomeIcon icon={faArrowUpWideShort}></FontAwesomeIcon>
+                                        <span>Sắp xếp</span>
+                                    </li>
+                                </Toolbar>
+                                <Toolbar
+                                    title={'Nhóm'}
+                                    items = {MENU_ITEMS_GROUP}
+                                    state={isGroupByCategories}
+                                    handleCLick = {(item) => {
+                                        setValueGroupByCategories(item);
+                                        setGroupByCategories(false);
+                                    }}
+                                >
+                                    <li onClick={handleClickGroupCategories}>
+                                        <FontAwesomeIcon icon={faObjectGroup}></FontAwesomeIcon>
+                                        <span>Nhóm</span>
+                                    </li>
+                                </Toolbar>
+                                <Toolbar
+                                    title={'Đề xuất'}
+                                >
+                                    <li>
+                                        <FontAwesomeIcon icon={faLightbulb}></FontAwesomeIcon>
+                                        <span>Đề xuất</span>
+                                    </li>
+                                </Toolbar>
+                            </ul>
+                        </span>
                     </div>
-                    {
-                        isInputFocused && (
-                            <div id='taskCreation_MenuControl'  className={cx('taskCreation_MenuControl')}>
-                                <div className={cx('taskCreation_MenuList')}>
-                                    <Menu 
-                                        title = {'Đến hạn'}
-                                        state={isBtnDeadline}
-                                        items = {MENU_ITEMS_DEADLINE}
-                                        checkValue = {valueMenuDeadline ? true : false}
-                                        handleCLick = {(item) => {
-                                            setValueMenuDeadline(item);
-                                            setBtnDeadline(false);
-                                        }}
-                                    >
-                                        <button onClick={handleClickButtonDeadline} className={cx(valueMenuDeadline ? 'btnMenuItemTaskCreationCheck' : 'btnMenuItemTaskCreation')}>
-                                            <FontAwesomeIcon icon={faCalendarDays}/>
-                                            {valueMenuDeadline ? ' ' + valueMenuDeadline : ''}
-                                        </button>
-                                    </Menu>
-                                    <Menu 
-                                        title = {'Nhắc nhở'}
-                                        state={isBtnRemind}
-                                        items = {MENU_ITEMS_REMIND}
-                                        checkValue = {valueMenuRemind ? true : false}
-                                        handleCLick = {(item) => {
-                                            setValueMenuRemind(item);
-                                            setBtnRemind(false);
-                                        }}
-                                    >
-                                        <button onClick={handleClickButtonRemind} className={cx(valueMenuRemind ? 'btnMenuItemTaskCreationCheck' : 'btnMenuItemTaskCreation')}>
-                                            <FontAwesomeIcon icon={faBell}></FontAwesomeIcon>
-                                            {valueMenuRemind ? ' ' + valueMenuRemind : ''}
-                                        </button>
-                                    </Menu>
-                                    <Menu 
-                                        title = {'Lặp lại'}
-                                        state={isBtnRepeat}
-                                        items = {MENU_ITEMS_REPEAT}
-                                        checkValue = {valueMenuRepeat ? true : false}
-                                        handleCLick = {(item) => {
-                                            setValueMenuRepeat(item);
-                                            setBtnRepeat(false);
-                                        }}
-                                    >
-                                        <button onClick={handleClickButtonRepeat} className={cx(valueMenuRepeat ? 'btnMenuItemTaskCreationCheck' : 'btnMenuItemTaskCreation')}>
-                                            <FontAwesomeIcon icon={faRepeat}></FontAwesomeIcon>
-                                            {valueMenuRepeat ? ' ' + valueMenuRepeat : ''}
-                                        </button>
-                                    </Menu>
-                                </div>
-                                <div className={cx('btnAddTask')}>
-                                    <button type='button' aria-label='Thêm' disabled={inputValue.length === 0 ? true : false}>Thêm</button>
-                                </div>
+                    <div>
+                        <p className={cx('wrapper-header_real-time')}>{real_time}</p>
+                    </div>
+                    <div className={cx('wrapper-sortFilter')}>
+                        { valueByCreation.length > 0 && (
+                            <div className={cx('sort-descriptions')}>
+                                <p>Sắp xếp theo {valueByCreation}</p>
+                                <button onClick={handleRemoveSortFilter} className={cx('remove-sortFilter')} type='button'>
+                                    <FontAwesomeIcon className={cx('icon-close')} icon={faXmark}/>
+                                </button>
                             </div>
-                        )
-                    }
+                        )}
+                        { valueGroupByCategories.length > 0 && (
+                            <div className={cx('sort-descriptions')}>
+                                <p>Nhóm theo danh mục</p>
+                                <button onClick={handleRemoveGroupBy} className={cx('remove-sortFilter')} type='button'>
+                                    <FontAwesomeIcon className={cx('icon-close')} icon={faXmark}/>
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                <div className={cx('container')}>
+                    <div  className={cx('taskCreation')}>
+                        <div className={cx('taskCreation_addTask')}>
+                            <button
+                                onClick={handleInputFocus}
+                                id='taskCreation_addTaskBtn'
+                                className={cx('taskCreation_addTaskBtn')}
+                                type='button'
+                                aria-label='Thêm tác vụ'
+                                tabIndex='0'>
+                                <FontAwesomeIcon icon={isInputFocused ? faCircle : faPlus}></FontAwesomeIcon>
+                            </button>
+                            <input
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                onClick={handleInputFocus}
+                                className={cx('taskCreation_addTaskInput')}
+                                type='text'
+                                maxLength='255'
+                                placeholder='Thêm tác vụ'></input>
+                        </div>
+                        {
+                            isInputFocused && (
+                                <div id='taskCreation_MenuControl'  className={cx('taskCreation_MenuControl')}>
+                                    <div className={cx('taskCreation_MenuList')}>
+                                        <Menu
+                                            title = {'Đến hạn'}
+                                            state={isBtnDeadline}
+                                            items = {MENU_ITEMS_DEADLINE}
+                                            checkValue = {valueMenuDeadline ? true : false}
+                                            handleCLick = {(item) => {
+                                                setValueMenuDeadline(item);
+                                                setBtnDeadline(false);
+                                            }}
+                                        >
+                                            <button onClick={handleClickButtonDeadline} className={cx(valueMenuDeadline ? 'btnMenuItemTaskCreationCheck' : 'btnMenuItemTaskCreation')}>
+                                                <FontAwesomeIcon icon={faCalendarDays}/>
+                                                {valueMenuDeadline ? ' ' + valueMenuDeadline : ''}
+                                            </button>
+                                        </Menu>
+                                        <Menu
+                                            title = {'Nhắc nhở'}
+                                            state={isBtnRemind}
+                                            items = {MENU_ITEMS_REMIND}
+                                            checkValue = {valueMenuRemind ? true : false}
+                                            handleCLick = {(item) => {
+                                                setValueMenuRemind(item);
+                                                setBtnRemind(false);
+                                            }}
+                                        >
+                                            <button onClick={handleClickButtonRemind} className={cx(valueMenuRemind ? 'btnMenuItemTaskCreationCheck' : 'btnMenuItemTaskCreation')}>
+                                                <FontAwesomeIcon icon={faBell}></FontAwesomeIcon>
+                                                {valueMenuRemind ? ' ' + valueMenuRemind : ''}
+                                            </button>
+                                        </Menu>
+                                        <Menu
+                                            title = {'Lặp lại'}
+                                            state={isBtnRepeat}
+                                            items = {MENU_ITEMS_REPEAT}
+                                            checkValue = {valueMenuRepeat ? true : false}
+                                            handleCLick = {(item) => {
+                                                setValueMenuRepeat(item);
+                                                setBtnRepeat(false);
+                                            }}
+                                        >
+                                            <button onClick={handleClickButtonRepeat} className={cx(valueMenuRepeat ? 'btnMenuItemTaskCreationCheck' : 'btnMenuItemTaskCreation')}>
+                                                <FontAwesomeIcon icon={faRepeat}></FontAwesomeIcon>
+                                                {valueMenuRepeat ? ' ' + valueMenuRepeat : ''}
+                                            </button>
+                                        </Menu>
+                                    </div>
+                                    <div className={cx('btnAddTask')}>
+                                        <button type='button' aria-label='Thêm' disabled={inputValue.length === 0 ? true : false}>Thêm</button>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+                    <div className={cx('tasks-scroll')}>
+                        <div className={cx('tasks-list')}>
+                            {
+                                LIST_TODO.map((item,index) => {
+                                    return (
+                                        <Todo
+                                            key={index}
+                                            title={item.title}
+                                            description={item.description}
+                                            valueDeadLine={item.deadline}
+                                            valueNotify={item.notify}
+                                            valueRepeat={item.repeat}
+                                            valuePriority={item.priority}
+                                            onClick={(e) => {
+                                                setClickHandleTodo(e);
+                                            }}
+                                        />
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
+            {
+                isClickHandleTodo && (
+                    <Drawer 
+                        type='todo'
+                    >
+                        <div  className={cx('drawer-todo')}>
+                            <div className={cx('drawer__content')}>
+
+                            </div>
+                            <div className={cx('drawer__footer')} onClick={handleCloseTodoItemDes}>
+                                <Tippy content='Hide Detail View'>
+                                    <FontAwesomeIcon icon={faShare}/>
+                                </Tippy>
+                            </div>
+                        </div>
+                    </Drawer>
+                )
+            }
         </div>
     )
 }

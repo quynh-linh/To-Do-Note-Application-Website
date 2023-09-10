@@ -1,0 +1,72 @@
+.wrapper{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: white;
+    animation: slideFadeDown 250ms forwards;
+    border-radius: var(--var-border-radius);
+    &:hover{
+        background-color: #f1f1f1;
+        cursor: pointer;
+    }
+    .todo-check,
+    .todo-priority{
+        width: 5%;
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #76417e;
+        cursor: pointer;   
+        text-align: center; 
+    }
+    .todo-content{
+        width: 90%;    
+        .todo-title{
+            font-size: 1.4rem;
+            color: #323130;
+            padding-left: 12px;
+        }   
+    }
+    .menuItem-list{
+        display: flex;
+        align-items: center;
+    }
+    .menuItem-task,
+    .menuItem-deadline,
+    .menuItem-notify,
+    .menuItem-repeat,
+    .menuItem-priority{
+        color: #323130;
+        font-size: 1.2rem;
+        margin: 10px 12px 0 12px;
+    }
+    .menuItem-task{
+        list-style: none;
+    }
+    .menuItem-deadline,
+    .menuItem-repeat{
+        color: #2564cf;
+    }
+    .menuItem-priority{
+        color: #f0081a;
+    }
+    .menuItem-icon{
+        padding-right: 5px;
+        font-size: 1.4rem;
+    }
+}
+@keyframes slideFadeDown {
+    0% {
+        transform: translate3d(0, -100%, 0);
+        opacity: 0
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1
+    }
+}

@@ -1,9 +1,20 @@
+.wrapper{
+    display: flex;
+    .wrapper-todo{
+        width: 100%;
+    }
+    .wrapper-todo-check{
+        width: 68%;
+    }
+}
 .header{
+    padding: 20px;
     .wrapper-header{
         display: flex;
         align-items: center;
         justify-content: space-between;
         height: 40px;
+        
     }
     .wrapper-header_left p{
         font-family: var(--var-font-family);
@@ -87,11 +98,11 @@
 // Container
 .container{
     margin-top: 15px;
-    
     .taskCreation{
         background-color: white;
         border-radius: 5px;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin: 20px 20px 0 20px;
         .taskCreation_addTask{
             width: 100%;
             border-bottom: 1px solid #ccc;
@@ -178,5 +189,30 @@
                 cursor: pointer;
             }
         }
+    }
+    .tasks-scroll{
+        position: relative;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 380px;
+    }
+    .tasks-list{
+        margin: 20px;
+        min-height: 53px;
+        border-radius: var(--var-border-radius);
+    }
+}
+
+// DRAWER TODO
+.drawer-todo{
+    margin: 20px;
+    padding: 10px;
+    background: white;
+    border-radius: var(--var-border-radius);
+    &__content {
+
+    }
+    &__todo{
+
     }
 }

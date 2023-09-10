@@ -53,32 +53,34 @@ export default function BasicTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab sx={{fontSize : 15 ,  fontWeight : 600 , color : '#fff' , width : '50%'}} label="PROJECT" {...a11yProps(0)} />
-          <Tab sx={{fontSize : 15 ,  fontWeight : 600 , color : '#fff' , width : '50%'}} label="CHAT" {...a11yProps(1)} />
-        </Tabs>
+    <div className={cx('scroll-project')}>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab sx={{fontSize : 15 ,  fontWeight : 600 , color : '#fff' , width : '50%'}} label="PROJECT" {...a11yProps(0)} />
+            <Tab sx={{fontSize : 15 ,  fontWeight : 600 , color : '#fff' , width : '50%'}} label="CHAT" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+              <div className={cx('search-project')}>
+                  <CustomInput/>
+              </div>
+              <div className={cx('project')}>
+                  <ul className={cx('project-ul')}>
+                      <li className={cx('project-li')}>
+                          {
+                              ProjectData.map((item, index) => {
+                                  return <SubProject item={item} key={index}></SubProject>
+                              })
+                          }
+                      </li>
+                  </ul>
+              </div>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+              Message
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-            <div className={cx('search-project')}>
-                <CustomInput/>
-            </div>
-            <div className={cx('project')}>
-                <ul className={cx('project-ul')}>
-                    <li className={cx('project-li')}>
-                        {
-                            ProjectData.map((item, index) => {
-                                return <SubProject item={item} key={index}></SubProject>
-                            })
-                        }
-                    </li>
-                </ul>
-            </div>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-            Message
-      </TabPanel>
-    </Box>
+    </div>
   );
 }
