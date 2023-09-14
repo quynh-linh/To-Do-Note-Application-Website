@@ -13,50 +13,61 @@
         background-color: #f1f1f1;
         cursor: pointer;
     }
-    .todo-check,
-    .todo-priority{
+    &__todo-check,
+    &__todo-priority{
         width: 5%;
         background: none;
         border: none;
-        font-size: 20px;
-        color: #76417e;
+        font-size: 15px;
+        color: var(--background-color);
         cursor: pointer;   
         text-align: center; 
     }
-    .todo-content{
+    &__todo-content{
         width: 90%;    
-        .todo-title{
+        &-title{
             font-size: 1.4rem;
             color: #323130;
             padding-left: 12px;
         }   
-    }
-    .menuItem-list{
-        display: flex;
-        align-items: center;
-    }
-    .menuItem-task,
-    .menuItem-deadline,
-    .menuItem-notify,
-    .menuItem-repeat,
-    .menuItem-priority{
-        color: #323130;
-        font-size: 1.2rem;
-        margin: 10px 12px 0 12px;
-    }
-    .menuItem-task{
-        list-style: none;
-    }
-    .menuItem-deadline,
-    .menuItem-repeat{
-        color: #2564cf;
-    }
-    .menuItem-priority{
-        color: #f0081a;
-    }
-    .menuItem-icon{
-        padding-right: 5px;
-        font-size: 1.4rem;
+        &-list{
+            display: flex;
+            align-items: center;
+            &__menuItem-task,
+            &__menuItem-deadline,
+            &__menuItem-notify,
+            &__menuItem-repeat,
+            &__menuItem-priority{
+                color: #323130;
+                font-size: 1.2rem;
+                margin: 10px 12px 0 12px;
+                &-menuItem-icon{
+                    padding-right: 5px;
+                    font-size: 1.4rem;
+                }
+            }
+            &__menuItem-task{
+                list-style: none;
+            }
+            &__menuItem-deadline{
+                color: #2564cf;
+            }
+            &__menuItem-repeat{
+                color: var(--background-color);
+            }
+            &__menuItem-priority{
+                &-red{
+                    color: red;
+                }
+                &-orange{
+                    color: orange;
+                }
+                &-green{
+                    color: green;
+                }
+            }
+            
+        }
     }
 }
 @keyframes slideFadeDown {

@@ -1,6 +1,6 @@
 .content{
     width: 230px;
-    .content-title{
+    &-title{
         display: flex;
         align-items: center;
         justify-content: center;
@@ -32,7 +32,6 @@
         background-color: #f5f5f5;
         cursor: pointer;
     }
-    
 }
 .menuItem-Choose{
     border-top: 1px solid #c8c8c8;

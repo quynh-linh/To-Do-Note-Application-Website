@@ -1,74 +1,81 @@
+$color-white : #fff;
 .wrapper{
     display: flex;
-    .wrapper-todo{
+    &-todo{
         width: 100%;
     }
-    .wrapper-todo-check{
+    &-todo-check{
         width: 68%;
     }
 }
 .header{
     padding: 20px;
-    .wrapper-header{
+    &__wrapper{
         display: flex;
         align-items: center;
         justify-content: space-between;
         height: 40px;
-        
-    }
-    .wrapper-header_left p{
-        font-family: var(--var-font-family);
-        margin-top: 10px;
-    }
-    .wrapper-header_list{
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        .wrapper-header_list-title{
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--font-color-primary);
-            padding: 0 20px;
+        &-left {
+            & p{
+                font-family: var(--var-font-family);
+                margin-top: 10px;
+            }
+            &_list{
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                &-li {
+                    list-style: none;
+                    &-title{
+                        font-size: 2rem;
+                        font-weight: 600;
+                        color: var(--font-color-primary);
+                        padding: 0 20px;
+                    }
+                    &-icon{
+                        font-size: 20px;
+                        color: #76417e;
+                    }
+                }
+            }
         }
-        .wrapper-header_list-icon{
-            font-size: 20px;
-            color: #76417e;
+        &-right {
+            &_control,
+            &_list{
+                list-style: none;
+            }
+            &_control{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;      
+            }
+            &_control li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 8px 15px;
+                font-size: 15px;
+            }
+            &_control li:hover{
+                cursor: pointer;
+                border-radius: 5px;
+                background-color: white;
+            }
+            &_control li span{
+                padding-left: 5px;
+            }
         }
     }
-    .wrapper-header_control,
-    .wrapper-header_list{
-        list-style: none;
-    }
-    .wrapper-header_control{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;      
-    }
-    .wrapper-header_control li {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 8px 15px;
-        font-size: 15px;
-    }
-    .wrapper-header_control li:hover{
-        cursor: pointer;
-        border-radius: 5px;
-        background-color: white;
-    }
-    .wrapper-header_control li span{
-        padding-left: 5px;
-    }
-    .wrapper-header_real-time{
+    &__realTime{
         font-size: 1.2rem;
         color: var(--font-color-secondary);
     }
     // SORT FILTER
-    .wrapper-sortFilter{
+    &__sortFilter{
         display: flex;
         align-content: center;
         justify-content: flex-end;
-        .sort-descriptions {
+        &-descriptions {
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -79,12 +86,12 @@
                 color: #323130;
                 padding-right: 15px;
             }
-            .remove-sortFilter{
+            &-removeSortFilter{
                 color: #797775;
                 background: none;
                 border: none;
                 font-size: 17px;
-                .icon-close{
+                &-iconClose{
                     padding: 5px;
                     &:hover{
                         background-color: white;
@@ -98,34 +105,34 @@
 // Container
 .container{
     margin-top: 15px;
-    .taskCreation{
+    &__taskCreation{
         background-color: white;
         border-radius: 5px;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         margin: 20px 20px 0 20px;
-        .taskCreation_addTask{
+        &-addTask{
             width: 100%;
             border-bottom: 1px solid #ccc;
-        }
-        .taskCreation_addTaskBtn{
-            width: 5%;
-            background: none;
-            border: none;
-            font-size: 20px;
-            color: #76417e;
-            cursor: pointer;
-        }
-        .taskCreation_addTaskInput{
-            width: 95%;
-            border: none;
-            min-height: 52px;
-            border-top-right-radius: 5px;
-            transition: all 0.15s ease-in-out;
-        }
-        .taskCreation_addTaskInput:focus{
-            outline: none;
-        }
-        .taskCreation_MenuControl{
+            &-addTaskBtn{
+                width: 5%;
+                background: none;
+                border: none;
+                font-size: 15px;
+                color: var(--background-color);
+                cursor: pointer;
+            }
+            &-addTaskInput{
+                width: 95%;
+                border: none;
+                min-height: 52px;
+                border-top-right-radius: 5px;
+                transition: all 0.15s ease-in-out;
+                &:focus{
+                    outline: none;
+                }
+            }
+        }     
+        &-menuControl{
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -134,85 +141,274 @@
             border-bottom-left-radius: 5px;
             border-bottom-right-radius: 5px;
             transition: height 200ms cubic-bezier(0.25, 0.1, 0.25, 1) 0s;
-            .btnAddTask{
+            &_menuList{
+                padding-left: 10px;
+                & ul{
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                & li{
+                    list-style: none !important;
+                    color: var(--font-color-secondary) !important;
+                }
+                & li:hover{
+                    background-color: white !important;
+                    border-radius: 4px !important;
+                }
+                &-btnMenuItemTaskCreation{
+                    padding: 10px;
+                    margin: 0 5px;
+                    font-size: 15px;
+                    border: none;
+                    background: #faf9f8;
+                    color: var(--font-color-secondary);
+                    &:hover{
+                        background-color: white;
+                        cursor: pointer;
+                    }
+                }
+                &-btnMenuItemTaskCreationCheck{
+                    background-color: white;
+                    border: 1px solid #ccc;
+                    border-radius: var(--var-border-radius);
+                    padding: 10px;
+                    margin: 0 5px;
+                    font-size: 15px;
+                    color: var(--font-color-secondary);
+                    &:hover{
+                        background-color: white;
+                        cursor: pointer;
+                    }
+                }
+            }
+            &-btnAddTask{
                 margin-right: 10px;
-            }
-            .btnAddTask button{
-                padding: 5px 10px;
-                background: white;
-                border: 1px solid;
-                border-radius: 3px;
-            }
-            .btnAddTask button:hover{
-                cursor: pointer;
-            }
-        }
-        .taskCreation_MenuList{
-            padding-left: 10px;
-        }
-        .taskCreation_MenuList ul{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .taskCreation_MenuList li{
-            list-style: none !important;
-            color: var(--font-color-secondary) !important;
-        }
-        .taskCreation_MenuList li:hover{
-            background-color: white !important;
-            border-radius: 4px !important;
-        }
-        // 
-        .btnMenuItemTaskCreation{
-            padding: 10px;
-            margin: 0 5px;
-            font-size: 15px;
-            border: none;
-            background: #faf9f8;
-            color: var(--font-color-secondary);
-            &:hover{
-                background-color: white;
-                cursor: pointer;
-            }
-        }
-        .btnMenuItemTaskCreationCheck{
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: var(--var-border-radius);
-            padding: 10px;
-            margin: 0 5px;
-            font-size: 15px;
-            color: var(--font-color-secondary);
-            &:hover{
-                background-color: white;
-                cursor: pointer;
-            }
+                & button{
+                    padding: 5px 10px;
+                    background: white;
+                    border: 1px solid;
+                    border-radius: 3px;
+                }
+                & button:hover{
+                    cursor: pointer;
+                }
+            }   
         }
     }
-    .tasks-scroll{
+    &__tasks-scroll{
         position: relative;
         overflow-y: scroll;
         overflow-x: hidden;
         height: 380px;
+        &-tasksList{
+            margin: 20px;
+            min-height: 53px;
+            border-radius: var(--var-border-radius);
+        }
     }
-    .tasks-list{
-        margin: 20px;
-        min-height: 53px;
-        border-radius: var(--var-border-radius);
-    }
+    
 }
 
+$color-drawer-todo : #797775;
 // DRAWER TODO
 .drawer-todo{
     margin: 20px;
-    padding: 10px;
-    background: white;
-    border-radius: var(--var-border-radius);
     &__content {
+        &__title,
+        &__addMyDay,
+        &__addCategory,
+        &__textarea{
+            padding: 10px;
+            border-radius: var(--var-border-radius);
+            background-color: $color-white;
+            display: flex;
+            align-items: center;
+        }
+        &__title{
+            justify-content: space-around;
+            &-checkbox{
+                width: 10%;
+                color: var(--background-color);
+            }
+            &-text{
+                width: 80%;
+                padding: 5px;
+                border: none;
+                font-size: 1.3rem;
+                font-weight: 600;
+                &:focus{
+                    outline: none;
+                }
+            }
+            &-icon{
+                font-size: 1.8rem;
+                width: 10%;
+                color: var(--background-color);
+            }
+        }
+        &__addMyDay{
+            margin-top: 10px;
+            justify-content: space-between;
+            &:hover{
+                cursor: pointer;
+                background-color: #e7e7e7;
+            }
+            &:hover &-iconRemove{
+                width: 10%;
+                display: block;
+            }
+            &:hover &-title{
+                width: 80%;
+            }
+            &-icon{
+                font-size: 1.8rem;
+                width: 10%;
+                color: var(--background-color);
+            }
+            &-iconRemove{
+                display: none;
+            }
+            &-title{
+                font-size: 1.4rem;
+                line-height: 20px;
+                padding: 5px 10px;
+                width: 90%;
+                color: var(--background-color);
+            }
+        }
+        &__menuTask{
+            border-radius: var(--var-border-radius);
+            background-color: $color-white;
+            margin-top: 10px;
+            &-notify,
+            &-repeat,
+            &-dueDate{
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid #ccc ;
+                color: $color-drawer-todo;
+                &:hover{
+                    cursor: pointer;
+                    background-color: #e7e7e7;
+                    color: #323130;
+                }
+                &-icon{
+                    width: 10%;
+                    padding: 10px 0 10px 10px ;
+                }
+                &-title{
+                    padding: 5px 5px 5px 10px;
+                    margin: 10px 0 10px 0;
+                    width: 90%;
+                    font-size: 1.3rem;
+                }
+            }
+            &-notify {
+                &-iconSelected{
+                    width: 10%;
+                    padding: 10px 0 10px 10px ;
+                    color: var(--background-color);
+                }
+                &-remind{
+                    padding: 10px;
+                    &-at{
+                        font-size: 1.3rem;
+                        color: var(--background-color);
+                    }
+                    &-title{
+                        font-size: 1.2rem;
+                        margin-top: 5px;
+                    }
+                }
+            }
+            &-dueDate{
+                &-iconSelected{
+                    width: 10%;
+                    padding: 10px 0 10px 10px ;
+                    color: var(--background-color);
+                }
+                &-titleSelected{
+                    padding-left: 10px;
+                    font-size: 1.3rem;
+                    color: var(--background-color);
+                }
+            }
+            &-repeat{
+                border: none;
+                &-iconSelected{
+                    width: 10%;
+                    padding: 10px 0 10px 10px ;
+                    color: var(--background-color);
+                }
+                &-check{
+                    padding: 10px;
+                    &-title{
+                        font-size: 1.3rem;
+                        color: var(--background-color);
+                    }
+                    &-days{
+                        font-size: 1.2rem;
+                        margin-top: 5px;
+                    }
+                }
+            }
+        }
+        &__addCategory{
+            margin-top: 10px;
+            &:hover{
+                cursor: pointer;
+                background-color: #e7e7e7;
+            }
+            &-icon{
+                width: 10%;
+            }
+            &-text{
+                width: 90%;
+                padding: 5px;
+                border: none;
+                font-size: 1.3rem;
+                &:hover{
+                    cursor: pointer;
+                    background-color: #e7e7e7;
+                }
+                &:focus{
+                    outline: none;
+                }
+            }
+        }
+        &__textarea{
+            margin-top: 10px;
+            &-text{
+                width: 100%;
+                font-size: 1.3rem;
+                padding: 10px 0 0 10px;
+                border: none;
+                &:focus{
 
+                    outline: none;
+                }
+            }
+            
+        }
     }
-    &__todo{
-
+    &__footer{
+        position: fixed;
+        bottom: 10px;
+        width: 350px;
+        right: 0;
+        &__content{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 10px;
+            padding-top: 10px;
+            font-size: 1.3rem;
+            border-top: 1px solid #797775;
+            color: #262626;
+            &-icon{
+                border: none;
+            }
+        }
     }
 }

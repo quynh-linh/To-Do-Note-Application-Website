@@ -6,144 +6,144 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--background-color);
-    .wrapper-logo{
+    &__logo{
         display: flex;
         align-items: center;
         width: 18%;
         padding-left: 20px;
     }
-    .icon-notification{
-        color: #d0e1f9;
-        font-size: 20px;
-        padding: 0 10px;
-        margin: 0 30px;
-    }
-    .wrapper-right{
+    &__right{
         display: flex;
         align-items: center;
         justify-content: space-between;
         width: 82%;
         height: 100%;
+        &-controls{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            &_search{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                &-inputSearch{
+                    width: 730px;
+                    text-align: center;
+                    padding: 8px;
+                    margin-left: 20px;
+                    border-radius: var(--var-border-radius);
+                    border: none;
+                    background-color: #efefef;
+                    font-weight: var(--var-font-weight);
+                    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, 
+                    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, 
+                    rgb(197 197 197 / 35%) 0px -2px 6px 0px inset;
+                }
+            }
+        }
+        &-controlsMenu{
+            align-items: center;
+            display: flex;
+            margin: 0 20px;
+            height: 100%;
+            &-controlsRegion{
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+                height: 100%;
+            }
+            &-MenuUser{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                &-img{
+                    width: 40px;
+                    border-radius: 50%;
+                    height: 40px; 
+                }
+                &_InfoUser{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 48px;
+                    height: 100%;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
     }
-    .wrapper-controls{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .wrapper-controls_search{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .input-search{
-        width: 730px;
-        text-align: center;
-        padding: 8px;
-        margin-left: 20px;
-        border-radius: var(--var-border-radius);
-        border: none;
-        background-color: #efefef;
-        font-weight: var(--var-font-weight);
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, 
-        rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, 
-        rgb(197 197 197 / 35%) 0px -2px 6px 0px inset;
-    }
-    .controls-region{
-        display: flex;
-        align-items: center;
-        margin-right: 10px;
-        height: 100%;
-    }
-    .menu_user{
-        height: 100%;
-        display: flex;
-        align-items: center;
-    }
-    .controls-menu_user{
-        width: 40px;
-        border-radius: 50%;
-        height: 40px;
-        
-    }
-    .controls-menu{
-        align-items: center;
-        display: flex;
-        margin: 0 20px;
-        height: 100%;
-    }
-    
     .selected{
         background-color: #494949;
-    }
-    .info-menu_user{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 48px;
-        height: 100%;
-        &:hover{
-            cursor: pointer;
-        }
     }
 }  
 // 
 .wide{
     padding: 0 15px;
-    .wide-title{
+    &-title{
         padding: 20px 0 5px 0;
         font-size: 18px;
         font-weight: 600;
     }
-    .wide-item{
+    &-item{
         list-style: none;
         padding-top: 25px;
         font-size: 14px;
         font-weight: 500;
         color: rgb(51, 51, 51);
+        &_des{
+            color: #797775;
+            font-size: 1.1rem;
+            padding-top: 10px;
+        }
     }
-    .wide-item_des{
-        color: #797775;
-        font-size: 1.1rem;
-        padding-top: 10px;
-    }
-    .wide-contact{
+    &_contact{
         height: 190px;
-        .wide-link{
+        &-link{
             display: flex;
             align-items: center;
             margin-top: 10px;
-        }
-        .wide-twitter,
-        .wide-face,
-        .wide-github{
-            padding: 5px;
-            display: flex;
-            border-radius: 50%;
-            border: 1px solid #1da1f2;
-            background-color: #1da1f2;
-        }
-        .wide-face{
-            border: 1px solid #1877f2;
-            background-color: #1877f2;
-        }
-        .wide-github{
-            border: 1px solid #010409;
-            background-color: #010409;
-        }
-        .icon-twitter,
-        .icon-face,
-        .icon-github{
-            color: white;
-            font-size: 20px;
-        }
-        .wide-label{
-            padding-left: 10px;
-            font-weight: 400;
-            font-size: 1.4rem;
-            color: #2564cf;
-            &:hover{
-                text-decoration: underline;
-                cursor: pointer;
+            &-twitter,
+            &-face,
+            &-github{
+                padding: 5px;
+                display: flex;
+                border-radius: 50%;
+            }
+            &-twitter{
+                border: 1px solid #1da1f2;
+                background-color: #1da1f2;
+                &-iconTwitter{
+                    color: white;
+                    font-size: 20px;
+                }
+            }
+            &-face{
+                border: 1px solid #1877f2;
+                background-color: #1877f2;
+                &-iconFace{
+                    color: white;
+                    font-size: 20px;
+                }
+            }
+            &-github{
+                border: 1px solid #010409;
+                background-color: #010409;
+                &-iconGithub{
+                    color: white;
+                    font-size: 20px;
+                }
+            }
+            &-label{
+                padding-left: 10px;
+                font-weight: 400;
+                font-size: 1.4rem;
+                color: #2564cf;
+                &:hover{
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
             }
         }
     }

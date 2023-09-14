@@ -29,7 +29,7 @@ function Menu({children,state = false,items=[],title = '', handleCLick = undefin
             content= {title}
             visible = {state === true}
             interactive
-            placement='bottom-end'
+            placement='bottom'
             appendTo={document.body}
             render={attrs => (
                 <div className={cx('content')} tabIndex="-1" {...attrs}>
