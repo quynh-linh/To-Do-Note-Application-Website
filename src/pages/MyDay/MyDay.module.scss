@@ -7,6 +7,16 @@ $color-white : #fff;
     &-todo-check{
         width: 68%;
     }
+    &__loading{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        & p {
+            margin-right: 10px;
+        }
+    }
 }
 .header{
     padding: 20px;
@@ -54,7 +64,7 @@ $color-white : #fff;
                 align-items: center;
                 justify-content: space-between;
                 padding: 8px 15px;
-                font-size: 15px;
+                font-size: 1.4rem;
             }
             &_control li:hover{
                 cursor: pointer;

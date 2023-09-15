@@ -2,7 +2,7 @@
     text-align: center;
     & button {
         padding: 10px 15px;
-        background-color: #4d648d;
+        background-color: var(--background-color);
         border: 1px solid white;
         border-radius: var(--var-border-radius);
         color: white;

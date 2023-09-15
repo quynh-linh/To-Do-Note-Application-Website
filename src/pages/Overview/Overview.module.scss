@@ -1,10 +1,20 @@
+
 .wrapper{
     width: 100%;
     padding: 20px;
     display: flex;
+    &__loading{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        & p {
+            margin-right: 10px;
+        }
+    }
     .wrapper-box_left{
-        width: 70%;
-        
+        width: 70%; 
     }
     .wrapper-box_right{
         width: 30%;
@@ -17,12 +27,13 @@
     }
     .wrapper-completed{
         width: 45%;
-        height: 100px;
-        background-color: #2e384e;
+        height: 90px;
+        background-color: var(--background-color);
         border-radius: var(--var-border-radius);
         display: flex;
         align-items: center;
         justify-content: space-between;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
         .completed-notebook{
             display: flex;
             align-items: center;
@@ -37,8 +48,8 @@
             border-radius: var(--var-border-radius);
         }
         .completed-progress{
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
             padding-right: 10px;
         }
         .completed-count_task {
@@ -53,10 +64,10 @@
     }
     .wrapper-box_left-chart{
         width: 100%;
-        margin-top: 20px;
-        padding: 20px 0;
+        margin: 10px 0;
         background-color: var(--color-white);
         border-radius: var(--var-border-radius);
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
     .wrapper-box_left-LienChart{
         width: 100%;
