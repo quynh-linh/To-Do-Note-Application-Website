@@ -1,5 +1,5 @@
-import {  faFilter, faNoteSticky } from '@fortawesome/free-solid-svg-icons';
-import {  faCalendarCheck, faCalendarDays, faCalendarPlus, faClock, faStar } from '@fortawesome/free-regular-svg-icons';
+import { faFilter, faNoteSticky } from '@fortawesome/free-solid-svg-icons';
+import {  faCalendarCheck, faCalendarDays, faCalendarPlus, faClock, faStar ,faCircle} from '@fortawesome/free-regular-svg-icons';
 
 // New string with format "dd/mm/yyyy"
 const formattedDate = (days) => {
@@ -145,6 +145,25 @@ const MENU_ITEMS_GROUP = [
         id : 1,
         icon : faNoteSticky,
         title : 'Loại',
+    }
+];
+
+// LIST CATEGORY COLOR 
+const MENU_ITEMS_CATEGORY = [
+    {
+        id : 1,
+        icon : faCircle,
+        title : 'Danh mục đỏ',
+    },
+    {
+        id : 2,
+        icon : faCircle,
+        title : 'Danh mục cam',
+    },
+    {
+        id : 3,
+        icon : faCircle,
+        title : 'Danh mục xanh',
     }
 ];
 
@@ -374,4 +393,4 @@ const DATA_SETTINGS = [
         ],
     },
 ];
-export {MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP,LIST_TODO,DATA_SETTINGS};
+export {MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP,LIST_TODO,DATA_SETTINGS,MENU_ITEMS_CATEGORY};

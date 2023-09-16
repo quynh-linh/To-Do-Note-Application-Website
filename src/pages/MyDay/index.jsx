@@ -35,11 +35,15 @@ import {
     MENU_ITEMS_SORT,
     MENU_ITEMS_GROUP,
     LIST_TODO,
+    MENU_ITEMS_CATEGORY
 } from '~/const';
 import Todo from '~/components/Todo';
 import Drawer from '~/components/Drawer/Drawer';
 
 import { CircularProgress } from '@mui/material';
+import CategoryColor from '~/components/Popper/CategoryColor';
+import { red } from '@mui/material/colors';
+import { hover } from '@testing-library/user-event/dist/hover';
 function MyDay() {
     const cx = className.bind(styles);
     // LOADING PAGE
@@ -54,6 +58,11 @@ function MyDay() {
     const [isDeadlineSelected, setDeadlineSelected] = useState(false);
     const [isRemindSelected, setRemindSelected] = useState(false);
     const [isRepeatSelected, setRepeatSelected] = useState(false);
+    const [isPickCategory , setPickCategory] = useState(false);
+    // CATEGORY COLOR IN TODO STATUS IS BEING SELECTED
+    const [categoryColorRed, setCategoryColorRed] = useState({});
+    const [categoryColorOrange, setCategoryColorOrange] = useState({});
+    const [categoryColorGreen, setCategoryColorGreen] = useState({});
     // CHECK STATE FILTER TOOLBAR
     const [isSortByCreation, setSortByCreation] = useState(false);
     const [isGroupByCategories, setGroupByCategories] = useState(false);
@@ -164,7 +173,20 @@ function MyDay() {
         setSortByCreation(false);
         setGroupByCategories(false);
     };
-
+    // HANDLE (REPEAT) TODO SELECTED TO DRAWER
+    const handleClickPickCategory = () => {
+        setPickCategory(!isPickCategory);
+        setRepeatSelected(false);
+        setRemindSelected(false);
+        setDeadlineSelected(false);
+        // SET MENU CONTROLS = FALSE
+        setBtnDeadline(false);
+        setBtnRemind(false);
+        setBtnRepeat(false);
+        // SET FILTER TOOLBAR = FALSE
+        setSortByCreation(false);
+        setGroupByCategories(false);
+    };
     // HANDLE CLICK SORT CREATION
     const handleClickSortCreation = () => {
         setSortByCreation(!isSortByCreation);
@@ -234,6 +256,9 @@ function MyDay() {
     // HANDLE CHANGE TITLE TODO
     const handleChangeTitleTodo = () => {};
 
+    const handleClickAddCategoryColor = (e) => {
+        
+    };
     // SET LOADING PAGE 18S
     useEffect(() => {
         setTimeout(() => {
@@ -630,14 +655,14 @@ function MyDay() {
                                                 </Menu>
                                             ) : (
                                                 <Menu
-                                                title={'Lặp lại'}
-                                                state={isRepeatSelected}
-                                                items={MENU_ITEMS_REPEAT}
-                                                checkValue={valueMenuRepeat ? true : false}
-                                                handleCLick={(item) => {
-                                                    setValueMenuRepeat(item);
-                                                    setBtnRepeat(false);
-                                                }}
+                                                    title={'Lặp lại'}
+                                                    state={isRepeatSelected}
+                                                    items={MENU_ITEMS_REPEAT}
+                                                    checkValue={valueMenuRepeat ? true : false}
+                                                    handleCLick={(item) => {
+                                                        setValueMenuRepeat(item);
+                                                        setBtnRepeat(false);
+                                                    }}
                                                 >
                                                     <div className={cx('drawer-todo__content__menuTask-repeat')} onClick={handleClickRepeatTodoSelected}>
                                                         <FontAwesomeIcon
@@ -651,16 +676,63 @@ function MyDay() {
                                                 </Menu>
                                             )}
                                         </div>
-                                        <div className={cx('drawer-todo__content__addCategory')}>
-                                            <FontAwesomeIcon
-                                                className={cx('drawer-todo__content__addCategory-icon')}
-                                                icon={faNoteSticky}
-                                            />
-                                            <input
-                                                className={cx('drawer-todo__content__addCategory-text')}
-                                                type="text"
-                                                placeholder="Pick a category"
-                                            />
+                                        <div>
+                                            <CategoryColor
+                                                title={''}
+                                                state={isPickCategory}
+                                                items={MENU_ITEMS_CATEGORY}
+                                                handleCLick={(e) => {
+                                                    if(e.title === 'Danh mục đỏ'){
+                                                        setCategoryColorRed(e);
+                                                    } else if(e.title === 'Danh mục xanh'){
+                                                        setCategoryColorGreen(e);
+                                                    } else {
+                                                        setCategoryColorOrange(e);
+                                                    }
+                                                }}
+                                            >
+                                                <div className={cx('drawer-todo__content__addCategory')}  onClick={handleClickPickCategory}>
+                                                    <FontAwesomeIcon
+                                                        className={cx('drawer-todo__content__addCategory-icon')}
+                                                        icon={faNoteSticky}
+                                                    />
+                                                    <div className={cx('drawer-todo__content__addCategory-list')}>
+                                                        <div className={cx('drawer-todo__content__addCategory-list-CategoryList')}>
+                                                            {
+                                                                categoryColorRed.state === true ?(     
+                                                                    <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemRed')}>
+                                                                        <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemRed-title')}>{categoryColorRed.title}</div>
+                                                                        <div >
+                                                                            <FontAwesomeIcon className={cx('drawer-todo__content__addCategory-list-CategoryList-itemRed-icon')} icon={faClose}/>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : ''
+                                                            }      
+                                                            {
+                                                                categoryColorOrange.state === true ?(
+                                                                    <div  className={cx('drawer-todo__content__addCategory-list-CategoryList-itemOrange')}>
+                                                                        <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemOrange-title')}>{categoryColorOrange.title}</div>
+                                                                        <div>
+                                                                            <FontAwesomeIcon className={cx('drawer-todo__content__addCategory-list-CategoryList-itemOrange-icon')} icon={faClose}/>
+                                                                        </div>
+                                                                    </div>
+                                                                ): ''
+                                                            }  
+                                                            {       
+                                                                categoryColorGreen.state === true ?(
+                                                                    <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemGreen')}>
+                                                                        <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemGreen-title')}>{categoryColorGreen.title}</div>
+                                                                        <div>
+                                                                            <FontAwesomeIcon className={cx('drawer-todo__content__addCategory-list-CategoryList-itemGreen-icon')} icon={faClose}/>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : ''
+                                                            }
+                                                        </div>
+                                                        <span className={cx('drawer-todo__content__addCategory-list-text')}>Pick a category</span>
+                                                    </div>
+                                                </div>
+                                            </CategoryColor>
                                         </div>
                                         <div className={cx('drawer-todo__content__textarea')}>
                                             <textarea

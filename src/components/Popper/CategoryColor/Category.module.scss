@@ -1,0 +1,45 @@
+.content{
+    width: 230px;
+    .wrapper{
+        padding: 10px;
+        &:hover{
+            background-color: #eee;
+        }
+    }
+    .wrapperCheck{
+        padding: 10px;
+        background-color: #eee;
+    }
+    .menu-box{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &_iconRed{
+            background: rgb(255 0 0 / 40%);
+            border-radius: 50%;
+            font-size: 1rem;
+            color: red;
+        }
+        &_iconOrange{
+            background: rgb(255 165 0 / 40%);
+            border-radius: 50%;
+            font-size: 1rem;
+            color: orange;
+        }
+        &_iconGreen{
+            background: rgb(72 196 72 / 40%);
+            border-radius: 50%;
+            font-size: 1rem;
+            color: green;
+        }
+        &_iconCheck{
+            font-size: 1.3rem;
+            color: green;
+        }
+        &_name{
+            font-size: 1.3rem;
+            color: black;
+            padding: 10px;
+        }
+    }
+}

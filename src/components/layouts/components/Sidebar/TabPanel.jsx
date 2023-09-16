@@ -7,7 +7,7 @@ import className from 'classnames/bind';
 
 import SubProject from './SubProject';
 import CustomInput from '~/components/input';
-import ProjectData from './ProjectData';
+import ProjectData from '../../../../const/ProjectData';
 import styles from './Sidebar.module.scss'
 
 const cx = className.bind(styles);

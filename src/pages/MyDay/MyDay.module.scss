@@ -366,6 +366,7 @@ $color-drawer-todo : #797775;
         }
         &__addCategory{
             margin-top: 10px;
+            padding: 15px;
             &:hover{
                 cursor: pointer;
                 background-color: #e7e7e7;
@@ -373,17 +374,69 @@ $color-drawer-todo : #797775;
             &-icon{
                 width: 10%;
             }
-            &-text{
-                width: 90%;
-                padding: 5px;
-                border: none;
-                font-size: 1.3rem;
-                &:hover{
-                    cursor: pointer;
-                    background-color: #e7e7e7;
+            &-list{
+                // width: 90%;
+                &-text{
+                    padding: 5px  5px 10px;
+                    font-size: 1.3rem;
                 }
-                &:focus{
-                    outline: none;
+                &-CategoryList{
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-gap: 5px; 
+                    margin-left: 5px;
+                    margin-bottom: 5px;
+                    &-itemRed,
+                    &-itemGreen,
+                    &-itemOrange{ 
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        min-width: 120px;
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                        border: 1px solid;
+                        &-icon{
+                            padding: 5px;
+                            &:hover{
+                                color: black;
+                            }
+                        }
+                        &-title{
+                            padding: 5px;
+                            width: 90%;
+                        }
+                    }
+                    &-itemRed{
+                        color: red;
+                        background: rgb(255 0 0 / 5%);
+                        &-title{ 
+                            &:hover{
+                                background-color: red;
+                                color: white;
+                            }
+                        }
+                    }
+                    &-itemGreen{
+                        color: green;
+                        background: rgba(0, 128, 0,5%);
+                        &-title{
+                            &:hover{
+                                background-color: green;
+                                color: white;
+                            }
+                        }
+                    }
+                    &-itemOrange{
+                        color: orange;
+                        background: rgba(255, 165, 0, 5%);
+                        &-title{
+                            &:hover{
+                                background-color: orange;
+                                color: white;
+                            }
+                        }
+                    }
                 }
             }
         }

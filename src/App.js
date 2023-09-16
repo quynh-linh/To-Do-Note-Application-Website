@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { publicRoutes , privateRoutes } from "~/routes";
 import {DefaultLayout} from "~/components/layouts";
 import WebLayout from "./components/layouts/WebLayout/WebLayout";
-import AccountManagementLayout from "./components/layouts/AccountManagementLayout/AccountManagementLayout";
+import AccountManagementLayout from "./components/layouts/auth/AccountManagementLayout";
 import { ToastContainer } from "react-toastify";
 function App() {
   return (
