@@ -10,7 +10,7 @@ import {
     faStar,
     faSun,
 } from '@fortawesome/free-regular-svg-icons';
-import { useState , useEffect, useRef } from 'react';
+import { useState , useEffect} from 'react';
 import {
     faArrowUpWideShort,
     faCalendarDay,
@@ -42,8 +42,6 @@ import Drawer from '~/components/Drawer/Drawer';
 
 import { CircularProgress } from '@mui/material';
 import CategoryColor from '~/components/Popper/CategoryColor';
-import { red } from '@mui/material/colors';
-import { hover } from '@testing-library/user-event/dist/hover';
 function MyDay() {
     const cx = className.bind(styles);
     // LOADING PAGE
@@ -60,9 +58,12 @@ function MyDay() {
     const [isRepeatSelected, setRepeatSelected] = useState(false);
     const [isPickCategory , setPickCategory] = useState(false);
     // CATEGORY COLOR IN TODO STATUS IS BEING SELECTED
-    const [categoryColorRed, setCategoryColorRed] = useState({});
-    const [categoryColorOrange, setCategoryColorOrange] = useState({});
-    const [categoryColorGreen, setCategoryColorGreen] = useState({});
+    const [categoryColor, setCategoryColor] = useState({});
+    const [classNameCategoryItem,setClassNameCategoryItem] = useState('');
+    const [stateCheckCategoryColor,setStateCheckCategoryColor] = useState({
+        title: '',
+        state: true
+    });
     // CHECK STATE FILTER TOOLBAR
     const [isSortByCreation, setSortByCreation] = useState(false);
     const [isGroupByCategories, setGroupByCategories] = useState(false);
@@ -79,6 +80,7 @@ function MyDay() {
     const [valueGroupByCategories, setValueGroupByCategories] = useState('');
     // VALUE (OBJECT) TODO SELECTED
     const [selectedTodo, setSelectedTodo] = useState({});
+    const [selectedTodoTitle,setSelectedTodoTitle] = useState('');
     var today = new Date();
 
     // DATA REAL TIME
@@ -254,17 +256,53 @@ function MyDay() {
     };
 
     // HANDLE CHANGE TITLE TODO
-    const handleChangeTitleTodo = () => {};
-
-    const handleClickAddCategoryColor = (e) => {
-        
+    const handleChangeTitleTodo = (e) => {
+        setSelectedTodoTitle(e.target.value);
     };
-    // SET LOADING PAGE 18S
+
+    // HANDLE REMOVE CATEGORY COLOR
+    const handleRemoveCategoryColor = () => {
+        console.log(categoryColor);
+        if (categoryColor.state) {
+            const updatedObject = { ...categoryColor, state: false};
+            setCategoryColor(updatedObject);
+            setStateCheckCategoryColor(updatedObject);
+        } 
+    };
+    
     useEffect(() => {
+        // CHECK PRIORITY, GET TITLE AND SET CATEGORYCOLOR AND CHECK SELECTED
+        if(selectedTodo.priority === 'Danh mục đỏ'){
+            const updatedObjectRed = { ...categoryColor, state: true , title:'Danh mục đỏ'};
+            setCategoryColor(updatedObjectRed);
+            setStateCheckCategoryColor(updatedObjectRed);
+            setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemRed');
+        } else if(selectedTodo.priority === 'Danh mục xanh'){
+            const updatedObjectGreen = { ...categoryColor, state: true , title:'Danh mục xanh'};
+            setCategoryColor(updatedObjectGreen);
+            setStateCheckCategoryColor(updatedObjectGreen);
+            setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemGreen');
+        } else if(selectedTodo.priority === 'Danh mục cam'){
+            const updatedObjectOrange = { ...categoryColor, state: true , title:'Danh mục cam'};
+            setCategoryColor(updatedObjectOrange);
+            setStateCheckCategoryColor(updatedObjectOrange);
+            setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemOrange');
+        } else {
+            const updatedObjectOrange = { ...categoryColor, state: false};
+            setCategoryColor(updatedObjectOrange);
+            setStateCheckCategoryColor(updatedObjectOrange);
+        }
+
+        // SET LOADING PAGE 18S
         setTimeout(() => {
             setLoading(false)
         }, 500);
-    }, []);
+
+        //
+        if(selectedTodo.title !== undefined){
+            setSelectedTodoTitle(selectedTodo.title);
+        }
+    }, [selectedTodo.priority,selectedTodo.title,categoryColor]);
     return (
        <div>
             {
@@ -510,7 +548,7 @@ function MyDay() {
                                                     <input
                                                         className={cx('drawer-todo__content__title-text')}
                                                         type="text"
-                                                        value={selectedTodo.title}
+                                                        value={selectedTodoTitle}
                                                         onChange={handleChangeTitleTodo}
                                                     />
                                                 )
@@ -681,13 +719,15 @@ function MyDay() {
                                                 title={''}
                                                 state={isPickCategory}
                                                 items={MENU_ITEMS_CATEGORY}
+                                                stateCheck={stateCheckCategoryColor}
                                                 handleCLick={(e) => {
+                                                    setCategoryColor(e);
                                                     if(e.title === 'Danh mục đỏ'){
-                                                        setCategoryColorRed(e);
+                                                        setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemRed');
+                                                    } else if(e.title === 'Danh mục cam'){
+                                                        setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemOrange');
                                                     } else if(e.title === 'Danh mục xanh'){
-                                                        setCategoryColorGreen(e);
-                                                    } else {
-                                                        setCategoryColorOrange(e);
+                                                        setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemGreen');
                                                     }
                                                 }}
                                             >
@@ -697,38 +737,22 @@ function MyDay() {
                                                         icon={faNoteSticky}
                                                     />
                                                     <div className={cx('drawer-todo__content__addCategory-list')}>
-                                                        <div className={cx('drawer-todo__content__addCategory-list-CategoryList')}>
-                                                            {
-                                                                categoryColorRed.state === true ?(     
-                                                                    <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemRed')}>
-                                                                        <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemRed-title')}>{categoryColorRed.title}</div>
-                                                                        <div >
-                                                                            <FontAwesomeIcon className={cx('drawer-todo__content__addCategory-list-CategoryList-itemRed-icon')} icon={faClose}/>
-                                                                        </div>
-                                                                    </div>
-                                                                ) : ''
-                                                            }      
-                                                            {
-                                                                categoryColorOrange.state === true ?(
-                                                                    <div  className={cx('drawer-todo__content__addCategory-list-CategoryList-itemOrange')}>
-                                                                        <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemOrange-title')}>{categoryColorOrange.title}</div>
-                                                                        <div>
-                                                                            <FontAwesomeIcon className={cx('drawer-todo__content__addCategory-list-CategoryList-itemOrange-icon')} icon={faClose}/>
-                                                                        </div>
-                                                                    </div>
-                                                                ): ''
-                                                            }  
-                                                            {       
-                                                                categoryColorGreen.state === true ?(
-                                                                    <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemGreen')}>
-                                                                        <div className={cx('drawer-todo__content__addCategory-list-CategoryList-itemGreen-title')}>{categoryColorGreen.title}</div>
-                                                                        <div>
-                                                                            <FontAwesomeIcon className={cx('drawer-todo__content__addCategory-list-CategoryList-itemGreen-icon')} icon={faClose}/>
-                                                                        </div>
-                                                                    </div>
-                                                                ) : ''
-                                                            }
-                                                        </div>
+                                                        {
+                                                            selectedTodo.priority ? (
+                                                                <div className={cx('drawer-todo__content__addCategory-list-CategoryList')}>
+                                                                    {           
+                                                                        categoryColor.state === true ?( 
+                                                                            <div className={cx(classNameCategoryItem)}>
+                                                                                <div className={cx(classNameCategoryItem+'-title')}>{categoryColor.title}</div>
+                                                                                <div onClick={handleRemoveCategoryColor}>
+                                                                                    <FontAwesomeIcon className={cx(classNameCategoryItem+'-icon')} icon={faClose}/>
+                                                                                </div>
+                                                                            </div>
+                                                                        ) : ''
+                                                                    }     
+                                                                </div>
+                                                            ) : ''
+                                                        }                                                  
                                                         <span className={cx('drawer-todo__content__addCategory-list-text')}>Pick a category</span>
                                                     </div>
                                                 </div>

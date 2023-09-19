@@ -210,7 +210,8 @@ $color-white : #fff;
         position: relative;
         overflow-y: scroll;
         overflow-x: hidden;
-        height: 380px;
+        height: 370px;
+        padding-bottom: 5px;
         &-tasksList{
             margin: 20px;
             min-height: 53px;
@@ -280,6 +281,7 @@ $color-drawer-todo : #797775;
                 display: none;
             }
             &-title{
+                font-weight: 600;
                 font-size: 1.4rem;
                 line-height: 20px;
                 padding: 5px 10px;
@@ -297,7 +299,6 @@ $color-drawer-todo : #797775;
                 display: flex;
                 align-items: center;
                 border-bottom: 1px solid #ccc ;
-                color: $color-drawer-todo;
                 &:hover{
                     cursor: pointer;
                     background-color: #e7e7e7;
@@ -325,6 +326,7 @@ $color-drawer-todo : #797775;
                     &-at{
                         font-size: 1.3rem;
                         color: var(--background-color);
+                        font-weight: 600;
                     }
                     &-title{
                         font-size: 1.2rem;
@@ -341,6 +343,7 @@ $color-drawer-todo : #797775;
                 &-titleSelected{
                     padding-left: 10px;
                     font-size: 1.3rem;
+                    font-weight: 600;
                     color: var(--background-color);
                 }
             }
@@ -355,6 +358,7 @@ $color-drawer-todo : #797775;
                     padding: 10px;
                     &-title{
                         font-size: 1.3rem;
+                        font-weight: 600;
                         color: var(--background-color);
                     }
                     &-days{
@@ -375,7 +379,7 @@ $color-drawer-todo : #797775;
                 width: 10%;
             }
             &-list{
-                // width: 90%;
+                 width: 90%;
                 &-text{
                     padding: 5px  5px 10px;
                     font-size: 1.3rem;

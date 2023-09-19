@@ -6,11 +6,9 @@ import { faRepeat } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 function Todo({title='',description='',valueDeadLine=null,valueNotify=null,valueRepeat=null,valuePriority=null,onClick=null}) {
     const cx = className.bind(styles);
-    const [isClickTodo,setClickTodo] = useState(false);
     const [classNamePriority,setClassNamePriority] = useState('');
     // HANDLE CLICK TODO ITEM
     const handleClickTodo = () => {
-        setClickTodo(true);
         onClick({
             state: true,
             title: title,
@@ -21,6 +19,7 @@ function Todo({title='',description='',valueDeadLine=null,valueNotify=null,value
         });
     };
     useEffect(()=> {
+        // HANDLE SET CLASSNAME THEO TỪNG CATEGORY ITEM COLOR
         if(valuePriority === 'Danh mục đỏ'){
             setClassNamePriority('wrapper__todo-content-list__menuItem-priority-red');
         }else if(valuePriority === 'Danh mục cam') {
@@ -28,7 +27,7 @@ function Todo({title='',description='',valueDeadLine=null,valueNotify=null,value
         }else if(valuePriority === 'Danh mục xanh') {
             setClassNamePriority('wrapper__todo-content-list__menuItem-priority-green');
         }
-    },[]);
+    },[valuePriority]);
     return ( 
         <div className={cx('wrapper')} onClick={handleClickTodo}>
             <button  
@@ -68,6 +67,7 @@ function Todo({title='',description='',valueDeadLine=null,valueNotify=null,value
                         valuePriority ? (
                             <li className={cx('wrapper__todo-content-list__menuItem-priority')}>
                                 <span className={cx(classNamePriority)}>
+                                    <FontAwesomeIcon className={cx(classNamePriority+'_icon')} icon={faCircle}></FontAwesomeIcon>
                                     {valuePriority}
                                 </span>
                             </li>

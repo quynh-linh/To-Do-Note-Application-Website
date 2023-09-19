@@ -230,7 +230,7 @@ const LIST_TODO = [
         id: 3,
         title: 'Đi ngủ',
         des: 'Ngủ trước 23h tối',
-        priority : 'Danh mục đỏ',
+        priority : '',
         notes : '',
         deadline : {
             title : 'Hôm nay',
@@ -268,7 +268,7 @@ const LIST_TODO = [
         id: 5,
         title: 'Học bài',
         des: 'Được thực hiện vào ngày mai',
-        priority : 'Danh mục đỏ',
+        priority : '',
         notes : '',
         deadline : {
             title : 'Hôm nay',

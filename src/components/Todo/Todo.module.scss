@@ -29,6 +29,7 @@
             font-size: 1.4rem;
             color: #323130;
             padding-left: 12px;
+            font-weight: 600;
         }   
         &-list{
             display: flex;
@@ -56,14 +57,42 @@
                 color: var(--background-color);
             }
             &__menuItem-priority{
+                list-style: none;
+                &-red,
+                &-green,
+                &-orange{
+                    display: flex;
+                    align-items: center;
+                    &_icon{
+                        margin-right: 5px;
+                    }
+                }
                 &-red{
                     color: red;
+                    &_icon{
+                        background: rgb(255 0 0 / 40%);
+                        border-radius: 50%;
+                        font-size: 1.4rem;
+                        color: red;
+                    }
                 }
                 &-orange{
                     color: orange;
+                    &_icon{
+                        background: rgb(255 165 0 / 40%);
+                        border-radius: 50%;
+                        font-size: 1.4rem;
+                        color: orange;
+                    }
                 }
                 &-green{
                     color: green;
+                    &_icon{
+                        background: rgb(72 196 72 / 40%);
+                        border-radius: 50%;
+                        font-size: 1.4rem;
+                        color: green;
+                    }
                 }
             }
             

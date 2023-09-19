@@ -3,13 +3,23 @@ import className from 'classnames/bind';
 import styles from "./Category.module.scss";
 import {Wrapper as PopperWrapper} from '~/components/Popper';
 import CategoryItem from './CategoryItem';
-function CategoryColor({children,state=false,handleCLick = undefined,items=[]}) {
+import { useState } from 'react';
+function CategoryColor({children,state=false,handleCLick = undefined,items=[],stateCheck=undefined}) {
     const cx = className.bind(styles);
+    const [categoryItemChecked,setCategoryItemChecked] = useState({});
     const handleClickMenuItem = (item) =>{
         handleCLick(item);
+        setCategoryItemChecked(item);
     }
     const showToolbarItem = () => {
-        return items.map((item,index) => <CategoryItem onClick={handleClickMenuItem} key={index} data={item}></CategoryItem> )
+        return items.map((item,index) => 
+            <CategoryItem 
+                onClick={handleClickMenuItem} 
+                state={stateCheck}  
+                checked={categoryItemChecked}
+                key={index} 
+                data={item}
+            />)
     }
     return (
         <Tippy
