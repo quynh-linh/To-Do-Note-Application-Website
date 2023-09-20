@@ -5,7 +5,7 @@ import Footer from './components/Footer/Footer';
 const cx = className.bind(styles);
 function WebLayout({children}){
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('container')}>
             <Header/>   
             {children}
             <Footer/>

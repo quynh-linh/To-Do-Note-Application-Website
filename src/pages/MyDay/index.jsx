@@ -35,7 +35,8 @@ import {
     MENU_ITEMS_SORT,
     MENU_ITEMS_GROUP,
     LIST_TODO,
-    MENU_ITEMS_CATEGORY
+    MENU_ITEMS_CATEGORY,
+    REAL_TIME
 } from '~/const';
 import Todo from '~/components/Todo';
 import Drawer from '~/components/Drawer/Drawer';
@@ -81,13 +82,8 @@ function MyDay() {
     // VALUE (OBJECT) TODO SELECTED
     const [selectedTodo, setSelectedTodo] = useState({});
     const [selectedTodoTitle,setSelectedTodoTitle] = useState('');
-    var today = new Date();
 
-    // DATA REAL TIME
-    var days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-    var date = 'ngày ' + today.getDate() + ' tháng ' + (today.getMonth() + 1);
-    var dayName = days[today.getDay()];
-    var real_time = dayName + ', ' + date;
+
 
     // HANDLE USER FOCUS INPUT OPENING ADD TASK
     const handleInputFocus = () => {
@@ -271,7 +267,7 @@ function MyDay() {
     };
     
     useEffect(() => {
-        // CHECK PRIORITY, GET TITLE AND SET CATEGORYCOLOR AND CHECK SELECTED
+        // CHECK PRIORITY, GET TITLE AND SET CATEGORY COLOR AND CHECK SELECTED
         if(selectedTodo.priority === 'Danh mục đỏ'){
             const updatedObjectRed = { ...categoryColor, state: true , title:'Danh mục đỏ'};
             setCategoryColor(updatedObjectRed);
@@ -288,9 +284,9 @@ function MyDay() {
             setStateCheckCategoryColor(updatedObjectOrange);
             setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemOrange');
         } else {
-            const updatedObjectOrange = { ...categoryColor, state: false};
-            setCategoryColor(updatedObjectOrange);
-            setStateCheckCategoryColor(updatedObjectOrange);
+            const updatedObject = { ...categoryColor, state: false};
+            setCategoryColor(updatedObject);
+            setStateCheckCategoryColor(updatedObject);  
         }
 
         // SET LOADING PAGE 18S
@@ -302,7 +298,7 @@ function MyDay() {
         if(selectedTodo.title !== undefined){
             setSelectedTodoTitle(selectedTodo.title);
         }
-    }, [selectedTodo.priority,selectedTodo.title,categoryColor]);
+    }, [selectedTodo.priority,selectedTodo.title]);
     return (
        <div>
             {
@@ -376,41 +372,42 @@ function MyDay() {
                                         </ul>
                                     </span>
                                 </div>
-                                <div>
-                                    <p className={cx('header__realTime')}>{real_time}</p>
+                                <div className={cx('header__box')}>
+                                    <p className={cx('header__box-realTime')}>{REAL_TIME}</p>
+                                    <div className={cx('header__box-sortFilter')}>
+                                        {valueByCreation.length > 0 && (
+                                            <div className={cx('header__box-sortFilter-descriptions')}>
+                                                <p>Sắp xếp theo {valueByCreation}</p>
+                                                <button
+                                                    onClick={handleRemoveSortFilter}
+                                                    className={cx('header__box-sortFilter-descriptions-removeSortFilter')}
+                                                    type="button"
+                                                >
+                                                    <FontAwesomeIcon
+                                                        className={cx('header__box-sortFilter-descriptions-removeSortFilter-iconClose')}
+                                                        icon={faXmark}
+                                                    />
+                                                </button>
+                                            </div>
+                                        )}
+                                        {valueGroupByCategories.length > 0 && (
+                                            <div className={cx('header__box-sortFilter-descriptions')}>
+                                                <p>Nhóm theo danh mục</p>
+                                                <button
+                                                    onClick={handleRemoveGroupBy}
+                                                    className={cx('header__box-sortFilter-descriptions-removeSortFilter')}
+                                                    type="button"
+                                                >
+                                                    <FontAwesomeIcon
+                                                        className={cx('header__box-sortFilter-descriptions-removeSortFilter-iconClose')}
+                                                        icon={faXmark}
+                                                    />
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className={cx('header__sortFilter')}>
-                                    {valueByCreation.length > 0 && (
-                                        <div className={cx('header__sortFilter-descriptions')}>
-                                            <p>Sắp xếp theo {valueByCreation}</p>
-                                            <button
-                                                onClick={handleRemoveSortFilter}
-                                                className={cx('header__sortFilter-descriptions-removeSortFilter')}
-                                                type="button"
-                                            >
-                                                <FontAwesomeIcon
-                                                    className={cx('header__sortFilter-descriptions-removeSortFilter-iconClose')}
-                                                    icon={faXmark}
-                                                />
-                                            </button>
-                                        </div>
-                                    )}
-                                    {valueGroupByCategories.length > 0 && (
-                                        <div className={cx('header__sortFilter-descriptions')}>
-                                            <p>Nhóm theo danh mục</p>
-                                            <button
-                                                onClick={handleRemoveGroupBy}
-                                                className={cx('header__sortFilter-descriptions-removeSortFilter')}
-                                                type="button"
-                                            >
-                                                <FontAwesomeIcon
-                                                    className={cx('header__sortFilter-descriptions-removeSortFilter-iconClose')}
-                                                    icon={faXmark}
-                                                />
-                                            </button>
-                                        </div>
-                                    )}
-                                </div>
+                                
                             </div>
                             <div className={cx('container')}>
                                 <div className={cx('container__taskCreation')}>

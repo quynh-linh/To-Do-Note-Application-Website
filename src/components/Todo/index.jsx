@@ -19,7 +19,7 @@ function Todo({title='',description='',valueDeadLine=null,valueNotify=null,value
         });
     };
     useEffect(()=> {
-        // HANDLE SET CLASSNAME THEO TỪNG CATEGORY ITEM COLOR
+        //HANDLE SET CLASSNAME THEO TỪNG CATEGORY ITEM COLOR
         if(valuePriority === 'Danh mục đỏ'){
             setClassNamePriority('wrapper__todo-content-list__menuItem-priority-red');
         }else if(valuePriority === 'Danh mục cam') {

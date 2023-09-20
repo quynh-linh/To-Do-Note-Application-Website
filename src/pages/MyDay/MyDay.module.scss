@@ -19,7 +19,7 @@ $color-white : #fff;
     }
 }
 .header{
-    padding: 20px;
+    padding: 10px 20px 0 20px;
     &__wrapper{
         display: flex;
         align-items: center;
@@ -76,45 +76,52 @@ $color-white : #fff;
             }
         }
     }
-    &__realTime{
-        font-size: 1.2rem;
-        color: var(--font-color-secondary);
-    }
-    // SORT FILTER
-    &__sortFilter{
+    &__box{
         display: flex;
-        align-content: center;
-        justify-content: flex-end;
-        &-descriptions {
+        align-items: center;
+        justify-content: space-around;
+        &-realTime{
+            font-size: 1.2rem;
+            color: var(--font-color-secondary);
+            width: 40%;
+        }
+        // SORT FILTER
+        &-sortFilter{
             display: flex;
-            align-items: center;
+            align-content: center;
             justify-content: flex-end;
-            padding-right: 10px;
-            & p{
-                font-size: 1.2rem;
-                font-weight: bold;
-                color: #323130;
-                padding-right: 15px;
-            }
-            &-removeSortFilter{
-                color: #797775;
-                background: none;
-                border: none;
-                font-size: 17px;
-                &-iconClose{
-                    padding: 5px;
-                    &:hover{
-                        background-color: white;
-                        cursor: pointer;
+            width: 60%;
+            &-descriptions {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding-right: 10px;
+                & p{
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    color: #323130;
+                    padding-right: 15px;
+                }
+                &-removeSortFilter{
+                    color: #797775;
+                    background: none;
+                    border: none;
+                    font-size: 17px;
+                    &-iconClose{
+                        padding: 5px;
+                        &:hover{
+                            background-color: white;
+                            cursor: pointer;
+                        }
                     }
                 }
             }
         }
     }
+    
 }
 // Container
 .container{
-    margin-top: 15px;
     &__taskCreation{
         background-color: white;
         border-radius: 5px;
@@ -184,7 +191,7 @@ $color-white : #fff;
                     border-radius: var(--var-border-radius);
                     padding: 10px;
                     margin: 0 5px;
-                    font-size: 15px;
+                    font-size:1.3rem;
                     color: var(--font-color-secondary);
                     &:hover{
                         background-color: white;

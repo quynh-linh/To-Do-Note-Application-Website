@@ -83,6 +83,19 @@ function Footer() {
                         <li>Surface Pro 9</li>
                     </ul>
                 </div>
+                <div className={cx('wrapper-group')}>
+                    <h4>What's new</h4>
+                    <ul>
+                        <li>Surface Pro 9</li>
+                        <li>Surface Pro 9</li>
+                        <li>Surface Pro 9</li>
+                        <li>Surface Pro 9</li>
+                        <li>Surface Pro 9</li>
+                        <li>Surface Pro 9</li>
+                        <li>Surface Pro 9</li>
+                        <li>Surface Pro 9</li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

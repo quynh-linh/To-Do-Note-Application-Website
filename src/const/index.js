@@ -12,14 +12,14 @@ const formattedDate = (days) => {
     return `${day}/${month}/${year}`;
 };
 // Convert to string :a hh:mm:ss
-const formattedTime = () => {
-    const today = new Date();
-    // Trích xuất giờ, phút và giây
-    const hour = today.getHours();
-    const minute = today.getMinutes();
-    const second = today.getSeconds();
-    return hour.toString().padStart(2, '0') + ':' +minute.toString().padStart(2, '0') + ':' +second.toString().padStart(2, '0');
-};
+// const formattedTime = () => {
+//     const today = new Date();
+//     // Trích xuất giờ, phút và giây
+//     const hour = today.getHours();
+//     const minute = today.getMinutes();
+//     const second = today.getSeconds();
+//     return hour.toString().padStart(2, '0') + ':' +minute.toString().padStart(2, '0') + ':' +second.toString().padStart(2, '0');
+// };
 // CONVERT DAY DD/MM/YYYY to T${DD}
 const formatDateToDays = (dateStr) => {
     // Array containing days of the week
@@ -30,10 +30,16 @@ const formatDateToDays = (dateStr) => {
     // Get the day of the week from the mapping array
     return daysOfWeek[new Date(parts[2], parts[1] - 1, day).getDay()];
 }
+// DATA REAL TIME
+const today= new Date();
+const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+const date = 'ngày ' + today.getDate() + ' tháng ' + (today.getMonth() + 1);
+const dayName = days[today.getDay()];
+const REAL_TIME = dayName + ', ' + date;
 
 // TODAY
-const today = formattedDate(0);
-const convertToday = formatDateToDays(today);
+const myday = formattedDate(0);
+const convertToday = formatDateToDays(myday);
 
 // TOMORROW
 const tomorrow = formattedDate(1);
@@ -393,4 +399,4 @@ const DATA_SETTINGS = [
         ],
     },
 ];
-export {MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP,LIST_TODO,DATA_SETTINGS,MENU_ITEMS_CATEGORY};
+export {MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP,LIST_TODO,DATA_SETTINGS,MENU_ITEMS_CATEGORY,REAL_TIME};

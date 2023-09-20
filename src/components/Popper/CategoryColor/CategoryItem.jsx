@@ -23,6 +23,7 @@ function CategoryItem({data,checked=undefined, onClick=undefined,state={
             title:data.title,
             state:!isClickCategoryItemRed
         });
+
     }
 
     // HANDLE CLICK CATEGORY ITEM ORANGE
@@ -49,44 +50,51 @@ function CategoryItem({data,checked=undefined, onClick=undefined,state={
         });
     }
     useEffect(() => {
-        //CATEGORY ITEM HANDLER FUNCTION IS BEING CHECKED
-        if(checked.state && checked.title === 'Danh mục đỏ'){
-            setCLickCategoryItemRed(true);
-            setClickCategoryItemOrange(false);
-            setClickCategoryItemGreen(false);
-        } else if(checked.state && checked.title === 'Danh mục cam'){
-            setClickCategoryItemOrange(true);
-            setCLickCategoryItemRed(false);
-            setClickCategoryItemGreen(false);
-        } else if(checked.state && checked.title === 'Danh mục xanh'){
-            setClickCategoryItemGreen(true);
-            setClickCategoryItemOrange(false);
-            setCLickCategoryItemRed(false);
-        }
-
         // HANDLING WHEN THE USER CLICKS BUTTON X IN THE DRAWER WHEN TODO SELECTED
-        if((!state.state && state.title === 'Danh mục đỏ') && isClickCategoryItemRed){
-            setCLickCategoryItemRed(!isClickCategoryItemRed);
-        }else if((!state.state &&  state.title === 'Danh mục cam') && isClickCategoryItemOrange){
-            setClickCategoryItemOrange(!isClickCategoryItemOrange);
-        }else if((!state.state && state.title === 'Danh mục xanh') && isClickCategoryItemGreen){
-            setClickCategoryItemGreen(!isClickCategoryItemGreen);
-        } 
-        
-        // HANDLE DATA IS AVAILABLE WHEN THE USER HAS CLICKED ON IT PREVIOUSLY
-        if((state.state && state.title === 'Danh mục đỏ') && !isClickCategoryItemRed){
-            setCLickCategoryItemRed(true);
-            setClickCategoryItemOrange(false);
-            setClickCategoryItemGreen(false);
-        }else if((state.state &&  state.title === 'Danh mục cam') && !isClickCategoryItemOrange){
-            setClickCategoryItemOrange(true);
-            setCLickCategoryItemRed(false);
-            setClickCategoryItemGreen(false);
-        }else if((state.state && state.title === 'Danh mục xanh') && !isClickCategoryItemGreen){
-            setClickCategoryItemGreen(true);
-            setCLickCategoryItemRed(false);
-            setClickCategoryItemOrange(false);
+        if(!state.state){
+            if(state.title === 'Danh mục đỏ' && isClickCategoryItemRed){
+                setCLickCategoryItemRed(!isClickCategoryItemRed);
+            } else if (state.title === 'Danh mục cam' && isClickCategoryItemOrange){
+                setClickCategoryItemOrange(!isClickCategoryItemOrange); 
+            } else if (state.title === 'Danh mục xanh' && isClickCategoryItemGreen){
+                setClickCategoryItemGreen(!isClickCategoryItemGreen);
+            } else{
+                setClickCategoryItemGreen(false);
+                setCLickCategoryItemRed(false);
+                setClickCategoryItemOrange(false);
+            }
+        }else {
+            if(state.title === 'Danh mục đỏ' && !isClickCategoryItemRed){
+                setCLickCategoryItemRed(true);
+                setClickCategoryItemOrange(false);
+                setClickCategoryItemGreen(false);
+            } else if(state.title === 'Danh mục cam' && !isClickCategoryItemOrange){
+                setClickCategoryItemOrange(true);
+                setCLickCategoryItemRed(false);
+                setClickCategoryItemGreen(false);
+            } else if(state.title === 'Danh mục xanh' && !isClickCategoryItemGreen){
+                setClickCategoryItemGreen(true);
+                setCLickCategoryItemRed(false);
+                setClickCategoryItemOrange(false);
+            }
         }
+        //CATEGORY ITEM HANDLER FUNCTION IS BEING CHECKED
+        if(checked.state){
+            if(checked.title === 'Danh mục đỏ'){
+                setCLickCategoryItemRed(true);
+                setClickCategoryItemOrange(false);
+                setClickCategoryItemGreen(false);
+            }else if(checked.title === 'Danh mục cam'){
+                setClickCategoryItemOrange(true);
+                setCLickCategoryItemRed(false);
+                setClickCategoryItemGreen(false);
+            } else if(checked.title === 'Danh mục xanh'){
+                setClickCategoryItemGreen(true);
+                setClickCategoryItemOrange(false);
+                setCLickCategoryItemRed(false);
+            }
+        }
+        
     },[state.state,state.title,checked.state,checked.title,isClickCategoryItemRed,isClickCategoryItemOrange,isClickCategoryItemGreen]);
     return (
         <div>
