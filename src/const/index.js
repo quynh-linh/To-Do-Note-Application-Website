@@ -30,17 +30,17 @@ const formatDateToDays = (dateStr) => {
     // Get the day of the week from the mapping array
     return daysOfWeek[new Date(parts[2], parts[1] - 1, day).getDay()];
 }
-// DATA REAL TIME
-const today= new Date();
-const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-const date = 'ngày ' + today.getDate() + ' tháng ' + (today.getMonth() + 1);
-const dayName = days[today.getDay()];
-const REAL_TIME = dayName + ', ' + date;
+// // DATA REAL TIME
+// const today= new Date();
+// const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+// const date = 'ngày ' + today.getDate() + ' tháng ' + (today.getMonth() + 1);
+// const dayName = days[today.getDay()];
+
 
 // TODAY
 const myday = formattedDate(0);
 const convertToday = formatDateToDays(myday);
-
+const REAL_TIME = myday;
 // TOMORROW
 const tomorrow = formattedDate(1);
 const convertTomorrow = formatDateToDays(tomorrow);
@@ -55,7 +55,7 @@ const MENU_ITEMS_DEADLINE = [
         id: 0,
         icon: faCalendarDays,
         title: 'Hôm nay',
-        value: today,
+        value: myday,
         day: convertToday
     },
     {
@@ -81,21 +81,24 @@ const MENU_ITEMS_REMIND = [
         icon : faClock,
         title : 'Cuối ngày',
         day  : '',
-        hours : '10PM tối'
+        hours : '10PM tối',
+        value: myday
     },
     {
         id : 1,
         icon : faClock,
         title : 'Ngày mai',
         day  : convertTomorrow+',',
-        hours : '9AM sáng'
+        hours : '9AM sáng',
+        value: tomorrow
     },
     {
         id : 2,
         icon : faClock,
         title : 'Tuần tới',
         day  : convertNextWeeks+',',
-        hours : '9AM sáng'
+        hours : '9AM sáng',
+        value: nextWeeks
     }
 ];
 
@@ -173,14 +176,16 @@ const MENU_ITEMS_CATEGORY = [
     }
 ];
 
+
 // LIST DATA TODO
-const LIST_TODO = [
+const LIST_TODO_COMPLETED = [
     {
-        id: 0,
+        id: 100,
         title: 'Học bài',
         des: 'Được thực hiện vào ngày mai',
         priority : 'Danh mục đỏ',
         notes : '',
+        status: 'completed',
         deadline : {
             title : '',
             date : ''
@@ -194,103 +199,7 @@ const LIST_TODO = [
             dateTime : ''
         },
     },
-    {
-        id: 1,
-        title: 'Đi làm',
-        des: 'Từ 6 AM to 19 PM',
-        priority : 'Danh mục cam',
-        notes : '',
-        deadline : {
-            title : 'Hôm nay',
-            date : '13/09/2023'
-        },
-        repeat : {
-            state : true,
-            title : 'Ngày trong tuần'
-        },
-        notify : {
-            title : 'Hôm nay',
-            dateTime : '7:00 AM'
-        },
-    },
-    {
-        id: 2,
-        title: 'Đi chơi',
-        des: 'Chơi công viên Đầm Sen',
-        priority : 'Danh mục xanh',
-        notes : '',
-        deadline : {
-            title : 'Hôm nay',
-            date : '13/09/2023'
-        },
-        repeat : {
-            state : true,
-            title : 'Ngày trong tuần'
-        },
-        notify : {
-            title : 'Hôm nay',
-            dateTime : '7:00 PM'
-        },
-    },
-    {
-        id: 3,
-        title: 'Đi ngủ',
-        des: 'Ngủ trước 23h tối',
-        priority : '',
-        notes : '',
-        deadline : {
-            title : 'Hôm nay',
-            date : '13/09/2023'
-        },
-        repeat : {
-            state : true,
-            title : 'Ngày trong tuần'
-        },
-        notify : {
-            title : 'Hôm nay',
-            dateTime : '6:00 AM'
-        },
-    },
-    {
-        id: 4,
-        title: 'Chơi game',
-        des: 'Chơi game Call of Dragon',
-        priority : 'Danh mục xanh',
-        notes : '',
-        deadline : {
-            title : 'Hôm nay',
-            date : '13/09/2023'
-        },
-        repeat : {
-            state : true,
-            title : 'Ngày trong tuần'
-        },
-        notify : {
-            title : 'Hôm nay',
-            dateTime : '6:00 PM'
-        },
-    },
-    {
-        id: 5,
-        title: 'Học bài',
-        des: 'Được thực hiện vào ngày mai',
-        priority : '',
-        notes : '',
-        deadline : {
-            title : 'Hôm nay',
-            date : '13/09/2023'
-        },
-        repeat : {
-            state : true,
-            title : 'Ngày trong tuần'
-        },
-        notify : {
-            title : 'Hôm nay',
-            dateTime : '9:00 AM'
-        },
-    }
 ]
-
 const DATA_SETTINGS = [
     {
         id: 1,
@@ -399,4 +308,4 @@ const DATA_SETTINGS = [
         ],
     },
 ];
-export {MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP,LIST_TODO,DATA_SETTINGS,MENU_ITEMS_CATEGORY,REAL_TIME};
+export {MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP,DATA_SETTINGS,MENU_ITEMS_CATEGORY,REAL_TIME,LIST_TODO_COMPLETED};

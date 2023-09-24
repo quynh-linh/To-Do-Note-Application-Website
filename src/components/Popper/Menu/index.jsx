@@ -5,14 +5,18 @@ import {Wrapper as PopperWrapper} from '~/components/Popper';
 import MenuItem from './MenuItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarMinus, faCalendarPlus, faCalendarTimes, faTrash} from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
-function Menu({children,state = false,items=[],title = '', handleCLick = undefined , checkValue = false}) {
+function Menu({children,state = false,items=[],title = '', handleCLick = undefined , checkValue = false , removeMenu = undefined}) {
     const cx = className.bind(styles);
+    const [itemSelected,setItemSelected] = useState();
     const handleClickMenuItem = (item) =>{
         handleCLick(item);
+        setItemSelected(item);
     }
     const handleClickRemoveValueMenu = () => {
-        handleCLick(null);
+        const updatedObject = {...itemSelected, title:'' , hours:'' , day:''};
+        removeMenu(updatedObject);
     }
     const showMenuitem = () => {
         return items.map((item,index) => <MenuItem onClick={handleClickMenuItem} key={index} data={item}></MenuItem> )

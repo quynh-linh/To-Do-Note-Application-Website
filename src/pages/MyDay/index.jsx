@@ -14,6 +14,8 @@ import { useState , useEffect} from 'react';
 import {
     faArrowUpWideShort,
     faCalendarDay,
+    faChevronDown,
+    faChevronRight,
     faClose,
     faEllipsisH,
     faObjectGroup,
@@ -23,26 +25,26 @@ import {
     faUmbrellaBeach,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
-
-import styles from './MyDay.module.scss';
-import 'tippy.js/dist/tippy.css';
-import Menu from '~/components/Popper/Menu';
-import Toolbar from '~/components/Popper/Toolbar';
+import { CircularProgress } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     MENU_ITEMS_DEADLINE,
     MENU_ITEMS_REMIND,
     MENU_ITEMS_REPEAT,
     MENU_ITEMS_SORT,
     MENU_ITEMS_GROUP,
-    LIST_TODO,
     MENU_ITEMS_CATEGORY,
     REAL_TIME
 } from '~/const';
 import Todo from '~/components/Todo';
 import Drawer from '~/components/Drawer/Drawer';
-
-import { CircularProgress } from '@mui/material';
+import Menu from '~/components/Popper/Menu';
+import Toolbar from '~/components/Popper/Toolbar';
 import CategoryColor from '~/components/Popper/CategoryColor';
+import styles from './MyDay.module.scss';
+import 'tippy.js/dist/tippy.css';
+
+import { addTodo , completeTodo, unCompletedTodo , updateTodo } from '~/redux/taskSlice';
 function MyDay() {
     const cx = className.bind(styles);
     // LOADING PAGE
@@ -53,6 +55,7 @@ function MyDay() {
     const [isBtnDeadline, setBtnDeadline] = useState(false);
     const [isBtnRemind, setBtnRemind] = useState(false);
     const [isBtnRepeat, setBtnRepeat] = useState(false);
+    // CHECK STATE DRAWER CONTROLS
     // THE TODO STATUS IS BEING SELECTED
     const [isDeadlineSelected, setDeadlineSelected] = useState(false);
     const [isRemindSelected, setRemindSelected] = useState(false);
@@ -73,9 +76,13 @@ function MyDay() {
     // VALUE INPUT ADD TODO
     const [inputValue, setInputValue] = useState('');
     // VALUE MENU CONTROLS
-    const [valueMenuDeadline, setValueMenuDeadline] = useState('');
-    const [valueMenuRemind, setValueMenuRemind] = useState('');
-    const [valueMenuRepeat, setValueMenuRepeat] = useState('');
+    const [valueMenuDeadline, setValueMenuDeadline] = useState({});
+    const [valueMenuRemind, setValueMenuRemind] = useState({});
+    const [valueMenuRepeat, setValueMenuRepeat] = useState({});
+    // VALUE MENU CONTROLS
+    const [updateValueMenuDeadline, setUpdateValueDrawerDeadline] = useState({});
+    const [updateValueMenuRemind, setUpdateValueDrawerRemind] = useState({});
+    const [updateValueMenuRepeat, setUpdateValueDrawerRepeat] = useState({});
     // VALUE FILTER TOOLBAR
     const [valueByCreation, setValueSortByCreation] = useState('');
     const [valueGroupByCategories, setValueGroupByCategories] = useState('');
@@ -83,7 +90,60 @@ function MyDay() {
     const [selectedTodo, setSelectedTodo] = useState({});
     const [selectedTodoTitle,setSelectedTodoTitle] = useState('');
 
+    // SHOW/HIDE WITH LIST_TODO_COMPLETED
+    const [openCompletedTask,setOpenCompletedTask] = useState(false);
 
+    // REDUX TOOLKIT
+    const dispatch = useDispatch();
+    const LIST_TODO = useSelector((state) => state.task.list_todo);
+    const LIST_TODO_COMPLETED = useSelector((state) => state.task.list_todo_completed);
+    // HANDLE ADD TODO TO LIST_TODO
+    const handleClickAddTaskToListTodo = () => {
+        // NEED DATA : inputValue , valueMenuDeadline , valueMenuRemind , valueMenuRepeat
+        const idTask = LIST_TODO.length;
+        if(inputValue !== ''){
+            const addNewTodo = {
+                id: idTask,
+                title: inputValue,
+                des: '',
+                priority : '',
+                notes : '',
+                deadline : {
+                    title : valueMenuDeadline.title ? valueMenuDeadline.title : '',
+                    date : valueMenuDeadline.value ? valueMenuDeadline.value : ''
+                },
+                repeat : {
+                    state : valueMenuRepeat.title ? true : false ,
+                    title : valueMenuRepeat.title ? valueMenuRepeat.title : ''
+                },
+                notify : {
+                    title : valueMenuRemind.title ? valueMenuRemind.title : '',
+                    dateTime : valueMenuRemind.value ? valueMenuRemind.value : ''
+                }
+            }
+            // SEND ACTION (ADD TODO)
+            dispatch(addTodo(addNewTodo));
+        }
+        // SET TO ORIGINAL VALUES
+        setValueMenuDeadline({});
+        setValueMenuRemind({});
+        setValueMenuRepeat({});
+        setInputValue('');
+    }
+
+    // HANDLE MOVE TODO IN LIST_TODO INTO LIST_TODO_COMPLETED
+    const handleTodoToCompletedTodo = (objectTodo) => {
+        if('status' in objectTodo && objectTodo.status === 'completed'){
+            dispatch(completeTodo(objectTodo));
+        }
+    }
+
+    // HANDLE MOVE TODO IN LIST_TODO_COMPLETED INTO LIST_TODO
+    const handleUnCompletedTodo = (objectTodo) => {
+        if('status' in objectTodo && objectTodo.status === 'waiting'){
+            dispatch(unCompletedTodo(objectTodo));
+        }
+    }
 
     // HANDLE USER FOCUS INPUT OPENING ADD TASK
     const handleInputFocus = () => {
@@ -233,6 +293,10 @@ function MyDay() {
     const handleClickTodoItem = (e) => {
         setSelectedTodo(e);
         setClickHandleTodo(e.state);
+        // SET TO INITIAL STATUS DEADLINE,REMIND,REPEAT 
+        setUpdateValueDrawerDeadline({});
+        setUpdateValueDrawerRemind({});
+        setUpdateValueDrawerRepeat({});
         // SET TODO SELECTED DRAWER = FALSE
         setDeadlineSelected(false);
         setRemindSelected(false);
@@ -265,6 +329,11 @@ function MyDay() {
             setStateCheckCategoryColor(updatedObject);
         } 
     };
+
+    // HANDLE CLICK OPEN COMPLETED TASK
+    const handleClickOpenCompletedTask = () =>{
+        setOpenCompletedTask(!openCompletedTask);
+    };
     
     useEffect(() => {
         // CHECK PRIORITY, GET TITLE AND SET CATEGORY COLOR AND CHECK SELECTED
@@ -287,17 +356,21 @@ function MyDay() {
             const updatedObject = { ...categoryColor, state: false};
             setCategoryColor(updatedObject);
             setStateCheckCategoryColor(updatedObject);  
-        }
-
-        // SET LOADING PAGE 18S
-        setTimeout(() => {
-            setLoading(false)
-        }, 500);
+        } 
 
         //
         if(selectedTodo.title !== undefined){
             setSelectedTodoTitle(selectedTodo.title);
         }
+        //
+        console.log(selectedTodo);
+        console.log(selectedTodo.dateTime);
+        console.log(updateValueMenuRemind);
+
+        // SET LOADING PAGE 18S
+        setTimeout(() => {
+            setLoading(false)
+        }, 500);
     }, [selectedTodo.priority,selectedTodo.title]);
     return (
        <div>
@@ -439,8 +512,12 @@ function MyDay() {
                                                     title={'Đến hạn'}
                                                     state={isBtnDeadline}
                                                     items={MENU_ITEMS_DEADLINE}
-                                                    checkValue={valueMenuDeadline ? true : false}
+                                                    checkValue={valueMenuDeadline.title ? true : false}
                                                     handleCLick={(item) => {
+                                                        setValueMenuDeadline(item);
+                                                        setBtnDeadline(false);
+                                                    }}
+                                                    removeMenu={(item) =>{
                                                         setValueMenuDeadline(item);
                                                         setBtnDeadline(false);
                                                     }}
@@ -448,21 +525,25 @@ function MyDay() {
                                                     <button
                                                         onClick={handleClickButtonDeadline}
                                                         className={cx(
-                                                            valueMenuDeadline
+                                                            'title' in valueMenuDeadline && valueMenuDeadline.title !== '' 
                                                                 ? 'container__taskCreation-menuControl_menuList-btnMenuItemTaskCreationCheck'
                                                                 : 'container__taskCreation-menuControl_menuList-btnMenuItemTaskCreation',
                                                         )}
                                                     >
                                                         <FontAwesomeIcon icon={faCalendarDays} />
-                                                        {valueMenuDeadline ? ' ' + valueMenuDeadline : ''}
+                                                        {'title' in valueMenuDeadline ? ' ' + valueMenuDeadline.title : ''}
                                                     </button>
                                                 </Menu>
                                                 <Menu
                                                     title={'Nhắc nhở'}
                                                     state={isBtnRemind}
                                                     items={MENU_ITEMS_REMIND}
-                                                    checkValue={valueMenuRemind ? true : false}
+                                                    checkValue={valueMenuRemind.title ? true : false}
                                                     handleCLick={(item) => {
+                                                        setValueMenuRemind(item);
+                                                        setBtnRemind(false);
+                                                    }}
+                                                    removeMenu={(item) =>{
                                                         setValueMenuRemind(item);
                                                         setBtnRemind(false);
                                                     }}
@@ -470,21 +551,25 @@ function MyDay() {
                                                     <button
                                                         onClick={handleClickButtonRemind}
                                                         className={cx(
-                                                            valueMenuDeadline
+                                                            'title' in valueMenuRemind && valueMenuRemind.title !== '' 
                                                                 ? 'container__taskCreation-menuControl_menuList-btnMenuItemTaskCreationCheck'
                                                                 : 'container__taskCreation-menuControl_menuList-btnMenuItemTaskCreation',
                                                         )}
                                                     >
                                                         <FontAwesomeIcon icon={faBell}></FontAwesomeIcon>
-                                                        {valueMenuRemind ? ' ' + valueMenuRemind : ''}
+                                                        {'title' in valueMenuRemind ? ' ' + valueMenuRemind.title : ''}
                                                     </button>
                                                 </Menu>
                                                 <Menu
                                                     title={'Lặp lại'}
                                                     state={isBtnRepeat}
                                                     items={MENU_ITEMS_REPEAT}
-                                                    checkValue={valueMenuRepeat ? true : false}
+                                                    checkValue={valueMenuRepeat.title ? true : false}
                                                     handleCLick={(item) => {
+                                                        setValueMenuRepeat(item);
+                                                        setBtnRepeat(false);
+                                                    }}
+                                                    removeMenu={(item) =>{
                                                         setValueMenuRepeat(item);
                                                         setBtnRepeat(false);
                                                     }}
@@ -492,13 +577,13 @@ function MyDay() {
                                                     <button
                                                         onClick={handleClickButtonRepeat}
                                                         className={cx(
-                                                            valueMenuDeadline
+                                                            'title' in valueMenuRepeat && valueMenuRepeat.title !== '' 
                                                                 ? 'container__taskCreation-menuControl_menuList-btnMenuItemTaskCreationCheck'
                                                                 : 'container__taskCreation-menuControl_menuList-btnMenuItemTaskCreation',
                                                         )}
                                                     >
                                                         <FontAwesomeIcon icon={faRepeat}></FontAwesomeIcon>
-                                                        {valueMenuRepeat ? ' ' + valueMenuRepeat : ''}
+                                                        {'title' in valueMenuRepeat ? ' ' + valueMenuRepeat.title : ''}
                                                     </button>
                                                 </Menu>
                                             </div>
@@ -507,6 +592,7 @@ function MyDay() {
                                                     type="button"
                                                     aria-label="Thêm"
                                                     disabled={inputValue.length === 0 ? true : false}
+                                                    onClick={handleClickAddTaskToListTodo}
                                                 >
                                                     Thêm
                                                 </button>
@@ -519,6 +605,7 @@ function MyDay() {
                                         {LIST_TODO.map((item, index) => {
                                             return (
                                                 <Todo
+                                                    id={item.id}
                                                     key={index}
                                                     title={item.title}
                                                     description={item.description}
@@ -527,10 +614,41 @@ function MyDay() {
                                                     valueRepeat={item.repeat}
                                                     valuePriority={item.priority}
                                                     onClick={(e) => handleClickTodoItem(e)}
+                                                    completedTodo = {(e) => handleTodoToCompletedTodo(e)}
                                                 />
                                             );
-                                        })}
+                                        })}   
                                     </div>
+                                    <div className={cx('container__tasks-scroll-taskCompleted')}>
+                                        <div className={cx('container__tasks-scroll-taskCompleted-header')}>
+                                            <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCompletedTask ?faChevronDown : faChevronRight} onClick={handleClickOpenCompletedTask}/>
+                                            <div className={cx('container__tasks-scroll-taskCompleted-header-title')}>Đã hoàn thành</div>
+                                            <div className={cx('container__tasks-scroll-taskCompleted-header-quantity')}>{LIST_TODO_COMPLETED.length}</div>
+                                        </div>
+                                        {
+                                            openCompletedTask && (
+                                                <div  className={cx('container__tasks-scroll-taskCompleted-list')}>
+                                                    {LIST_TODO_COMPLETED.map((item, index) => {
+                                                        return (
+                                                            <Todo
+                                                                key={index}
+                                                                id={item.id}
+                                                                type={item.status}
+                                                                title={item.title}
+                                                                description={item.description}
+                                                                valueDeadLine={item.deadline}
+                                                                valueNotify={item.notify}
+                                                                valueRepeat={item.repeat}
+                                                                valuePriority={item.priority}
+                                                                onClick={(e) => handleClickTodoItem(e)}
+                                                                unCompletedTodo={(e) => handleUnCompletedTodo(e)}
+                                                            />
+                                                        );
+                                                    })} 
+                                                </div>
+                                            )
+                                        }
+                                    </div>             
                                 </div>
                             </div>
                         </div>
@@ -563,153 +681,111 @@ function MyDay() {
                                             />
                                         </div>
                                         <div className={cx('drawer-todo__content__menuTask')}>
-                                            {selectedTodo.remind.title !== '' ? (
-                                                <Menu
-                                                    title={'Nhắc nhở'}
-                                                    state={isRemindSelected}
-                                                    items={MENU_ITEMS_REMIND}
-                                                    checkValue={valueMenuRemind ? true : false}
-                                                    handleCLick={(item) => {
-                                                        setValueMenuRemind(item);
-                                                        setBtnRemind(false);
-                                                    }}
-                                                >
-                                                    <div className={cx('drawer-todo__content__menuTask-notify')} onClick={handleClickRemindTodoSelected}>
-                                                        <FontAwesomeIcon
-                                                            className={cx('drawer-todo__content__menuTask-notify-iconSelected')}
-                                                            icon={faNoteSticky}
-                                                        />
-                                                        <div className={cx('drawer-todo__content__menuTask-notify-remind')}>
-                                                            <div className={cx('drawer-todo__content__menuTask-notify-remind-at')}>
-                                                                Nhắc tôi vào lúc {selectedTodo.remind.dateTime}
+                                            <Menu
+                                                title={'Nhắc nhở'}
+                                                state={isRemindSelected}
+                                                items={MENU_ITEMS_REMIND}
+                                                checkValue={updateValueMenuRemind.title ? true : false}
+                                                handleCLick={(item) => {
+                                                    setUpdateValueDrawerRemind(item);
+                                                    setRemindSelected(false);
+                                                }}
+                                                removeMenu = {(item) => {
+                                                    setUpdateValueDrawerRemind(item);
+                                                    setRemindSelected(false);
+                                                }}
+                                            >
+                                                <div className={cx('drawer-todo__content__menuTask-notify')} onClick={handleClickRemindTodoSelected}>
+                                                    <FontAwesomeIcon
+                                                        className={cx('drawer-todo__content__menuTask-notify-iconSelected')}
+                                                        icon={faNoteSticky}
+                                                    />
+                                                    {
+                                                        selectedTodo.remind && (
+                                                            <div className={cx('drawer-todo__content__menuTask-notify-remind')}>
+                                                                <div className={cx('drawer-todo__content__menuTask-notify-remind-at')}>
+                                                                    Nhắc nhở tôi
+                                                                    {selectedTodo.remind.dateTime 
+                                                                        ? (updateValueMenuRemind.hours ? ' '+ updateValueMenuRemind.hours + ' '+ updateValueMenuRemind.day  : ' '+selectedTodo.remind.dateTime)   
+                                                                        : (updateValueMenuRemind.hours ? ' '+updateValueMenuRemind.hours + ' '+ updateValueMenuRemind.day : ' ')  
+                                                                    }   
+                                                                </div>
+                                                                <div className={cx('drawer-todo__content__menuTask-notify-remind-title')}>
+                                                                    {selectedTodo.remind.title 
+                                                                        ? (updateValueMenuRemind.title ? updateValueMenuRemind.title :selectedTodo.remind.title) 
+                                                                        : (updateValueMenuRemind.title ? updateValueMenuRemind.title : '')}
+                                                                </div>
                                                             </div>
-                                                            <div className={cx('drawer-todo__content__menuTask-notify-remind-title')}>
-                                                                {selectedTodo.remind.title}
-                                                            </div>
+                                                        )
+                                                    }
+                                                </div>
+                                            </Menu>
+                                            <Menu
+                                                title={'Đến hạn'}
+                                                state={isDeadlineSelected}
+                                                items={MENU_ITEMS_DEADLINE}
+                                                checkValue={updateValueMenuDeadline.title  ? true : false}
+                                                handleCLick={(item) => {
+                                                    console.log(item);
+                                                    setUpdateValueDrawerDeadline(item);
+                                                    setDeadlineSelected(false);
+                                                }}
+                                                removeMenu = {(item) => {
+                                                    setUpdateValueDrawerDeadline(item);
+                                                    setDeadlineSelected(false);
+                                                }}
+                                            >
+                                                {
+                                                    selectedTodo.deadLine && (
+                                                        <div className={cx('drawer-todo__content__menuTask-dueDate')} onClick={handleClickDeadLineTodoSelected}>
+                                                            <FontAwesomeIcon className={cx('drawer-todo__content__menuTask-dueDate-iconSelected')} icon={faCalendarDay}/>
+                                                            <span className={cx('drawer-todo__content__menuTask-dueDate-titleSelected')} >
+                                                                {
+                                                                    selectedTodo.deadLine.title 
+                                                                    ? 'Đến hạn '+ (updateValueMenuDeadline.title ? updateValueMenuDeadline.title :selectedTodo.deadLine.title)   
+                                                                    : (updateValueMenuDeadline.title ? 'Đến hạn '+ updateValueMenuDeadline.title : 'Thêm ngày đến hạn')
+                                                                }
+                                                            </span>
                                                         </div>
-                                                    </div>
-                                                </Menu>
-                                            ) : (
-                                                <Menu
-                                                    title={'Nhắc nhở'}
-                                                    state={isRemindSelected}
-                                                    items={MENU_ITEMS_REMIND}
-                                                    checkValue={valueMenuRemind ? true : false}
-                                                    handleCLick={(item) => {
-                                                        setValueMenuRemind(item);
-                                                        setBtnRemind(false);
-                                                    }}
-                                                >
-                                                    <div className={cx('drawer-todo__content__menuTask-notify')} onClick={handleClickRemindTodoSelected}>
-                                                        <FontAwesomeIcon
-                                                            className={cx('drawer-todo__content__menuTask-notify-icon')}
-                                                            icon={faNoteSticky}
-                                                        />
-                                                        <span className={cx('drawer-todo__content__menuTask-notify-title')}>
-                                                            Nhắc nhở tôi
-                                                        </span>
-                                                    </div>
-                                                </Menu>
-                                            )}
-                                            {selectedTodo.deadLine.title !== '' ? (
-                                                <Menu
-                                                    title={'Đến hạn'}
-                                                    state={isDeadlineSelected}
-                                                    items={MENU_ITEMS_DEADLINE}
-                                                    checkValue={valueMenuDeadline ? true : false}
-                                                    handleCLick={(item) => {
-                                                        setValueMenuDeadline(item);
-                                                        setBtnDeadline(false);
-                                                    }}
-                                                >
-                                                    <div
-                                                        className={cx('drawer-todo__content__menuTask-dueDate')}
-                                                        onClick={handleClickDeadLineTodoSelected}
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            className={cx('drawer-todo__content__menuTask-dueDate-iconSelected')}
-                                                            icon={faCalendarDay}
-                                                        />
-                                                        <span
-                                                            className={cx('drawer-todo__content__menuTask-dueDate-titleSelected')}
-                                                        >
-                                                            {selectedTodo.deadLine.title}
-                                                        </span>
-                                                    </div>
-                                                </Menu>
-                                            ) : (
-                                                <Menu
-                                                    title={'Đến hạn'}
-                                                    state={isDeadlineSelected}
-                                                    items={MENU_ITEMS_DEADLINE}
-                                                    checkValue={valueMenuDeadline ? true : false}
-                                                    handleCLick={(item) => {
-                                                        setValueMenuDeadline(item);
-                                                        setBtnDeadline(false);
-                                                    }}
-                                                >
-                                                    <div
-                                                        className={cx('drawer-todo__content__menuTask-dueDate')}
-                                                        onClick={handleClickDeadLineTodoSelected}
-                                                    >
-                                                        <FontAwesomeIcon
-                                                            className={cx('drawer-todo__content__menuTask-dueDate-icon')}
-                                                            icon={faCalendarDay}
-                                                        />
-                                                        <span className={cx('drawer-todo__content__menuTask-dueDate-title')}>
-                                                            Thêm ngày đến hạn
-                                                        </span>
-                                                    </div>
-                                                </Menu>
-                                            )}
-                                            {selectedTodo.repeat.state === true ? (
-                                                <Menu
+                                                    )
+                                                }
+                                            </Menu>
+                                            <Menu
                                                 title={'Lặp lại'}
                                                 state={isRepeatSelected}
                                                 items={MENU_ITEMS_REPEAT}
-                                                checkValue={valueMenuRepeat ? true : false}
+                                                checkValue={updateValueMenuRepeat.title  ? true : false}
                                                 handleCLick={(item) => {
-                                                    setValueMenuRepeat(item);
-                                                    setBtnRepeat(false);
+                                                    console.log(item);
+                                                    setUpdateValueDrawerRepeat(item);
+                                                    setRepeatSelected(false);
                                                 }}
-                                                >
-                                                    <div className={cx('drawer-todo__content__menuTask-repeat')} onClick={handleClickRepeatTodoSelected}>
-                                                        <FontAwesomeIcon
-                                                            className={cx('drawer-todo__content__menuTask-repeat-iconSelected')}
-                                                            icon={faRepeat}
-                                                        />
-                                                        <div className={cx('drawer-todo__content__menuTask-repeat-check')}>
-                                                            <span className={cx('drawer-todo__content__menuTask-repeat-check-title')}>
-                                                                Lặp lại
-                                                            </span>
-                                                            <div className={cx('drawer-todo__content__menuTask-repeat-check-days')}>
-                                                                {selectedTodo.repeat.title}
+                                                removeMenu = {(item) => {
+                                                    setUpdateValueDrawerRepeat(item);
+                                                    setRepeatSelected(false);
+                                                }}
+                                            >
+                                                {
+                                                    selectedTodo.repeat && (
+                                                        <div className={cx('drawer-todo__content__menuTask-repeat')} onClick={handleClickRepeatTodoSelected}>
+                                                            <FontAwesomeIcon
+                                                                className={cx('drawer-todo__content__menuTask-repeat-iconSelected')}
+                                                                icon={faRepeat}
+                                                            />
+                                                            <div className={cx('drawer-todo__content__menuTask-repeat-check-title')}>
+                                                                <div>Lặp lại</div>
+                                                                <div>
+                                                                    {
+                                                                        selectedTodo.repeat.state
+                                                                        ? 'vào ' + (updateValueMenuRepeat.title ? updateValueMenuRepeat.title : selectedTodo.repeat.title)
+                                                                        : (updateValueMenuRepeat.title ? 'vào ' +updateValueMenuRepeat.title : '')
+                                                                    }
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </Menu>
-                                            ) : (
-                                                <Menu
-                                                    title={'Lặp lại'}
-                                                    state={isRepeatSelected}
-                                                    items={MENU_ITEMS_REPEAT}
-                                                    checkValue={valueMenuRepeat ? true : false}
-                                                    handleCLick={(item) => {
-                                                        setValueMenuRepeat(item);
-                                                        setBtnRepeat(false);
-                                                    }}
-                                                >
-                                                    <div className={cx('drawer-todo__content__menuTask-repeat')} onClick={handleClickRepeatTodoSelected}>
-                                                        <FontAwesomeIcon
-                                                            className={cx('drawer-todo__content__menuTask-repeat-icon')}
-                                                            icon={faRepeat}
-                                                        />
-                                                        <span className={cx('drawer-todo__content__menuTask-repeat-title')}>
-                                                            Lặp lại
-                                                        </span>
-                                                    </div>
-                                                </Menu>
-                                            )}
+                                                    )
+                                                }
+                                            </Menu>
                                         </div>
                                         <div>
                                             <CategoryColor

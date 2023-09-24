@@ -2,11 +2,13 @@ import className from 'classnames/bind';
 import styles from './Todo.module.scss'
 import { faBell, faCalendar, faCircle , faStar } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRepeat } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck, faRepeat } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-function Todo({title='',description='',valueDeadLine=null,valueNotify=null,valueRepeat=null,valuePriority=null,onClick=null}) {
+function Todo({id,type='',title='',valueDeadLine={},valueNotify={},valueRepeat={},valuePriority={},onClick={},completedTodo={},unCompletedTodo={}}) {
     const cx = className.bind(styles);
     const [classNamePriority,setClassNamePriority] = useState('');
+    const [classNameTitleTodo,setClassNameTitleTodo] = useState('');
+    const [isCheckTodoSelected , setIsCheckTodoSelected] = useState(false);
     // HANDLE CLICK TODO ITEM
     const handleClickTodo = () => {
         onClick({
@@ -18,6 +20,55 @@ function Todo({title='',description='',valueDeadLine=null,valueNotify=null,value
             priority: valuePriority,
         });
     };
+    
+    // HANDLE WHEN USER CLICK BUTTON RADIO CHECK THEN PASS OVER LIST_TODO_COMPLETED
+    const handleClickTodoCompleted =() => {
+        if(type !== 'completed'){
+            const addTodoCompleted = {
+                id: id,
+                title: title,
+                status: 'completed',
+                des: '',
+                priority : valuePriority,
+                notes : '',
+                deadLine : {
+                    title : valueDeadLine.title,
+                    date : valueDeadLine.date
+                },
+                repeat : {
+                    state :valueRepeat.state,
+                    title : valueRepeat.title
+                },
+                notify : {
+                    title : valueNotify.title,
+                    dateTime : valueNotify.dateTime
+                }
+            }
+            completedTodo(addTodoCompleted);  
+        } else {
+            const unCompleted= {
+                id: id,
+                title: title,
+                status: 'waiting',
+                des: '',
+                priority : valuePriority,
+                notes : '',
+                deadLine : {
+                    title : valueDeadLine.title,
+                    date : valueDeadLine.date
+                },
+                repeat : {
+                    state :valueRepeat.state,
+                    title : valueRepeat.title
+                },
+                notify : {
+                    title : valueNotify.title,
+                    dateTime : valueNotify.dateTime
+                }
+            }
+            unCompletedTodo(unCompleted);
+        }
+    }
     useEffect(()=> {
         //HANDLE SET CLASSNAME THEO TỪNG CATEGORY ITEM COLOR
         if(valuePriority === 'Danh mục đỏ'){
@@ -27,21 +78,36 @@ function Todo({title='',description='',valueDeadLine=null,valueNotify=null,value
         }else if(valuePriority === 'Danh mục xanh') {
             setClassNamePriority('wrapper__todo-content-list__menuItem-priority-green');
         }
-    },[valuePriority]);
+
+        // IF TYPE == 'COMPLETE' THEN SET CLASS NAME TITLE WITH (text-decoration: line-through)
+        if(type === 'completed'){
+            setIsCheckTodoSelected(!isCheckTodoSelected)
+            setClassNameTitleTodo('wrapper__todo-content-titleCompleted');
+        } else {
+            setClassNameTitleTodo('wrapper__todo-content-title');
+        }
+    },[valuePriority,type]);
     return ( 
-        <div className={cx('wrapper')} onClick={handleClickTodo}>
-            <button  
-                className={cx('wrapper__todo-check')}     
-                type='button' 
-                >
-                <FontAwesomeIcon icon={faCircle}></FontAwesomeIcon>
-            </button>
-            <div className={cx('wrapper__todo-content')}>
-                <div className={cx('wrapper__todo-content-title')}>{title}</div>
+        <div className={cx('wrapper')}>
+            <div className={cx("wrapper__todo-check")} onClick={handleClickTodoCompleted}>
+                {
+                    isCheckTodoSelected ? (
+                        <div className={cx("wrapper__todo-circleIcon")}>
+                           <FontAwesomeIcon icon={faCircleCheck} />
+                        </div>
+                    ) : (
+                        <div className={cx("wrapper__todo-circleIcon")}>
+                            <i className={cx("wrapper__todo-circleIcon-check")}></i>
+                        </div>
+                    )
+                }
+            </div>
+            <div className={cx('wrapper__todo-content')}  onClick={handleClickTodo}>
+                <div className={cx(classNameTitleTodo)}>{title !== '' ? title : ''}</div>
                 <ul className={cx('wrapper__todo-content-list')}>
                     <li className={cx('wrapper__todo-content-list__menuItem-task')}>Nhiệm vụ</li>
                     {
-                        valueDeadLine.title ? (
+                        valueDeadLine ? (
                             <li className={cx('wrapper__todo-content-list__menuItem-deadline')}>
                                 <FontAwesomeIcon icon={faCalendar} className={cx('wrapper__todo-content-list__menuItem-deadline-menuItem-icon')}/>
                                 {valueDeadLine.title}
@@ -49,7 +115,7 @@ function Todo({title='',description='',valueDeadLine=null,valueNotify=null,value
                         ) : ''
                     }
                     {
-                        valueNotify.title ? (
+                        valueNotify ? (
                             <li className={cx('wrapper__todo-content-list__menuItem-notify')}>
                                 <FontAwesomeIcon icon={faBell} className={cx('wrapper__todo-content-list__menuItem-notify-menuItem-icon')}/>
                                 {valueNotify.title}

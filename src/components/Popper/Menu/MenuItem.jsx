@@ -4,7 +4,7 @@ import styles from "./Menu.module.scss";
 function MenuItem({data, onClick=undefined}) {
     const cx = className.bind(styles);
     const handleClickBox = () =>{
-        onClick(data.title)
+        onClick(data)
     }
     return (
         <div className={cx('menu-box')} onClick={handleClickBox}>

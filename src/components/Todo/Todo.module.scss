@@ -13,24 +13,54 @@
         background-color: #f1f1f1;
         cursor: pointer;
     }
-    &__todo-check,
-    &__todo-priority{
+    &__todo-priority,
+    &__todo-check{
         width: 5%;
         background: none;
         border: none;
         font-size: 15px;
-        color: var(--background-color);
-        cursor: pointer;   
-        text-align: center; 
+        color: var(--background-color); 
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    &__todo-circleIcon{
+        width: 15px;
+        height: 15px;
+        border: 1px solid var(--background-color);
+        border-radius: 50%;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        &:hover &-check::before{
+            display: block;
+            top: 7%;
+            right: 32%;
+            cursor: pointer;
+        }
+        &-check::before {
+            content: "✓";
+            color: var(--background-color);
+            font-size: 10px;
+            display: none;
+            position: absolute;
+            font-weight: 900;
+          }
     }
     &__todo-content{
-        width: 90%;    
-        &-title{
+        width: 90%; 
+        &-title,
+        &-titleCompleted{
             font-size: 1.4rem;
             color: #323130;
             padding-left: 12px;
             font-weight: 600;
         }   
+        &-titleCompleted{
+            text-decoration: line-through;
+        }  
         &-list{
             display: flex;
             align-items: center;

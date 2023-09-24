@@ -221,8 +221,33 @@ $color-white : #fff;
         padding-bottom: 5px;
         &-tasksList{
             margin: 20px;
-            min-height: 53px;
             border-radius: var(--var-border-radius);
+        }
+        &-taskCompleted{
+            &-header{
+                display: flex;
+                align-items: center;
+                border-bottom: 1px solid var(--font-color-secondary);
+                padding-bottom: 10px;
+                margin: 0 20px;
+                &-icon,
+                &-title,
+                &-quantity{
+                    padding: 5px;
+                    font-weight: 600;
+                }
+                &-title{
+                    font-size: 1.4rem;
+                }
+                &-icon{
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+            &-list{
+                margin: 0 20px 20px 20px;
+            }
         }
     }
     
@@ -330,6 +355,7 @@ $color-drawer-todo : #797775;
                 }
                 &-remind{
                     padding: 10px;
+                    font-size: 1.3rem;
                     &-at{
                         font-size: 1.3rem;
                         color: var(--background-color);
@@ -366,6 +392,8 @@ $color-drawer-todo : #797775;
                     &-title{
                         font-size: 1.3rem;
                         font-weight: 600;
+                        padding: 5px 5px 5px 10px;
+                        margin: 10px 0 10px 0;
                         color: var(--background-color);
                     }
                     &-days{
