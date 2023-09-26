@@ -31,16 +31,16 @@ const formatDateToDays = (dateStr) => {
     return daysOfWeek[new Date(parts[2], parts[1] - 1, day).getDay()];
 }
 // // DATA REAL TIME
-// const today= new Date();
-// const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-// const date = 'ngày ' + today.getDate() + ' tháng ' + (today.getMonth() + 1);
-// const dayName = days[today.getDay()];
+const today= new Date();
+const days = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+const date = 'ngày ' + today.getDate() + ' tháng ' + (today.getMonth() + 1);
+const dayName = days[today.getDay()];
 
 
 // TODAY
 const myday = formattedDate(0);
 const convertToday = formatDateToDays(myday);
-const REAL_TIME = myday;
+const REAL_TIME = dayName + "," + date;
 // TOMORROW
 const tomorrow = formattedDate(1);
 const convertTomorrow = formatDateToDays(tomorrow);
@@ -198,7 +198,7 @@ const LIST_TODO_COMPLETED = [
             title : '',
             dateTime : ''
         },
-    },
+    }
 ]
 const DATA_SETTINGS = [
     {

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link , useLocation  } from "react-router-dom";
 import className from 'classnames/bind';
@@ -9,7 +8,6 @@ import { Toast } from '~/components/toast';
 
 const SidebarItem = () => {
     const cx = className.bind(styles);
-    const [itemSelected, setItemSelected] = useState(false);
     const [pathSelected,setPathSelected] = useState({});
     // GET PATH LOCATION
     const location = useLocation();
@@ -22,10 +20,9 @@ const SidebarItem = () => {
             // POSITION : TOP-RIGHT , BOTTOM-RIGHT , ...
             // AUTOCLOSE : SET TIME CLOSE
             // LIMIT : NUMBER OF IMPRESSIONS
-            Toast({type:'info',title: item.name,position:'top-right',autoClose:1000,limit:1});
+            Toast({type:'info',title: item.name,position:'top-right',autoClose:1000,limit:1,des:'page'});
         } else {
             const updatePathSelected = {...pathSelected,path :item.path,id: item.id}
-            console.log(updatePathSelected);
             setPathSelected(updatePathSelected);
         }
     };
@@ -36,12 +33,12 @@ const SidebarItem = () => {
             if(currentPath === item.path){
                 const updatePathSelected = {...pathSelected,id: item.id}
                 setPathSelected(updatePathSelected);
-                return
+                return true;
             } else {
-                return
+                return false;
             }
         })
-    },[currentPath]);
+    },[currentPath,]);
     return (
         sidebarRoutes.map((item) => {
             return (           

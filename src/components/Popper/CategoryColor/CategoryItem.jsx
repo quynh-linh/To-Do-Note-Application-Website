@@ -3,7 +3,7 @@ import className from 'classnames/bind';
 import styles from "./Category.module.scss"
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
-function CategoryItem({data,checked=undefined, onClick=undefined,state={
+function CategoryItem({data, onClick=undefined,state={
     title:'',
     state:true
 }}) {
@@ -49,6 +49,7 @@ function CategoryItem({data,checked=undefined, onClick=undefined,state={
             state:!isClickCategoryItemGreen
         });
     }
+   
     useEffect(() => {
         // HANDLING WHEN THE USER CLICKS BUTTON X IN THE DRAWER WHEN TODO SELECTED
         if(!state.state){
@@ -78,24 +79,7 @@ function CategoryItem({data,checked=undefined, onClick=undefined,state={
                 setClickCategoryItemOrange(false);
             }
         }
-        //CATEGORY ITEM HANDLER FUNCTION IS BEING CHECKED
-        if(checked.state){
-            if(checked.title === 'Danh mục đỏ'){
-                setCLickCategoryItemRed(true);
-                setClickCategoryItemOrange(false);
-                setClickCategoryItemGreen(false);
-            }else if(checked.title === 'Danh mục cam'){
-                setClickCategoryItemOrange(true);
-                setCLickCategoryItemRed(false);
-                setClickCategoryItemGreen(false);
-            } else if(checked.title === 'Danh mục xanh'){
-                setClickCategoryItemGreen(true);
-                setClickCategoryItemOrange(false);
-                setCLickCategoryItemRed(false);
-            }
-        }
-        
-    },[state.state,state.title,checked.state,checked.title,isClickCategoryItemRed,isClickCategoryItemOrange,isClickCategoryItemGreen]);
+    },[state.state,state.title,isClickCategoryItemRed,isClickCategoryItemOrange,isClickCategoryItemGreen]);
     return (
         <div>
             {

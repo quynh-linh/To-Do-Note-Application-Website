@@ -24,7 +24,8 @@
         align-items: center;
         justify-content: space-around;
     }
-    &__todo-circleIcon{
+    &__todo-circleIcon,
+    &__todo-circleCheckIcon{
         width: 15px;
         height: 15px;
         border: 1px solid var(--background-color);
@@ -34,6 +35,8 @@
         align-items: center;
         justify-content: center;
         position: relative;
+    }
+    &__todo-circleIcon{
         &:hover &-check::before{
             display: block;
             top: 7%;

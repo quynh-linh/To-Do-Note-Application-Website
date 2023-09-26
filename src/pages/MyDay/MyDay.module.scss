@@ -224,12 +224,12 @@ $color-white : #fff;
             border-radius: var(--var-border-radius);
         }
         &-taskCompleted{
+            margin: 0 20px 20px 20px;
             &-header{
                 display: flex;
                 align-items: center;
                 border-bottom: 1px solid var(--font-color-secondary);
                 padding-bottom: 10px;
-                margin: 0 20px;
                 &-icon,
                 &-title,
                 &-quantity{
@@ -244,9 +244,6 @@ $color-white : #fff;
                         cursor: pointer;
                     }
                 }
-            }
-            &-list{
-                margin: 0 20px 20px 20px;
             }
         }
     }
@@ -263,6 +260,7 @@ $color-drawer-todo : #797775;
         &__addCategory,
         &__textarea{
             padding: 10px;
+            border:1px solid #ececec;
             border-radius: var(--var-border-radius);
             background-color: $color-white;
             display: flex;
@@ -270,16 +268,40 @@ $color-drawer-todo : #797775;
         }
         &__title{
             justify-content: space-around;
-            &-checkbox{
-                width: 10%;
+            &-circleCheckIcon{
                 color: var(--background-color);
+            }
+            &-circleIcon{
+                width: 15px;
+                height: 15px;
+                border: 1px solid var(--background-color);
+                border-radius: 50%;
+                background-color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                &:hover &-check::before{
+                    display: block;
+                    top: 7%;
+                    right: 32%;
+                    cursor: pointer;
+                }
+                &-check::before {
+                    content: "✓";
+                    color: var(--background-color);
+                    font-size: 10px;
+                    display: none;
+                    position: absolute;
+                    font-weight: 900;
+                  }
             }
             &-text{
                 width: 80%;
-                padding: 5px;
                 border: none;
-                font-size: 1.3rem;
-                font-weight: 600;
+                font-size: 1.8rem;
+                font-weight: 400;
+                padding-left: 15px;
                 &:focus{
                     outline: none;
                 }
@@ -323,14 +345,17 @@ $color-drawer-todo : #797775;
         }
         &__menuTask{
             border-radius: var(--var-border-radius);
-            background-color: $color-white;
+            background-color: #fff;
             margin-top: 10px;
+            border: 1px solid #ececec;
+            padding: 10px;
             &-notify,
             &-repeat,
             &-dueDate{
                 display: flex;
                 align-items: center;
                 border-bottom: 1px solid #ccc ;
+                height:40px;
                 &:hover{
                     cursor: pointer;
                     background-color: #e7e7e7;
@@ -338,7 +363,6 @@ $color-drawer-todo : #797775;
                 }
                 &-icon{
                     width: 10%;
-                    padding: 10px 0 10px 10px ;
                 }
                 &-title{
                     padding: 5px 5px 5px 10px;
@@ -350,7 +374,6 @@ $color-drawer-todo : #797775;
             &-notify {
                 &-iconSelected{
                     width: 10%;
-                    padding: 10px 0 10px 10px ;
                     color: var(--background-color);
                 }
                 &-remind{
@@ -368,9 +391,9 @@ $color-drawer-todo : #797775;
                 }
             }
             &-dueDate{
+                padding: 10px 0;
                 &-iconSelected{
                     width: 10%;
-                    padding: 10px 0 10px 10px ;
                     color: var(--background-color);
                 }
                 &-titleSelected{
@@ -384,7 +407,6 @@ $color-drawer-todo : #797775;
                 border: none;
                 &-iconSelected{
                     width: 10%;
-                    padding: 10px 0 10px 10px ;
                     color: var(--background-color);
                 }
                 &-check{
@@ -392,9 +414,12 @@ $color-drawer-todo : #797775;
                     &-title{
                         font-size: 1.3rem;
                         font-weight: 600;
-                        padding: 5px 5px 5px 10px;
-                        margin: 10px 0 10px 0;
                         color: var(--background-color);
+                    }
+                    &__selected{
+                        font-size: 1.2rem;
+                        margin-top: 5px;
+                        color:#000
                     }
                     &-days{
                         font-size: 1.2rem;
@@ -405,19 +430,21 @@ $color-drawer-todo : #797775;
         }
         &__addCategory{
             margin-top: 10px;
-            padding: 15px;
             &:hover{
                 cursor: pointer;
                 background-color: #e7e7e7;
             }
             &-icon{
                 width: 10%;
+                color: var(--background-color);
             }
             &-list{
                  width: 90%;
                 &-text{
                     padding: 5px  5px 10px;
                     font-size: 1.3rem;
+                    font-weight: 600;
+                    color: var(--background-color);
                 }
                 &-CategoryList{
                     display: grid;

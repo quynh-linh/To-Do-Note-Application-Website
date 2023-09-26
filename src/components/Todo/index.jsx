@@ -8,22 +8,23 @@ function Todo({id,type='',title='',valueDeadLine={},valueNotify={},valueRepeat={
     const cx = className.bind(styles);
     const [classNamePriority,setClassNamePriority] = useState('');
     const [classNameTitleTodo,setClassNameTitleTodo] = useState('');
-    const [isCheckTodoSelected , setIsCheckTodoSelected] = useState(false);
     // HANDLE CLICK TODO ITEM
     const handleClickTodo = () => {
         onClick({
-            state: true,
+            state:true,
+            id:id,
             title: title,
             deadLine: valueDeadLine,
             remind: valueNotify,
             repeat: valueRepeat,
             priority: valuePriority,
+            type: type === 'completed' ? 'completed' : 'waiting',
         });
     };
     
     // HANDLE WHEN USER CLICK BUTTON RADIO CHECK THEN PASS OVER LIST_TODO_COMPLETED
     const handleClickTodoCompleted =() => {
-        if(type !== 'completed'){
+        if(type === 'waiting'){
             const addTodoCompleted = {
                 id: id,
                 title: title,
@@ -44,8 +45,8 @@ function Todo({id,type='',title='',valueDeadLine={},valueNotify={},valueRepeat={
                     dateTime : valueNotify.dateTime
                 }
             }
-            completedTodo(addTodoCompleted);  
-        } else {
+            completedTodo(addTodoCompleted);
+        } else if(type === 'completed') {
             const unCompleted= {
                 id: id,
                 title: title,
@@ -81,7 +82,6 @@ function Todo({id,type='',title='',valueDeadLine={},valueNotify={},valueRepeat={
 
         // IF TYPE == 'COMPLETE' THEN SET CLASS NAME TITLE WITH (text-decoration: line-through)
         if(type === 'completed'){
-            setIsCheckTodoSelected(!isCheckTodoSelected)
             setClassNameTitleTodo('wrapper__todo-content-titleCompleted');
         } else {
             setClassNameTitleTodo('wrapper__todo-content-title');
@@ -91,8 +91,8 @@ function Todo({id,type='',title='',valueDeadLine={},valueNotify={},valueRepeat={
         <div className={cx('wrapper')}>
             <div className={cx("wrapper__todo-check")} onClick={handleClickTodoCompleted}>
                 {
-                    isCheckTodoSelected ? (
-                        <div className={cx("wrapper__todo-circleIcon")}>
+                    type === 'completed' ? (
+                        <div className={cx("wrapper__todo-circleCheckIcon")}>
                            <FontAwesomeIcon icon={faCircleCheck} />
                         </div>
                     ) : (
@@ -107,25 +107,30 @@ function Todo({id,type='',title='',valueDeadLine={},valueNotify={},valueRepeat={
                 <ul className={cx('wrapper__todo-content-list')}>
                     <li className={cx('wrapper__todo-content-list__menuItem-task')}>Nhiệm vụ</li>
                     {
-                        valueDeadLine ? (
-                            <li className={cx('wrapper__todo-content-list__menuItem-deadline')}>
-                                <FontAwesomeIcon icon={faCalendar} className={cx('wrapper__todo-content-list__menuItem-deadline-menuItem-icon')}/>
-                                {valueDeadLine.title}
-                            </li>
-                        ) : ''
+                        valueDeadLine ? (valueDeadLine.title ? 
+                            (
+                                <li className={cx('wrapper__todo-content-list__menuItem-deadline')}>
+                                    <FontAwesomeIcon icon={faCalendar} className={cx('wrapper__todo-content-list__menuItem-deadline-menuItem-icon')}/>
+                                    {valueDeadLine.title}
+                                </li>
+                            ):'') 
+                        : ''
                     }
                     {
-                        valueNotify ? (
-                            <li className={cx('wrapper__todo-content-list__menuItem-notify')}>
-                                <FontAwesomeIcon icon={faBell} className={cx('wrapper__todo-content-list__menuItem-notify-menuItem-icon')}/>
-                                {valueNotify.title}
-                            </li>
-                        ) : ''
+                        valueNotify ? (valueNotify.title ? 
+                            (
+                                <li className={cx('wrapper__todo-content-list__menuItem-notify')}>
+                                    <FontAwesomeIcon icon={faBell} className={cx('wrapper__todo-content-list__menuItem-notify-menuItem-icon')}/>
+                                    {valueNotify.title}
+                                </li>
+                            ) : '') 
+                        : ''
                     }
                     {
                         valueRepeat.state === true ? (
                             <li className={cx('wrapper__todo-content-list__menuItem-repeat')}>
                                 <FontAwesomeIcon icon={faRepeat} className={cx('wrapper__todo-content-list__menuItem-repeat-menuItem-icon')}/>
+                                {valueRepeat.title}
                             </li>
                         ) : ''
                     } 

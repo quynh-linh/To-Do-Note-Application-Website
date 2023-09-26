@@ -16,6 +16,7 @@ import {
     faCalendarDay,
     faChevronDown,
     faChevronRight,
+    faCircleCheck,
     faClose,
     faEllipsisH,
     faObjectGroup,
@@ -44,7 +45,8 @@ import CategoryColor from '~/components/Popper/CategoryColor';
 import styles from './MyDay.module.scss';
 import 'tippy.js/dist/tippy.css';
 
-import { addTodo , completeTodo, unCompletedTodo , updateTodo } from '~/redux/taskSlice';
+import { addTodo , completeTodo, unCompletedTodo , updateTodo , removeTodo } from '~/redux/taskSlice';
+import { Toast } from '~/components/toast';
 function MyDay() {
     const cx = className.bind(styles);
     // LOADING PAGE
@@ -64,10 +66,6 @@ function MyDay() {
     // CATEGORY COLOR IN TODO STATUS IS BEING SELECTED
     const [categoryColor, setCategoryColor] = useState({});
     const [classNameCategoryItem,setClassNameCategoryItem] = useState('');
-    const [stateCheckCategoryColor,setStateCheckCategoryColor] = useState({
-        title: '',
-        state: true
-    });
     // CHECK STATE FILTER TOOLBAR
     const [isSortByCreation, setSortByCreation] = useState(false);
     const [isGroupByCategories, setGroupByCategories] = useState(false);
@@ -97,7 +95,7 @@ function MyDay() {
     const dispatch = useDispatch();
     const LIST_TODO = useSelector((state) => state.task.list_todo);
     const LIST_TODO_COMPLETED = useSelector((state) => state.task.list_todo_completed);
-    // HANDLE ADD TODO TO LIST_TODO
+        // HANDLE ADD TODO TO LIST_TODO
     const handleClickAddTaskToListTodo = () => {
         // NEED DATA : inputValue , valueMenuDeadline , valueMenuRemind , valueMenuRepeat
         const idTask = LIST_TODO.length;
@@ -108,6 +106,7 @@ function MyDay() {
                 des: '',
                 priority : '',
                 notes : '',
+                status: 'waiting',
                 deadline : {
                     title : valueMenuDeadline.title ? valueMenuDeadline.title : '',
                     date : valueMenuDeadline.value ? valueMenuDeadline.value : ''
@@ -129,21 +128,263 @@ function MyDay() {
         setValueMenuRemind({});
         setValueMenuRepeat({});
         setInputValue('');
-    }
+    };
 
-    // HANDLE MOVE TODO IN LIST_TODO INTO LIST_TODO_COMPLETED
+        // HANDLE MOVE TODO IN LIST_TODO INTO LIST_TODO_COMPLETED
     const handleTodoToCompletedTodo = (objectTodo) => {
-        if('status' in objectTodo && objectTodo.status === 'completed'){
+        if(objectTodo.status === 'completed'){
             dispatch(completeTodo(objectTodo));
         }
-    }
+    };
 
-    // HANDLE MOVE TODO IN LIST_TODO_COMPLETED INTO LIST_TODO
+        // HANDLE MOVE TODO IN LIST_TODO_COMPLETED INTO LIST_TODO
     const handleUnCompletedTodo = (objectTodo) => {
-        if('status' in objectTodo && objectTodo.status === 'waiting'){
+        if(objectTodo.status === 'waiting'){
             dispatch(unCompletedTodo(objectTodo));
         }
-    }
+    };
+
+        // HANDLE REMOVE TODO 
+    const handleRemoveTodo = () => {
+        if(!Number.isNaN(selectedTodo.id)){
+            dispatch(removeTodo(selectedTodo.id));
+            setClickHandleTodo(false);
+            setSelectedTodo({});
+        }
+    };
+
+        // HANDLE CLICK CHECKED ADD TODO 
+    const handleClickCheckedAddToDoToListCompleted = () => {
+        if('type' in selectedTodo && selectedTodo.type === 'waiting'){
+            const objectSelected = {
+                id: selectedTodo.id,
+                title: selectedTodo.title,
+                des: '',
+                priority : selectedTodo.priority,
+                notes : '',
+                status:'completed',
+                deadline : {
+                    title : selectedTodo.deadLine.title,
+                    date : selectedTodo.deadLine.date
+                },
+                repeat : {
+                    state : selectedTodo.repeat.state,
+                    title : selectedTodo.repeat.title
+                },
+                notify : {
+                    title : selectedTodo.remind.title,
+                    dateTime : selectedTodo.remind.dateTime
+                },
+            }
+            const updateSelected = {
+                ...selectedTodo,
+                type:'completed'
+            }
+            setSelectedTodo(updateSelected);
+            dispatch(completeTodo(objectSelected));
+        } else if('type' in selectedTodo && selectedTodo.type === 'completed') {
+            const objectSelected = {
+                id: selectedTodo.id,
+                title: selectedTodo.title,
+                des: '',
+                priority : selectedTodo.priority,
+                notes : '',
+                status:'waiting',
+                deadline : {
+                    title : selectedTodo.deadLine.title,
+                    date : selectedTodo.deadLine.date
+                },
+                repeat : {
+                    state : selectedTodo.repeat.state,
+                    title : selectedTodo.repeat.title
+                },
+                notify : {
+                    title : selectedTodo.remind.title,
+                    dateTime : selectedTodo.remind.dateTime
+                },
+            }
+            const updateSelected = {
+                ...selectedTodo,
+                type:'waiting'
+            }
+            setSelectedTodo(updateSelected);
+            dispatch(unCompletedTodo(objectSelected));
+        }
+        // SET DRAWER SELECTED TODO
+        setPickCategory(false);
+        setDeadlineSelected(false);
+        setRemindSelected(false);
+        setRepeatSelected(false);
+        // SET MENU CONTROLS = FALSE
+        setBtnDeadline(false);
+        setBtnRemind(false);
+        setBtnRepeat(false);
+        // SET FILTER TOOLBAR = FALSE
+        setSortByCreation(false);
+        setGroupByCategories(false);
+    };
+
+        // HANDLE UPDATE REMIND DRAWER TODO SELECTED
+    const updateRemindSelectedTodo = (item) =>{
+        setUpdateValueDrawerRemind(item);
+        setRemindSelected(false);
+        const id = selectedTodo.id;
+        const updatedTodo = {
+            notify : {
+                title:item.title,
+                dateTime:item.hours
+            }
+        }
+        const updateSelected = {
+            ...selectedTodo,
+            remind: {
+                dateTime:item.hours,
+                title:item.title
+            }
+        }
+        setSelectedTodo(updateSelected);
+        dispatch(updateTodo({id,updatedTodo}));
+    };
+        // HANDLE UPDATE DEADLINE DRAWER TODO SELECTED
+    const updateDeadLineSelectedTodo = (item) =>{
+        setUpdateValueDrawerDeadline(item);
+        setDeadlineSelected(false);
+        const id = selectedTodo.id;
+        const updatedTodo = {
+            deadline : {
+                title : item.title,
+                date : item.value
+            }
+        }
+        const updateSelected = {
+            ...selectedTodo,
+            deadline : {
+                title : item.title,
+                date : item.value
+            }
+        }
+        setSelectedTodo(updateSelected);
+        dispatch(updateTodo({id,updatedTodo}));
+    };
+        // HANDLE UPDATE REPEAT DRAWER TODO SELECTED
+    const updateRepeatSelectedTodo = (item) =>{
+        setUpdateValueDrawerRepeat(item);
+        setRepeatSelected(false);
+        if(item.title !== ''){
+            const id = selectedTodo.id;
+            const updatedTodo = {
+                repeat : {
+                    state : true,
+                    title : item.title
+                }
+            }
+            const updateSelected = {
+                ...selectedTodo,
+                repeat : {
+                    state : true,
+                    title : item.title
+                }
+            }
+            setSelectedTodo(updateSelected);
+            dispatch(updateTodo({id,updatedTodo}));
+        }
+    };
+
+        // HANDLE UPDATE CATEGORY COLOR TODO SELECTED
+    const updateCategoryColorSelectedTodo = (item) => {
+        setCategoryColor(item);
+        const id = selectedTodo.id;
+        if(item.title !== ''){
+            if(item.title === 'Danh mục đỏ'){
+                setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemRed');
+            } else if(item.title === 'Danh mục cam'){
+                setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemOrange');
+            } else if(item.title === 'Danh mục xanh'){
+                setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemGreen');
+            }
+            const updatedTodo = {
+                priority : item.title
+            }    
+            const updateSelected = {
+                ...selectedTodo,
+                priority : item.title
+            }
+            setSelectedTodo(updateSelected);   
+            dispatch(updateTodo({id,updatedTodo}));
+        }
+    };
+
+        // HANDLE REMOVE REMIND DRAWER TODO SELECTED
+    const removeRemindSelectedTodo = (item) =>{
+        setUpdateValueDrawerRemind(item);
+        setRemindSelected(false);
+        const id = selectedTodo.id;
+        const updatedTodo = {
+            notify : {
+                title:'',
+                dateTime:''
+            }
+        }
+        const updateSelected = {
+            ...selectedTodo,
+            remind : {
+                title:'',
+                dateTime:''
+            }
+        }
+        setSelectedTodo(updateSelected);
+        dispatch(updateTodo({id,updatedTodo}));
+    };
+
+        // HANDLE REMOVE REPEAT DRAWER TODO SELECTED
+    const removeRepeatSelectedTodo = (item) =>{
+        setUpdateValueDrawerRepeat(item);
+        setRepeatSelected(false);
+        if(item.title !== ''){
+            const id = selectedTodo.id;
+            const updatedTodo = {
+                repeat : {
+                    state : false,
+                    title : ''
+                }
+            }
+            const updateSelected = {
+                ...selectedTodo,
+                repeat : {
+                    state : false,
+                    title : ''
+                }
+            }
+            setSelectedTodo(updateSelected);
+            dispatch(updateTodo({id,updatedTodo}));
+        }
+    };
+
+        // HANDLE REMOVE DEADLINE DRAWER TODO SELECTED
+    const removeDeadLineSelectedTodo = (item) =>{
+        setUpdateValueDrawerDeadline(item);
+        setDeadlineSelected(false);
+        const id = selectedTodo.id;
+        const updatedTodo = {
+            deadline : {
+                title : '',
+                date : ''
+            }
+        }
+        const updateSelected = {
+            ...selectedTodo,
+            deadline : {
+                title : '',
+                date : ''
+            }
+        }
+        setSelectedTodo(updateSelected);
+        dispatch(updateTodo({id,updatedTodo}));
+    };
+
+    const handleAddNotesToSelectedTodo = () => {
+        Toast({type:'info',title: 'cập nhập ghi chú',position:'bottom-left',autoClose:1000,limit:1,des:'page'});
+    };
 
     // HANDLE USER FOCUS INPUT OPENING ADD TASK
     const handleInputFocus = () => {
@@ -293,18 +534,22 @@ function MyDay() {
     const handleClickTodoItem = (e) => {
         setSelectedTodo(e);
         setClickHandleTodo(e.state);
+
         // SET TO INITIAL STATUS DEADLINE,REMIND,REPEAT 
-        setUpdateValueDrawerDeadline({});
-        setUpdateValueDrawerRemind({});
-        setUpdateValueDrawerRepeat({});
+        setUpdateValueDrawerDeadline({...updateDeadLineSelectedTodo,title:e.deadLine.title});
+        setUpdateValueDrawerRemind({...updateRemindSelectedTodo,title:e.remind.title});
+        setUpdateValueDrawerRepeat({...updateRepeatSelectedTodo,title:e.repeat.title});
+
         // SET TODO SELECTED DRAWER = FALSE
         setDeadlineSelected(false);
         setRemindSelected(false);
         setRepeatSelected(false);
+        setPickCategory(false);
         // SET MENU CONTROLS = FALSE
         setBtnDeadline(false);
         setBtnRemind(false);
         setBtnRepeat(false);
+
         // SET FILTER TOOLBAR = FALSE
         setSortByCreation(false);
         setGroupByCategories(false);
@@ -322,11 +567,19 @@ function MyDay() {
 
     // HANDLE REMOVE CATEGORY COLOR
     const handleRemoveCategoryColor = () => {
-        console.log(categoryColor);
         if (categoryColor.state) {
             const updatedObject = { ...categoryColor, state: false};
+            const id = selectedTodo.id;
+            const updatedTodo = {
+                priority : ''
+            }
+            const updateSelected = {
+                ...selectedTodo,
+                priority : ''
+            }
             setCategoryColor(updatedObject);
-            setStateCheckCategoryColor(updatedObject);
+            setSelectedTodo(updateSelected);
+            dispatch(updateTodo({id,updatedTodo}));
         } 
     };
 
@@ -336,36 +589,29 @@ function MyDay() {
     };
     
     useEffect(() => {
+        console.log(selectedTodo)
         // CHECK PRIORITY, GET TITLE AND SET CATEGORY COLOR AND CHECK SELECTED
         if(selectedTodo.priority === 'Danh mục đỏ'){
-            const updatedObjectRed = { ...categoryColor, state: true , title:'Danh mục đỏ'};
+            const updatedObjectRed = { ...categoryColor, state: true , title: selectedTodo.priority};
             setCategoryColor(updatedObjectRed);
-            setStateCheckCategoryColor(updatedObjectRed);
             setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemRed');
         } else if(selectedTodo.priority === 'Danh mục xanh'){
-            const updatedObjectGreen = { ...categoryColor, state: true , title:'Danh mục xanh'};
+            const updatedObjectGreen = { ...categoryColor, state: true , title: selectedTodo.priority};
             setCategoryColor(updatedObjectGreen);
-            setStateCheckCategoryColor(updatedObjectGreen);
             setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemGreen');
         } else if(selectedTodo.priority === 'Danh mục cam'){
-            const updatedObjectOrange = { ...categoryColor, state: true , title:'Danh mục cam'};
+            const updatedObjectOrange = { ...categoryColor, state: true , title: 'Danh mục cam'};
             setCategoryColor(updatedObjectOrange);
-            setStateCheckCategoryColor(updatedObjectOrange);
             setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemOrange');
         } else {
             const updatedObject = { ...categoryColor, state: false};
-            setCategoryColor(updatedObject);
-            setStateCheckCategoryColor(updatedObject);  
+            setCategoryColor(updatedObject); 
         } 
 
         //
         if(selectedTodo.title !== undefined){
             setSelectedTodoTitle(selectedTodo.title);
         }
-        //
-        console.log(selectedTodo);
-        console.log(selectedTodo.dateTime);
-        console.log(updateValueMenuRemind);
 
         // SET LOADING PAGE 18S
         setTimeout(() => {
@@ -608,6 +854,7 @@ function MyDay() {
                                                     id={item.id}
                                                     key={index}
                                                     title={item.title}
+                                                    type={item.status}
                                                     description={item.description}
                                                     valueDeadLine={item.deadline}
                                                     valueNotify={item.notify}
@@ -620,34 +867,36 @@ function MyDay() {
                                         })}   
                                     </div>
                                     <div className={cx('container__tasks-scroll-taskCompleted')}>
-                                        <div className={cx('container__tasks-scroll-taskCompleted-header')}>
-                                            <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCompletedTask ?faChevronDown : faChevronRight} onClick={handleClickOpenCompletedTask}/>
-                                            <div className={cx('container__tasks-scroll-taskCompleted-header-title')}>Đã hoàn thành</div>
-                                            <div className={cx('container__tasks-scroll-taskCompleted-header-quantity')}>{LIST_TODO_COMPLETED.length}</div>
+                                        <div>
+                                            <div className={cx('container__tasks-scroll-taskCompleted-header')}>
+                                                <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCompletedTask && LIST_TODO_COMPLETED.length > 0  ? faChevronDown : faChevronRight} onClick={handleClickOpenCompletedTask}/>
+                                                <div className={cx('container__tasks-scroll-taskCompleted-header-title')}>Đã hoàn thành</div>
+                                                <div className={cx('container__tasks-scroll-taskCompleted-header-quantity')}>{LIST_TODO_COMPLETED.length}</div>
+                                            </div>
+                                            {
+                                                openCompletedTask ? (
+                                                    <div  className={cx('container__tasks-scroll-taskCompleted-list')}>
+                                                        {LIST_TODO_COMPLETED.map((item, index) => {
+                                                            return (
+                                                                <Todo
+                                                                    key={index}
+                                                                    id={item.id}
+                                                                    type={item.status}
+                                                                    title={item.title}
+                                                                    description={item.description}
+                                                                    valueDeadLine={item.deadline}
+                                                                    valueNotify={item.notify}
+                                                                    valueRepeat={item.repeat}
+                                                                    valuePriority={item.priority}
+                                                                    onClick={(e) => handleClickTodoItem(e)}
+                                                                    unCompletedTodo={(e) => handleUnCompletedTodo(e)}
+                                                                />
+                                                            );
+                                                        })} 
+                                                    </div>
+                                                ) : ''
+                                            }
                                         </div>
-                                        {
-                                            openCompletedTask && (
-                                                <div  className={cx('container__tasks-scroll-taskCompleted-list')}>
-                                                    {LIST_TODO_COMPLETED.map((item, index) => {
-                                                        return (
-                                                            <Todo
-                                                                key={index}
-                                                                id={item.id}
-                                                                type={item.status}
-                                                                title={item.title}
-                                                                description={item.description}
-                                                                valueDeadLine={item.deadline}
-                                                                valueNotify={item.notify}
-                                                                valueRepeat={item.repeat}
-                                                                valuePriority={item.priority}
-                                                                onClick={(e) => handleClickTodoItem(e)}
-                                                                unCompletedTodo={(e) => handleUnCompletedTodo(e)}
-                                                            />
-                                                        );
-                                                    })} 
-                                                </div>
-                                            )
-                                        }
                                     </div>             
                                 </div>
                             </div>
@@ -657,7 +906,17 @@ function MyDay() {
                                 <div className={cx('drawer-todo')}>
                                     <div className={cx('drawer-todo__content')}>
                                         <div className={cx('drawer-todo__content__title')}>
-                                            <input className={cx('drawer-todo__content__title-checkbox')} type="checkbox"></input>
+                                            {
+                                                selectedTodo.type !== 'completed' ? (
+                                                    <div className={cx("drawer-todo__content__title-circleIcon")} onClick={handleClickCheckedAddToDoToListCompleted}>
+                                                        <i className={cx("drawer-todo__content__title-circleIcon-check")}></i>
+                                                    </div>
+                                                ) : (
+                                                    <div className={cx("drawer-todo__content__title-circleCheckIcon")} onClick={handleClickCheckedAddToDoToListCompleted}>
+                                                        <FontAwesomeIcon icon={faCircleCheck} />
+                                                    </div>
+                                                )
+                                            }
                                             {
                                                 selectedTodo.title && (
                                                     <input
@@ -673,7 +932,7 @@ function MyDay() {
                                         <div className={cx('drawer-todo__content__addMyDay')}>
                                             <FontAwesomeIcon className={cx('drawer-todo__content__addMyDay-icon')} icon={faSun} />
                                             <span className={cx('drawer-todo__content__addMyDay-title')}>
-                                                Thêm vào ngày của tôi
+                                                Thêm nhiệm vụ vào dự án
                                             </span>
                                             <FontAwesomeIcon
                                                 className={cx('drawer-todo__content__addMyDay-iconRemove')}
@@ -681,18 +940,17 @@ function MyDay() {
                                             />
                                         </div>
                                         <div className={cx('drawer-todo__content__menuTask')}>
+                                            {/* REMIND */}
                                             <Menu
                                                 title={'Nhắc nhở'}
                                                 state={isRemindSelected}
                                                 items={MENU_ITEMS_REMIND}
                                                 checkValue={updateValueMenuRemind.title ? true : false}
                                                 handleCLick={(item) => {
-                                                    setUpdateValueDrawerRemind(item);
-                                                    setRemindSelected(false);
+                                                    updateRemindSelectedTodo(item);   
                                                 }}
                                                 removeMenu = {(item) => {
-                                                    setUpdateValueDrawerRemind(item);
-                                                    setRemindSelected(false);
+                                                    removeRemindSelectedTodo(item);
                                                 }}
                                             >
                                                 <div className={cx('drawer-todo__content__menuTask-notify')} onClick={handleClickRemindTodoSelected}>
@@ -706,11 +964,11 @@ function MyDay() {
                                                                 <div className={cx('drawer-todo__content__menuTask-notify-remind-at')}>
                                                                     Nhắc nhở tôi
                                                                     {selectedTodo.remind.dateTime 
-                                                                        ? (updateValueMenuRemind.hours ? ' '+ updateValueMenuRemind.hours + ' '+ updateValueMenuRemind.day  : ' '+selectedTodo.remind.dateTime)   
-                                                                        : (updateValueMenuRemind.hours ? ' '+updateValueMenuRemind.hours + ' '+ updateValueMenuRemind.day : ' ')  
+                                                                        ? (updateValueMenuRemind.hours && updateValueMenuRemind.day ? ' '+ updateValueMenuRemind.hours + ' '+ updateValueMenuRemind.day  : ' '+selectedTodo.remind.dateTime)   
+                                                                        : (updateValueMenuRemind.hours && updateValueMenuRemind.day ? ' '+updateValueMenuRemind.hours + ' '+ updateValueMenuRemind.day : ' ')  
                                                                     }   
                                                                 </div>
-                                                                <div className={cx('drawer-todo__content__menuTask-notify-remind-title')}>
+                                                                <div className={cx(selectedTodo.remind.title || updateValueMenuRemind.title ? 'drawer-todo__content__menuTask-notify-remind-title' : '')}>
                                                                     {selectedTodo.remind.title 
                                                                         ? (updateValueMenuRemind.title ? updateValueMenuRemind.title :selectedTodo.remind.title) 
                                                                         : (updateValueMenuRemind.title ? updateValueMenuRemind.title : '')}
@@ -720,19 +978,17 @@ function MyDay() {
                                                     }
                                                 </div>
                                             </Menu>
+                                            {/* DEADLINE */}
                                             <Menu
                                                 title={'Đến hạn'}
                                                 state={isDeadlineSelected}
                                                 items={MENU_ITEMS_DEADLINE}
                                                 checkValue={updateValueMenuDeadline.title  ? true : false}
                                                 handleCLick={(item) => {
-                                                    console.log(item);
-                                                    setUpdateValueDrawerDeadline(item);
-                                                    setDeadlineSelected(false);
+                                                    updateDeadLineSelectedTodo(item);
                                                 }}
                                                 removeMenu = {(item) => {
-                                                    setUpdateValueDrawerDeadline(item);
-                                                    setDeadlineSelected(false);
+                                                    removeDeadLineSelectedTodo(item);
                                                 }}
                                             >
                                                 {
@@ -750,19 +1006,17 @@ function MyDay() {
                                                     )
                                                 }
                                             </Menu>
+                                            {/* REPEAT */}
                                             <Menu
                                                 title={'Lặp lại'}
                                                 state={isRepeatSelected}
                                                 items={MENU_ITEMS_REPEAT}
                                                 checkValue={updateValueMenuRepeat.title  ? true : false}
                                                 handleCLick={(item) => {
-                                                    console.log(item);
-                                                    setUpdateValueDrawerRepeat(item);
-                                                    setRepeatSelected(false);
+                                                    updateRepeatSelectedTodo(item)
                                                 }}
                                                 removeMenu = {(item) => {
-                                                    setUpdateValueDrawerRepeat(item);
-                                                    setRepeatSelected(false);
+                                                    removeRepeatSelectedTodo(item);
                                                 }}
                                             >
                                                 {
@@ -772,9 +1026,9 @@ function MyDay() {
                                                                 className={cx('drawer-todo__content__menuTask-repeat-iconSelected')}
                                                                 icon={faRepeat}
                                                             />
-                                                            <div className={cx('drawer-todo__content__menuTask-repeat-check-title')}>
-                                                                <div>Lặp lại</div>
-                                                                <div>
+                                                            <div className={cx('drawer-todo__content__menuTask-repeat-check')}>
+                                                                <div className={cx('drawer-todo__content__menuTask-repeat-check-title')}>Lặp lại</div>
+                                                                <div className={cx(selectedTodo.repeat.state || updateValueMenuRepeat.title ? 'drawer-todo__content__menuTask-repeat-check__selected' : '')}>
                                                                     {
                                                                         selectedTodo.repeat.state
                                                                         ? 'vào ' + (updateValueMenuRepeat.title ? updateValueMenuRepeat.title : selectedTodo.repeat.title)
@@ -788,20 +1042,14 @@ function MyDay() {
                                             </Menu>
                                         </div>
                                         <div>
+                                            {/* PICK A CATEGORY COLOR */}
                                             <CategoryColor
                                                 title={''}
                                                 state={isPickCategory}
                                                 items={MENU_ITEMS_CATEGORY}
-                                                stateCheck={stateCheckCategoryColor}
+                                                stateCheck={categoryColor}
                                                 handleCLick={(e) => {
-                                                    setCategoryColor(e);
-                                                    if(e.title === 'Danh mục đỏ'){
-                                                        setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemRed');
-                                                    } else if(e.title === 'Danh mục cam'){
-                                                        setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemOrange');
-                                                    } else if(e.title === 'Danh mục xanh'){
-                                                        setClassNameCategoryItem('drawer-todo__content__addCategory-list-CategoryList-itemGreen');
-                                                    }
+                                                    updateCategoryColorSelectedTodo(e);
                                                 }}
                                             >
                                                 <div className={cx('drawer-todo__content__addCategory')}  onClick={handleClickPickCategory}>
@@ -826,16 +1074,17 @@ function MyDay() {
                                                                 </div>
                                                             ) : ''
                                                         }                                                  
-                                                        <span className={cx('drawer-todo__content__addCategory-list-text')}>Pick a category</span>
+                                                        <span className={cx('drawer-todo__content__addCategory-list-text')}>Thêm danh mục</span>
                                                     </div>
                                                 </div>
                                             </CategoryColor>
                                         </div>
-                                        <div className={cx('drawer-todo__content__textarea')}>
+                                        <div className={cx('drawer-todo__content__textarea')} onClick={handleAddNotesToSelectedTodo}>
                                             <textarea
                                                 className={cx('drawer-todo__content__textarea-text')}
-                                                placeholder="Add notes"
+                                                placeholder="Thêm ghi chú"
                                                 rows="5"
+                                                readOnly
                                             ></textarea>
                                         </div>
                                     </div>
@@ -855,7 +1104,10 @@ function MyDay() {
                                             </div>
                                             <Tippy content="Xóa nhiệm vụ">
                                                 <span>
-                                                    <FontAwesomeIcon icon={faClose} />
+                                                    <FontAwesomeIcon 
+                                                        icon={faClose} 
+                                                        onClick={handleRemoveTodo}
+                                                    />
                                                 </span>
                                             </Tippy>
                                         </div>
