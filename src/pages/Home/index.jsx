@@ -4,12 +4,19 @@ import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 function Home() {
     const cx = className.bind(styles);
+    const [animate, setAnimate] = useState(false);
+    useEffect(() => {
+        setTimeout(() => {
+          setAnimate(true);
+        }, 1000);
+    }, []);
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
-                <div className={cx('content__left-')}>
+                <div className={cx('content__left')}>
                     <img className={cx('content__left-img')} src={images.welcomeLeft} alt="welcome left"/>
                 </div>
                 <div className={cx('content__center')}>
@@ -18,7 +25,7 @@ function Home() {
                     </div>
                     <div className={cx('content__center-title')}><h1>Quynh Linh Todo</h1></div>
                     <div className={cx('content__center-des')}>
-                        <p>To Do mang đến cho bạn sự tập trung, 
+                        <p>To Do mang đến cho bạn sự tập trung,
                             <br/>
                             từ công việc cho đến giải trí.
                         </p>

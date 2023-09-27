@@ -5,6 +5,11 @@
     justify-content: center;
     &__left,
     &__right{
+        animation-name: faDaIn;
+        animation-duration: 1s;
+        animation-timing-function: cubic-bezier(0.8, 0, 0.2, 1);
+        animation-fill-mode: backwards;
+        animation-delay: 1s;
         &-img{
             height: 458px;
         }
@@ -86,5 +91,15 @@
                 color: var(--background-color);
             }
         }
+    }
+}
+@keyframes faDaIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
     }
 }

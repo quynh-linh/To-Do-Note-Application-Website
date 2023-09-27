@@ -8,28 +8,32 @@ import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import { faCalendar, faStar, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
 import Register from '~/pages/Register';
+import LoadingPage from '~/components/layouts/components/LoadingPage';
 const publicRoutes =[
     {   
         path: '/', 
         component: Home,
-        icon: faHouse,
         name: 'Trang chủ',
         pageCode : 1
     },
     {   
         path: '/login', 
         component: Login,
-        icon: faHouse,
         name: 'Đăng nhập',
         pageCode : 2
+        
     }
     ,
     {   
         path: '/register', 
         component: Register,
-        icon: faHouse,
         name: 'Tạo tài khoản',
         pageCode : 2
+    },
+    {   
+        path: '/loading', 
+        component: LoadingPage,
+        name: 'Waiting',
     }
 ]
 const sidebarRoutes = [
