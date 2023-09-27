@@ -5,10 +5,15 @@ import className from 'classnames/bind';
 import styles from './SidebarItem.module.scss';
 import { sidebarRoutes } from '~/routes';
 import { Toast } from '~/components/toast';
+import { useSelector } from 'react-redux';
 
 const SidebarItem = () => {
     const cx = className.bind(styles);
     const [pathSelected,setPathSelected] = useState({});
+
+    //
+    const LIST_TODO = useSelector((state) => state.task.list_todo);
+
     // GET PATH LOCATION
     const location = useLocation();
     const currentPath = location.pathname;
@@ -47,8 +52,11 @@ const SidebarItem = () => {
                     className={pathSelected.id === item.id ? cx('wrapper-list_selected') : cx('wrapper-list_li')} 
                     onClick={() => handleItemClick(item)}>
                     <Link  to={item.state ? item.path : ''} className={cx('wrapper-list_link')}>
-                        <FontAwesomeIcon className={cx('wrapper-list_icon')} icon={item.icon}/>
-                        <span>{item.name}</span>
+                        <span className={cx('wrapper-list_link-icon')}>
+                            <FontAwesomeIcon icon={item.icon} className={cx('wrapper-list_link-icon-set')}/>
+                        </span>
+                        <span className={cx('wrapper-list_link-title')}>{item.name}</span>
+                        <span className={cx('wrapper-list_link-quantity')}>{item.name === 'Ngày của tôi' ? LIST_TODO.length : ''}</span>
                     </Link>
                 </li>
             )

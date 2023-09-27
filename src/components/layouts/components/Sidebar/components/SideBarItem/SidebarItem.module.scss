@@ -5,9 +5,7 @@
     position: relative;
     overflow: hidden;
     z-index: 1;
-    & span {
-        padding-left: 15px;
-    }
+
     &.selected{
         background-color: #e8bcef;
         font-weight: bold;
@@ -29,18 +27,28 @@
         cursor: pointer;
         background-color: #e8bcef;
     }
-    .wrapper-list_icon{
-        width: 15px;
-        height: 15px;
-        color: var(--font-color-secondary);
-    }
     .wrapper-list_link{
         text-decoration: none;
         color: var(--font-color-primary);
         font-size: 15px;
         display: flex;
         width: 100%;
-        padding-left: 15px;
+        justify-content: space-between;
+        &-title{
+            width: 80%;
+        }
+        &-quantity{
+            width: 20%;
+        }
+        &-icon{
+            width: 20%;
+            padding-left: 15px;
+            &-set{
+                width: 15px;
+                height: 15px;
+                color: var(--font-color-secondary);
+            }
+        }
     }
 }
 .wrapper-list_selected{
@@ -52,9 +60,6 @@
     background-color: #e8bcef;
     font-weight: bold;
     z-index: 1;
-    & span {
-        padding-left: 15px;
-    }
     &:hover{
         background-color: #e8bcef;
     }
@@ -79,6 +84,22 @@
         font-size: 15px;
         display: flex;
         width: 100%;
-        padding-left: 15px;
+        justify-content: space-between;
+        &-title{
+            width: 80%;
+        }
+        &-quantity{
+            padding-right: 15px;
+            width: 20%;
+        }
+        &-icon{
+            padding-left: 15px;
+            width: 20%;
+            &-set{
+                width: 15px;
+                height: 15px;
+                color: var(--font-color-secondary);
+            }
+        }
     }
 }

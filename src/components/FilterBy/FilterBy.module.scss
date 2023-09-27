@@ -1,0 +1,42 @@
+.container__tasks-scroll{
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 370px;
+    padding-bottom: 5px;
+    &-tasksListWaiting{
+        margin: 20px;
+        border-radius: var(--var-border-radius);
+    }
+    &-taskCompleted{
+        margin: 0 20px 20px 20px;
+    }
+    &-taskCompleted,
+    &-tasksListWaiting{
+        &-header{
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ececec;
+            padding-bottom: 10px;
+            &-icon,
+            &-title,
+            &-quantity{
+                padding: 5px;
+            }
+            &-title{
+                font-size: 1.4rem;
+                font-weight: 600;
+            }
+            &-icon,
+            &-quantity{
+                color: #7b7c7c;
+                font-weight: 500;
+            }
+            &-icon{
+                &:hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

@@ -10,7 +10,6 @@ const images = {
     apple : require('~/assets/images/Apple.png'),
     wrapper_left : require('~/assets/images/wrapper-left.png'),
     wrapper_right : require('~/assets/images/wrapper-right.png'),
-    //header :  require('~/assets/images/background_header.jpg'),
 };
 
 export default images;

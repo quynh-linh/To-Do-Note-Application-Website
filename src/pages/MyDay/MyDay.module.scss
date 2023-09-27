@@ -212,42 +212,7 @@ $color-white : #fff;
                 }
             }   
         }
-    }
-    &__tasks-scroll{
-        position: relative;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        height: 370px;
-        padding-bottom: 5px;
-        &-tasksList{
-            margin: 20px;
-            border-radius: var(--var-border-radius);
-        }
-        &-taskCompleted{
-            margin: 0 20px 20px 20px;
-            &-header{
-                display: flex;
-                align-items: center;
-                border-bottom: 1px solid var(--font-color-secondary);
-                padding-bottom: 10px;
-                &-icon,
-                &-title,
-                &-quantity{
-                    padding: 5px;
-                    font-weight: 600;
-                }
-                &-title{
-                    font-size: 1.4rem;
-                }
-                &-icon{
-                    &:hover{
-                        cursor: pointer;
-                    }
-                }
-            }
-        }
-    }
-    
+    }   
 }
 
 $color-drawer-todo : #797775;

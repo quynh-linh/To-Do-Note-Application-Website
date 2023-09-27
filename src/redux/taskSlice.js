@@ -22,14 +22,21 @@ const taskSlice = createSlice({
             state.list_todo_completed = state.list_todo_completed.filter((todo) => todo.id !== id);
             state.list_todo.push(action.payload);
         },
-        updateTodo: (state,action) => {
+        updateTodoWaiting: (state,action) => {
             const {id, updatedTodo} = action.payload;
             const todoIndex = state.list_todo.findIndex((todo) => todo.id === id);
             if (todoIndex !== -1) {
                 state.list_todo[todoIndex] = { ...state.list_todo[todoIndex], ...updatedTodo};
             }
         },
-        removeTodo: (state,action) => {
+        updateTodoCompleted: (state,action) => {
+            const {id, updatedTodo} = action.payload;
+            const todoIndex = state.list_todo_completed.findIndex((todo) => todo.id === id);
+            if (todoIndex !== -1) {
+                state.list_todo_completed[todoIndex] = { ...state.list_todo_completed[todoIndex], ...updatedTodo};
+            }
+        },
+        removeTodoWaiting: (state,action) => {
             const id = action.payload;
             state.list_todo.map((todo, index) => {
                 if(todo.id === id) {
@@ -37,8 +44,16 @@ const taskSlice = createSlice({
                 }
             })
         },
+        removeTodoCompleted: (state,action) => {
+            const id = action.payload;
+            state.list_todo_completed.map((todo, index) => {
+                if(todo.id === id) {
+                    state.list_todo_completed.splice(index, 1);
+                }
+            })
+        },
     },
 });
   
 export default taskSlice.reducer;
-export const {addTodo , completeTodo , unCompletedTodo , updateTodo , removeTodo} = taskSlice.actions; 
+export const {addTodo , completeTodo , unCompletedTodo , updateTodoWaiting,updateTodoCompleted , removeTodoWaiting , removeTodoCompleted} = taskSlice.actions; 

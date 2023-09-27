@@ -45,8 +45,11 @@ import CategoryColor from '~/components/Popper/CategoryColor';
 import styles from './MyDay.module.scss';
 import 'tippy.js/dist/tippy.css';
 
-import { addTodo , completeTodo, unCompletedTodo , updateTodo , removeTodo } from '~/redux/taskSlice';
+import { addTodo , completeTodo, unCompletedTodo , updateTodoWaiting , removeTodo, updateTodoCompleted, removeTodoWaiting, removeTodoCompleted } from '~/redux/taskSlice';
 import { Toast } from '~/components/toast';
+import sound from '~/assets/sound';
+import FilterBy from '~/components/FilterBy';
+import generateRandomId from '~/const/createIdTask';
 function MyDay() {
     const cx = className.bind(styles);
     // LOADING PAGE
@@ -98,7 +101,7 @@ function MyDay() {
         // HANDLE ADD TODO TO LIST_TODO
     const handleClickAddTaskToListTodo = () => {
         // NEED DATA : inputValue , valueMenuDeadline , valueMenuRemind , valueMenuRepeat
-        const idTask = LIST_TODO.length;
+        const idTask = generateRandomId(40);
         if(inputValue !== ''){
             const addNewTodo = {
                 id: idTask,
@@ -147,7 +150,11 @@ function MyDay() {
         // HANDLE REMOVE TODO 
     const handleRemoveTodo = () => {
         if(!Number.isNaN(selectedTodo.id)){
-            dispatch(removeTodo(selectedTodo.id));
+            if(selectedTodo.type === 'waiting'){
+                dispatch(removeTodoWaiting(selectedTodo.id));
+            } else if(selectedTodo.type === 'completed'){
+                dispatch(removeTodoCompleted(selectedTodo.id));
+            }
             setClickHandleTodo(false);
             setSelectedTodo({});
         }
@@ -155,6 +162,7 @@ function MyDay() {
 
         // HANDLE CLICK CHECKED ADD TODO 
     const handleClickCheckedAddToDoToListCompleted = () => {
+        const audio = new Audio(sound.success);
         if('type' in selectedTodo && selectedTodo.type === 'waiting'){
             const objectSelected = {
                 id: selectedTodo.id,
@@ -180,6 +188,7 @@ function MyDay() {
                 ...selectedTodo,
                 type:'completed'
             }
+            audio.play();
             setSelectedTodo(updateSelected);
             dispatch(completeTodo(objectSelected));
         } else if('type' in selectedTodo && selectedTodo.type === 'completed') {
@@ -226,6 +235,7 @@ function MyDay() {
 
         // HANDLE UPDATE REMIND DRAWER TODO SELECTED
     const updateRemindSelectedTodo = (item) =>{
+        console.log(item);
         setUpdateValueDrawerRemind(item);
         setRemindSelected(false);
         const id = selectedTodo.id;
@@ -243,7 +253,11 @@ function MyDay() {
             }
         }
         setSelectedTodo(updateSelected);
-        dispatch(updateTodo({id,updatedTodo}));
+        if(selectedTodo.type === 'waiting'){
+            dispatch(updateTodoWaiting({id,updatedTodo}));
+        } else if(selectedTodo.type === 'completed'){
+            dispatch(updateTodoCompleted({id,updatedTodo}))
+        }
     };
         // HANDLE UPDATE DEADLINE DRAWER TODO SELECTED
     const updateDeadLineSelectedTodo = (item) =>{
@@ -264,7 +278,11 @@ function MyDay() {
             }
         }
         setSelectedTodo(updateSelected);
-        dispatch(updateTodo({id,updatedTodo}));
+        if(selectedTodo.type === 'waiting'){
+            dispatch(updateTodoWaiting({id,updatedTodo}));
+        } else if(selectedTodo.type === 'completed'){
+            dispatch(updateTodoCompleted({id,updatedTodo}))
+        }
     };
         // HANDLE UPDATE REPEAT DRAWER TODO SELECTED
     const updateRepeatSelectedTodo = (item) =>{
@@ -286,7 +304,11 @@ function MyDay() {
                 }
             }
             setSelectedTodo(updateSelected);
-            dispatch(updateTodo({id,updatedTodo}));
+            if(selectedTodo.type === 'waiting'){
+                dispatch(updateTodoWaiting({id,updatedTodo}));
+            } else if(selectedTodo.type === 'completed'){
+                dispatch(updateTodoCompleted({id,updatedTodo}))
+            }
         }
     };
 
@@ -310,7 +332,11 @@ function MyDay() {
                 priority : item.title
             }
             setSelectedTodo(updateSelected);   
-            dispatch(updateTodo({id,updatedTodo}));
+            if(selectedTodo.type === 'waiting'){
+                dispatch(updateTodoWaiting({id,updatedTodo}));
+            } else if(selectedTodo.type === 'completed'){
+                dispatch(updateTodoCompleted({id,updatedTodo}))
+            }
         }
     };
 
@@ -333,30 +359,38 @@ function MyDay() {
             }
         }
         setSelectedTodo(updateSelected);
-        dispatch(updateTodo({id,updatedTodo}));
+        if(selectedTodo.type === 'waiting'){
+            dispatch(updateTodoWaiting({id,updatedTodo}));
+        } else if(selectedTodo.type === 'completed'){
+            dispatch(updateTodoCompleted({id,updatedTodo}))
+        }
     };
 
         // HANDLE REMOVE REPEAT DRAWER TODO SELECTED
     const removeRepeatSelectedTodo = (item) =>{
+        console.log(item);
         setUpdateValueDrawerRepeat(item);
         setRepeatSelected(false);
-        if(item.title !== ''){
-            const id = selectedTodo.id;
-            const updatedTodo = {
-                repeat : {
-                    state : false,
-                    title : ''
-                }
+        const id = selectedTodo.id;
+        const updatedTodo = {
+            repeat : {
+                state : false,
+                title : ''
             }
-            const updateSelected = {
-                ...selectedTodo,
-                repeat : {
-                    state : false,
-                    title : ''
-                }
+        }
+        const updateSelected = {
+            ...selectedTodo,
+            repeat : {
+                state : false,
+                title : ''
             }
-            setSelectedTodo(updateSelected);
-            dispatch(updateTodo({id,updatedTodo}));
+        }
+        console.log(updateSelected);
+        setSelectedTodo(updateSelected);
+        if(selectedTodo.type === 'waiting'){
+            dispatch(updateTodoWaiting({id,updatedTodo}));
+        } else if(selectedTodo.type === 'completed'){
+            dispatch(updateTodoCompleted({id,updatedTodo}))
         }
     };
 
@@ -379,7 +413,33 @@ function MyDay() {
             }
         }
         setSelectedTodo(updateSelected);
-        dispatch(updateTodo({id,updatedTodo}));
+        if(selectedTodo.type === 'waiting'){
+            dispatch(updateTodoWaiting({id,updatedTodo}));
+        } else if(selectedTodo.type === 'completed'){
+            dispatch(updateTodoCompleted({id,updatedTodo}))
+        }
+    };
+
+        // HANDLE REMOVE CATEGORY COLOR
+    const handleRemoveCategoryColor = () => {
+        if (categoryColor.state) {
+            const updatedObject = { ...categoryColor, state: false};
+            const id = selectedTodo.id;
+            const updatedTodo = {
+                priority : ''
+            }
+            const updateSelected = {
+                ...selectedTodo,
+                priority : ''
+            }
+            setCategoryColor(updatedObject);
+            setSelectedTodo(updateSelected);
+            if(selectedTodo.type === 'waiting'){
+                dispatch(updateTodoWaiting({id,updatedTodo}));
+            } else if(selectedTodo.type === 'completed'){
+                dispatch(updateTodoCompleted({id,updatedTodo}))
+            }
+        } 
     };
 
     const handleAddNotesToSelectedTodo = () => {
@@ -444,6 +504,8 @@ function MyDay() {
         // SET FILTER TOOLBAR = FALSE
         setSortByCreation(false);
         setGroupByCategories(false);
+        // SET PICK A CATEGORY
+        setPickCategory(false);
     };
 
     // HANDLE (REMIND) TODO SELECTED TO DRAWER
@@ -458,6 +520,8 @@ function MyDay() {
         // SET FILTER TOOLBAR = FALSE
         setSortByCreation(false);
         setGroupByCategories(false);
+        // SET PICK A CATEGORY
+        setPickCategory(false);
     };
     // HANDLE (REPEAT) TODO SELECTED TO DRAWER
     const handleClickRepeatTodoSelected = () => {
@@ -471,8 +535,10 @@ function MyDay() {
         // SET FILTER TOOLBAR = FALSE
         setSortByCreation(false);
         setGroupByCategories(false);
+        // SET PICK A CATEGORY
+        setPickCategory(false);
     };
-    // HANDLE (REPEAT) TODO SELECTED TO DRAWER
+    // HANDLE (CATEGORY COLOR) TODO SELECTED TO DRAWER
     const handleClickPickCategory = () => {
         setPickCategory(!isPickCategory);
         setRepeatSelected(false);
@@ -563,29 +629,6 @@ function MyDay() {
     // HANDLE CHANGE TITLE TODO
     const handleChangeTitleTodo = (e) => {
         setSelectedTodoTitle(e.target.value);
-    };
-
-    // HANDLE REMOVE CATEGORY COLOR
-    const handleRemoveCategoryColor = () => {
-        if (categoryColor.state) {
-            const updatedObject = { ...categoryColor, state: false};
-            const id = selectedTodo.id;
-            const updatedTodo = {
-                priority : ''
-            }
-            const updateSelected = {
-                ...selectedTodo,
-                priority : ''
-            }
-            setCategoryColor(updatedObject);
-            setSelectedTodo(updateSelected);
-            dispatch(updateTodo({id,updatedTodo}));
-        } 
-    };
-
-    // HANDLE CLICK OPEN COMPLETED TASK
-    const handleClickOpenCompletedTask = () =>{
-        setOpenCompletedTask(!openCompletedTask);
     };
     
     useEffect(() => {
@@ -682,7 +725,9 @@ function MyDay() {
                                                     <span>Nhóm</span>
                                                 </li>
                                             </Toolbar>
-                                            <Toolbar title={'Đề xuất'}>
+                                            <Toolbar 
+                                                title={'Đề xuất'}
+                                            >
                                                 <li>
                                                     <FontAwesomeIcon icon={faLightbulb}></FontAwesomeIcon>
                                                     <span>Đề xuất</span>
@@ -754,6 +799,7 @@ function MyDay() {
                                     {isInputFocused && (
                                         <div id="taskCreation_MenuControl" className={cx('container__taskCreation-menuControl')}>
                                             <div className={cx('container__taskCreation-menuControl_menuList')}>
+                                                {/* DEAD LINE (DUA DATE) */}
                                                 <Menu
                                                     title={'Đến hạn'}
                                                     state={isBtnDeadline}
@@ -780,6 +826,7 @@ function MyDay() {
                                                         {'title' in valueMenuDeadline ? ' ' + valueMenuDeadline.title : ''}
                                                     </button>
                                                 </Menu>
+                                                {/* REMIND */}
                                                 <Menu
                                                     title={'Nhắc nhở'}
                                                     state={isBtnRemind}
@@ -806,6 +853,7 @@ function MyDay() {
                                                         {'title' in valueMenuRemind ? ' ' + valueMenuRemind.title : ''}
                                                     </button>
                                                 </Menu>
+                                                {/* REPEAT */}
                                                 <Menu
                                                     title={'Lặp lại'}
                                                     state={isBtnRepeat}
@@ -846,59 +894,14 @@ function MyDay() {
                                         </div>
                                     )}
                                 </div>
-                                <div className={cx('container__tasks-scroll')}>
-                                    <div className={cx('container__tasks-scroll-tasksList')}>
-                                        {LIST_TODO.map((item, index) => {
-                                            return (
-                                                <Todo
-                                                    id={item.id}
-                                                    key={index}
-                                                    title={item.title}
-                                                    type={item.status}
-                                                    description={item.description}
-                                                    valueDeadLine={item.deadline}
-                                                    valueNotify={item.notify}
-                                                    valueRepeat={item.repeat}
-                                                    valuePriority={item.priority}
-                                                    onClick={(e) => handleClickTodoItem(e)}
-                                                    completedTodo = {(e) => handleTodoToCompletedTodo(e)}
-                                                />
-                                            );
-                                        })}   
-                                    </div>
-                                    <div className={cx('container__tasks-scroll-taskCompleted')}>
-                                        <div>
-                                            <div className={cx('container__tasks-scroll-taskCompleted-header')}>
-                                                <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCompletedTask && LIST_TODO_COMPLETED.length > 0  ? faChevronDown : faChevronRight} onClick={handleClickOpenCompletedTask}/>
-                                                <div className={cx('container__tasks-scroll-taskCompleted-header-title')}>Đã hoàn thành</div>
-                                                <div className={cx('container__tasks-scroll-taskCompleted-header-quantity')}>{LIST_TODO_COMPLETED.length}</div>
-                                            </div>
-                                            {
-                                                openCompletedTask ? (
-                                                    <div  className={cx('container__tasks-scroll-taskCompleted-list')}>
-                                                        {LIST_TODO_COMPLETED.map((item, index) => {
-                                                            return (
-                                                                <Todo
-                                                                    key={index}
-                                                                    id={item.id}
-                                                                    type={item.status}
-                                                                    title={item.title}
-                                                                    description={item.description}
-                                                                    valueDeadLine={item.deadline}
-                                                                    valueNotify={item.notify}
-                                                                    valueRepeat={item.repeat}
-                                                                    valuePriority={item.priority}
-                                                                    onClick={(e) => handleClickTodoItem(e)}
-                                                                    unCompletedTodo={(e) => handleUnCompletedTodo(e)}
-                                                                />
-                                                            );
-                                                        })} 
-                                                    </div>
-                                                ) : ''
-                                            }
-                                        </div>
-                                    </div>             
-                                </div>
+                                <FilterBy 
+                                    isFilterByCategories ={valueGroupByCategories.length > 0 ? true : false}
+                                    listTaskWaiting={LIST_TODO}
+                                    listTaskSelected={LIST_TODO_COMPLETED}
+                                    toCompletedTodo={(e) => handleTodoToCompletedTodo(e)}
+                                    objectTaskSelected={(e) => handleClickTodoItem(e)}
+                                    objectUnCompleted={(e) => handleUnCompletedTodo(e)}
+                                />          
                             </div>
                         </div>
                         {isClickHandleTodo && (
