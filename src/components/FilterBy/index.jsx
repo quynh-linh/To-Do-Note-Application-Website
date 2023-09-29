@@ -8,6 +8,9 @@ import Todo from "../Todo";
 function FilterBy({isFilterByCategories=false, objectTaskSelected=undefined,objectUnCompleted=undefined , listTaskSelected=undefined , listTaskWaiting=undefined, toCompletedTodo=undefined}) {
     const cx = className.bind(styles);
     const [openCompletedTask, setOpenCompletedTask] = useState(false);
+    const [openCategoryRed, setOpenCategoryRed] = useState(true);
+    const [openCategoryGreen, setOpenCategoryGreen] = useState(true);
+    const [openCategoryOrange, setOpenCategoryOrange] = useState(true);
     const [openWaitingTask, setOpenWaitingTask] = useState(true);
     
     const filterCategoryRed = listTaskWaiting.filter(item => item.priority === 'Danh mục đỏ');
@@ -18,6 +21,19 @@ function FilterBy({isFilterByCategories=false, objectTaskSelected=undefined,obje
     const handleClickOpenCompletedTask = () => {
         setOpenCompletedTask(!openCompletedTask);
     };
+    
+    const handleCategoryRedTask = () => {
+        setOpenCategoryRed(!openCategoryRed);
+    };
+
+    const handleCategoryOrangeTask = () => {
+        setOpenCategoryOrange(!openCategoryOrange);
+    };
+
+    const handleCategoryGreenTask = () => {
+        setOpenCategoryGreen(!openCategoryGreen);
+    };
+
 
     const handleClickOpenWaitingTask = () => {
         setOpenWaitingTask(!openWaitingTask);
@@ -104,15 +120,19 @@ function FilterBy({isFilterByCategories=false, objectTaskSelected=undefined,obje
                 isFilterByCategories && filterCategoryRed.length > 0 ? (
                     <div className={cx('container__tasks-scroll-taskCompleted')}>
                         <div className={cx('container__tasks-scroll-taskCompleted-header')}>
-                            <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCompletedTask ? faChevronDown : faChevronRight} onClick={handleClickOpenCompletedTask}/>
+                            <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCategoryRed ? faChevronDown : faChevronRight} onClick={handleCategoryRedTask}/>
                             <div className={cx('container__tasks-scroll-taskCompleted-header-title')}>Danh mục đỏ</div>
                             <div className={cx('container__tasks-scroll-taskCompleted-header-quantity')}>{filterCategoryRed.length}</div>
                         </div>
-                        <FilterByCategory 
-                            listTask={filterCategoryRed}
-                            objectTaskSelected={(e) => handleClickTodoItem(e)}
-                            toCompletedTodo={(e) => handleTodoToCompletedTodo(e)}
-                        />
+                        {
+                            openCategoryRed && (
+                                <FilterByCategory 
+                                    listTask={filterCategoryRed}
+                                    objectTaskSelected={(e) => handleClickTodoItem(e)}
+                                    toCompletedTodo={(e) => handleTodoToCompletedTodo(e)}
+                                />
+                            )
+                        }
                     </div>  
                 ) : ''
             }
@@ -120,15 +140,19 @@ function FilterBy({isFilterByCategories=false, objectTaskSelected=undefined,obje
                 isFilterByCategories && filterCategoryGreen.length > 0 ? (
                     <div className={cx('container__tasks-scroll-taskCompleted')}>
                         <div className={cx('container__tasks-scroll-taskCompleted-header')}>
-                            <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCompletedTask ? faChevronDown : faChevronRight} onClick={handleClickOpenCompletedTask}/>
+                            <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCategoryGreen ? faChevronDown : faChevronRight} onClick={handleCategoryGreenTask}/>
                             <div className={cx('container__tasks-scroll-taskCompleted-header-title')}>Danh mục xanh</div>
                             <div className={cx('container__tasks-scroll-taskCompleted-header-quantity')}>{filterCategoryGreen.length}</div>
                         </div>
-                        <FilterByCategory 
-                            listTask={filterCategoryGreen}
-                            objectTaskSelected={(e) => handleClickTodoItem(e)}
-                            toCompletedTodo={(e) => handleTodoToCompletedTodo(e)}
-                        />
+                        {
+                            openCategoryGreen && (
+                                <FilterByCategory 
+                                    listTask={filterCategoryGreen}
+                                    objectTaskSelected={(e) => handleClickTodoItem(e)}
+                                    toCompletedTodo={(e) => handleTodoToCompletedTodo(e)}
+                                />
+                            )
+                        }
                     </div>  
                 ) : ''
             }
@@ -136,15 +160,19 @@ function FilterBy({isFilterByCategories=false, objectTaskSelected=undefined,obje
                 isFilterByCategories && filterCategoryOrange.length > 0 ? (
                     <div className={cx('container__tasks-scroll-taskCompleted')}>
                         <div className={cx('container__tasks-scroll-taskCompleted-header')}>
-                            <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCompletedTask ? faChevronDown : faChevronRight} onClick={handleClickOpenCompletedTask}/>
+                            <FontAwesomeIcon className={cx('container__tasks-scroll-taskCompleted-header-icon')} icon={openCategoryOrange ? faChevronDown : faChevronRight} onClick={handleCategoryOrangeTask}/>
                             <div className={cx('container__tasks-scroll-taskCompleted-header-title')}>Danh mục cam</div>
                             <div className={cx('container__tasks-scroll-taskCompleted-header-quantity')}>{filterCategoryOrange.length}</div>
                         </div>
-                        <FilterByCategory 
-                            listTask={filterCategoryOrange}
-                            objectTaskSelected={(e) => handleClickTodoItem(e)}
-                            toCompletedTodo={(e) => handleTodoToCompletedTodo(e)}
-                        />
+                        {
+                            openCategoryOrange && (
+                                <FilterByCategory 
+                                    listTask={filterCategoryOrange}
+                                    objectTaskSelected={(e) => handleClickTodoItem(e)}
+                                    toCompletedTodo={(e) => handleTodoToCompletedTodo(e)}
+                                />
+                            )
+                        }
                     </div>  
                 ) : ''
             }

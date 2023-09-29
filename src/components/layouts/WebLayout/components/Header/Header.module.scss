@@ -21,13 +21,14 @@
         
     }
     .selected{
+        padding: 16px 20px;
         &::before{
             content: "";
             position: absolute;
             width: 56px;
             background-color: white;
             height: 2px;
-            top: 14%;
+            top: 7%;
             transform: translateY(-50%);
         }
         &:hover{

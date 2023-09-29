@@ -5,6 +5,37 @@
     background-color: #e8bcef;
     &-row{
         display: flex;
+        &-contact{
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+            &-title{
+                font-size: 1.3rem;
+                font-weight: 500;
+            }
+            &-list{
+                display: flex;
+                align-items: center;
+                padding-left: 10px;
+                & a{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;    
+                }
+                &__IconGit,
+                &__IconFace,
+                &__IconTwitter{
+                    font-size: 1.8rem !important;
+                    margin: 0 5px;
+                }
+                &__IconFace,
+                &__IconTwitter{
+                    color: #0866ff;
+                }
+            }
+        }
     }
     &-group{
         min-height: 1px;

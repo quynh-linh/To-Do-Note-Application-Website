@@ -1,3 +1,14 @@
+.wrapper{
+    position: relative;
+}
+.box-shadow{
+    position: absolute;
+    width: 500px;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    background: rgba(185, 184, 184, 0.3);
+}
 .new-email{
     padding-top: 20px;
     font-size: 13px;

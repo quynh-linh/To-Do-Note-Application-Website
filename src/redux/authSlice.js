@@ -1,27 +1,16 @@
 import { URL_API } from "~/config";
-
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const  initialState = {
     msg : '',
-    user: '',
+    email: '',
+    password: '',
     token : '',
     isAuthenticated: false,
     isLoading: false,
     error: '',
 }
 const signInUser = createAsyncThunk('signInUser',async(body)=> {
-    const res = await fetch(URL_API+'/login/check-login',{
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body),
-    })
-    return await res.json();
-});
-const emailUser = createAsyncThunk('emailUser',async(body)=> {
-    const res = await fetch(URL_API+'/login/email',{
+    const res = await fetch(URL_API+'v3/48a042a2-b67b-4ea0-8da5-55f5bb50448a',{
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -35,20 +24,18 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        //  ................
+        logOut : (state,action) => {
+            console.log(action.payload);
+            const {email , password , token} = action.payload;
+            localStorage.removeItem('email');
+            localStorage.removeItem('password');
+            localStorage.removeItem('token');
+            state.email = email;
+            state.password = password;
+            state.token = token;
+        },
     },
     extraReducers : (builder) => {
-        // ================= CHECK EMAIL =================
-        builder.addCase(emailUser.pending,(state,action) => {
-            state.isLoading = true;
-        });
-        builder.addCase(emailUser.fulfilled,(state,action) => {
-            state.msg = action.payload.message;
-        });
-        builder.addCase(emailUser.rejected,(state,action) => {
-            state.isLoading = true;
-            state.error = action.payload.error;
-        });
         // ================= LOGIN =================
         builder.addCase(signInUser.pending,(state,action) => {
             state.isLoading = true;
@@ -57,8 +44,12 @@ const authSlice = createSlice({
             state.isLoading = false;
             state.isAuthenticated = true;
             state.msg = action.payload.message;
-            state.user = action.payload.user;
+            state.email = action.payload.email;
+            state.password = action.payload.password;
             state.token = action.payload.token;
+            // SET LOCAL STORAGE
+            localStorage.setItem('email', action.payload.email);
+            localStorage.setItem('password', action.payload.password);
             localStorage.setItem('token', action.payload.token);
         });
         builder.addCase(signInUser.rejected,(state,action) => {
@@ -69,5 +60,5 @@ const authSlice = createSlice({
 });
   
 export default authSlice.reducer;
-export {signInUser , emailUser};
-export const {addToken,addUser,logout} = authSlice.actions; 
+export {signInUser};
+export const {logOut} = authSlice.actions; 

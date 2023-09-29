@@ -4,15 +4,8 @@ import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
 function Home() {
     const cx = className.bind(styles);
-    const [animate, setAnimate] = useState(false);
-    useEffect(() => {
-        setTimeout(() => {
-          setAnimate(true);
-        }, 1000);
-    }, []);
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -31,10 +24,12 @@ function Home() {
                         </p>
                     </div>
                     <div className={cx('content__center-starts')}>
-                        <button type='submit'>
-                            Bắt đầu
-                        </button>
-                        <Link to='/overview' className={cx('content__center-starts-Link')}>
+                        <Link to='/login'>
+                            <button type='button'>
+                                Bắt đầu
+                            </button>
+                        </Link>
+                        <Link to='/introduce' className={cx('content__center-starts-Link')}>
                             <div className={cx('content__center-starts-outMore')}>Tìm hiểu thêm</div>
                         </Link>
                     </div>

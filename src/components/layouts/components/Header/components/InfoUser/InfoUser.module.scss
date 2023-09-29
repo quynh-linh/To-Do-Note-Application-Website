@@ -1,11 +1,13 @@
 .info-menu{
     width: 360px;
     min-height: 100px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    border-radius: var(--var-border-radius);
     background-color: white;
     position: absolute;
     top: 50px;
-    right: -10px;
+    right: 0px;
+    z-index: 500;
     .info-menu_header{
         display: flex;
         align-items: center;
@@ -13,19 +15,16 @@
         padding: 5px;
     }
     .info-menu_header-img{
-        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, 
-        rgba(0, 0, 0, 0.12) 0px -12px 30px, 
-        rgba(0, 0, 0, 0.12) 0px 4px 6px, 
-        rgba(0, 0, 0, 0.17) 0px 12px 13px, 
-        rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+        border-radius: var(--var-border-radius);
     }
     .info-menu_logOut{
-        color: var(--font-color-secondary);
+        color: var(--background-color);
         font-family: var(--var-font-family);
         font-weight: bold;
         text-decoration: none;
         padding-right: 15px;
-        font-size: 15px;
+        font-size: 1.5rem;
         &:hover{
             text-decoration: underline;
             cursor: pointer;
@@ -34,8 +33,10 @@
     .menu_header-list{
         display: flex;
         align-items: center;
+        justify-content: space-between;
         & ul {
             list-style: none;
+            padding-right: 15px;
         }
         & li {
             margin-top: 5px;
@@ -51,9 +52,9 @@
         }
         .info-list_account,
         .info-list_file{
-            font-size: 13px;
-            color: var(--font-color-secondary);
-            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--background-color);
+            font-weight: 600;
         }
     }
 }

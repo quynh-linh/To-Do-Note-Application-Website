@@ -1,40 +1,38 @@
 import className from 'classnames/bind';
 import Form from '~/components/Form/Form';
 import styles from './PasswordLogin.module.scss';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { signInUser } from '~/redux/authSlice';
+import { useState } from 'react';
 import AuthInput from '~/components/input/auth';
 import { useNavigate } from 'react-router-dom';
-function PassWordLogin({email}) {
+function PassWordLogin() {
     const cx = className.bind(styles);
-    const auth = useSelector(state => state.auth);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [validError, setValidError] = useState('');
-    const [inputPasswordValue,setInputPasswordValue] = useState('');
-    const signInHandleUser = (event) => {
-        event.preventDefault();
-        dispatch(signInUser({email,inputPasswordValue}));
-    };
-    useEffect(()=> {
-        if(auth.msg === 'successful'){
-            setValidError('');
+    const [inputPasswordValue,setInputPasswordValue] = useState('f5NfCjVTvM7B5Hi');
+    
+    // HANDLE SIGN IN 
+    const signInHandleUser = () => {
+        const localPassword = localStorage.getItem('password');
+        if(inputPasswordValue === localPassword){
+            navigate('/overview');
         } else {
-            if(auth.msg !== ""){
-                setValidError(auth.msg);
-                if(auth.msg === 'Login successful'){
-                    navigate('/overview');
-                }
-            }
-        }  
-    },[auth.error,auth.msg,navigate])
+            setValidError('Sai mật khẩu!');
+        }
+    };
+
     return (  
         <Form title={'Nhập mật khẩu'} validError={validError}>
-            <AuthInput nameInput='password' typeInput="password" placeholder="Nhập mật khẩu" validError={(e) => setValidError(e)} validInput={(e) => setInputPasswordValue(e)}/>
+            <AuthInput 
+                nameInput='password' 
+                typeInput="password" 
+                placeholder="Nhập mật khẩu" 
+                validError={(e) => setValidError(e)} 
+                validInput={(e) => setInputPasswordValue(e)}
+                localStorageValue = {inputPasswordValue}
+            />
             <div className={cx('forgot-password')}>Quên mật khẩu?</div>
             <div className={cx('wrapper-btn')}>
-                <button onClick={signInHandleUser}  type='submit'>Đăng nhập</button>
+                <button onClick={signInHandleUser}  type='button'>Đăng nhập</button>
             </div>
         </Form>
     );

@@ -4,21 +4,37 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import LoadingPage from '../components/LoadingPage';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 const cx = className.bind(styles);
 function WebLayout({children}){
     const [isOpenPage,setOpenPage] = useState(false);
+    const location = useLocation();
+    const currentPath = location.pathname;
+    console.log(currentPath);
     return (
-        <LoadingPage isState={(e) => {setOpenPage(e)}}>
+        <div className={cx('wrapper')}>
             {
-                isOpenPage && (
+                currentPath === '/' ? (
+                    <LoadingPage isState={(e) => {setOpenPage(e)}}>
+                        {
+                            isOpenPage && (
+                                <div className={cx('container')}>
+                                    <Header/>
+                                    {children}
+                                    <Footer/>
+                                </div>
+                            )
+                        }
+                    </LoadingPage>
+                ) : (
                     <div className={cx('container')}>
-                        <Header/>   
+                        <Header/>
                         {children}
                         <Footer/>
                     </div>
                 )
-            }
-        </LoadingPage>
+            } 
+        </div>
     )
 }
 export default WebLayout;

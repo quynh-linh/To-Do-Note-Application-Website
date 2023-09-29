@@ -9,6 +9,7 @@ import Login from '~/pages/Login';
 import { faCalendar, faStar, faSun, faUser } from '@fortawesome/free-regular-svg-icons';
 import Register from '~/pages/Register';
 import LoadingPage from '~/components/layouts/components/LoadingPage';
+import Introduce from '~/pages/Introduce';
 const publicRoutes =[
     {   
         path: '/', 
@@ -34,6 +35,12 @@ const publicRoutes =[
         path: '/loading', 
         component: LoadingPage,
         name: 'Waiting',
+    },
+    {
+        path: '/introduce', 
+        component: Introduce,
+        name: 'Giới thiệu App',
+        pageCode : 1
     }
 ]
 const sidebarRoutes = [

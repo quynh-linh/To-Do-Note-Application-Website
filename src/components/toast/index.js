@@ -53,7 +53,7 @@ export const Toast = ({type,title,position,autoClose,limit,des}) =>{
         }
     } else if (des === 'function'){
         if(type === 'info') {
-            toast.info('Chức năng'+ title +' đang phát triển', {
+            toast.info('Chức năng '+ title +' đang phát triển', {
                 position: position,
                 autoClose: autoClose,
                 hideProgressBar: false,
@@ -65,7 +65,7 @@ export const Toast = ({type,title,position,autoClose,limit,des}) =>{
                 limit: limit
             });
         } else if (type === 'success') {
-            toast.success('Chức năng'+ title +' đang phát triển', {
+            toast.success('Chức năng '+ title +' đang phát triển', {
                 position: position,
                 autoClose: autoClose,
                 hideProgressBar: false,
@@ -77,7 +77,7 @@ export const Toast = ({type,title,position,autoClose,limit,des}) =>{
                 limit: limit
             });
         } else if(type === 'warning'){
-            toast.warning('Chức năng'+ title +' đang phát triển', {
+            toast.warning('Chức năng '+ title +' đang phát triển', {
                 position: position,
                 autoClose: autoClose,
                 hideProgressBar: false,
@@ -89,7 +89,7 @@ export const Toast = ({type,title,position,autoClose,limit,des}) =>{
                 limit: limit
             });
         } else if(type === 'error'){
-            toast.error('Chức năng'+ title +' đang phát triển', {
+            toast.error('Chức năng '+ title +' đang phát triển', {
                 position: position,
                 autoClose: autoClose,
                 hideProgressBar: false,

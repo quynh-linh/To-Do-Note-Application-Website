@@ -308,4 +308,52 @@ const DATA_SETTINGS = [
         ],
     },
 ];
-export {MENU_ITEMS_DEADLINE,MENU_ITEMS_REMIND,MENU_ITEMS_REPEAT,MENU_ITEMS_SORT,MENU_ITEMS_GROUP,DATA_SETTINGS,MENU_ITEMS_CATEGORY,REAL_TIME,LIST_TODO_COMPLETED};
+
+const NAV_MENU_ITEMS = [
+    {
+        id : 0,
+        name : 'Teams',
+        state:false
+    },
+    {
+        id : 1,
+        name : 'Window',
+        state:false
+    },
+    {
+        id : 2,
+        name : 'Surface',
+        state:false
+    },
+    {
+        id : 3,
+        name : 'Xbox',
+        state:false
+    },
+    {
+        id : 4,
+        name : 'Deals',
+        state:false
+    },
+]
+export {
+    // DATA MENU (PAGE MY DAYS)
+    MENU_ITEMS_DEADLINE,
+    MENU_ITEMS_REMIND,
+    MENU_ITEMS_REPEAT,
+    MENU_ITEMS_SORT,
+    MENU_ITEMS_GROUP,
+    MENU_ITEMS_CATEGORY,
+
+    // DATA SETTINGS (DEFAULT LAYOUT)
+    DATA_SETTINGS,
+
+    // REAL TIME (PAGE MY DAYS)
+    REAL_TIME,
+
+    // LIST COMPLETED TASK (PAGE MY DAYS)
+    LIST_TODO_COMPLETED,
+
+    // DATA NAV MENU (WEB LAYOUT)
+    NAV_MENU_ITEMS
+};

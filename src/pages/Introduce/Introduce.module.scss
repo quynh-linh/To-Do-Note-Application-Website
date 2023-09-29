@@ -1,0 +1,17 @@
+.wrapper {
+    &__slider{
+        padding: 0 2%;
+        display: flex;
+        align-items: center;
+        background-color: white;
+        &-Left,
+        &-Right{
+            width: 50%;
+        }
+        &-Right{
+            & img {
+                width: 100%;
+            }
+        }
+    }
+}
