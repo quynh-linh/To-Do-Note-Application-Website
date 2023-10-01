@@ -11,6 +11,8 @@ const images = {
     wrapper_left : require('~/assets/images/wrapper-left.png'),
     wrapper_right : require('~/assets/images/wrapper-right.png'),
     IntroduceSlide : require('~/assets/images/IntroduceSlider.png'),
+    IntroduceWork : require('~/assets/images/introduce_work.png'),
+    IntroduceWorkGIF : require('~/assets/images/introduce_work.gif'),
 };
 
 export default images;

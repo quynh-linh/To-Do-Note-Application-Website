@@ -335,7 +335,36 @@ const NAV_MENU_ITEMS = [
         name : 'Deals',
         state:false
     },
-]
+];
+
+// QUESTION 
+const DATA_QUESTION = [
+    {
+        id : 1,
+        name : 'Mục đích của danh sách việc cần làm là gì?',
+        des: 'Mục đích chính của danh sách việc cần làm là mang đến cho bạn một danh sách các việc ưu tiên để đảm bảo rằng bạn không quên bất cứ việc gì và có thể lập kế hoạch hiệu quả cho các nhiệm vụ của mình để có thể hoàn thành trong khung thời gian chính xác. Một danh sách việc cần làm được duy trì tốt sẽ giúp tâm trí bạn thoải mái vì bạn sẽ luôn biết rõ những việc cần hoàn thành.'
+    },
+    {
+        id : 2,
+        name : 'Tại sao danh sách việc cần làm lại quan trọng?',
+        des: 'Danh sách việc cần làm rất quan trọng vì danh sách này giúp duy trì các nhiệm vụ và nghĩa vụ của theo đúng trình tự. Một danh sách được sắp xếp khoa học sẽ giúp bạn dễ dàng quản lý công việc và tập trung tinh thần vào các nhiệm vụ trước mắt.'
+    },
+    {
+        id : 3,
+        name : 'Khi nào thì bạn nên lập danh sách việc cần làm?',
+        des: 'Thời điểm tốt nhất để lập danh sách việc cần làm hằng ngày là buổi tối hôm trước hoặc là việc đầu tiên vào buổi sáng. Lợi ích lớn nhất của danh sách việc cần làm được sắp xếp khoa học là bạn luôn an tâm khi có sẵn kế hoạch. Khi đi ngủ mà đã có sẵn kế hoạch cho ngày hôm sau, bạn sẽ có thể ngủ ngon hơn. Khi lập danh sách là việc đầu tiên bạn làm vào buổi sáng, bạn sẽ có kế hoạch cho một ngày thành công.'
+    },
+    {
+        id : 4,
+        name : 'Danh sách việc cần làm nên có bao nhiêu mục?',
+        des: 'Điều quan trọng là bạn có thể dễ dàng quản lý danh sách việc cần làm. Danh sách nhiệm vụ bất khả thi có thể làm tăng cảm giác căng thẳng. Thông thường, bạn nên tạo tối đa 3 mục trong danh sách việc cần làm. Nếu bạn cần có trên 3 mục, hãy tìm cách đưa vào không quá 1 nhiệm vụ "lớn" và điền vào danh sách một số nhiệm vụ "vừa" hoặc "nhỏ" dễ hoàn thành.'
+    },
+    {
+        id : 5,
+        name : 'Tôi có thể làm cách nào để tạo danh sách việc cần làm trên điện thoại?',
+        des: 'Các ứng dụng danh sách việc cần làm, như ứng dụng Microsoft To Do là cách tốt nhất để tạo danh sách việc cần làm trên điện thoại của bạn. Với Microsoft To Do, bạn có thể dễ dàng tạo và đồng bộ danh sách nhiệm vụ trên nhiều thiết bị để luôn có sẵn danh sách việc cần làm bất kể bạn đang dùng máy tính, điện thoại hay máy tính bảng.'
+    }
+];
 export {
     // DATA MENU (PAGE MY DAYS)
     MENU_ITEMS_DEADLINE,
@@ -355,5 +384,8 @@ export {
     LIST_TODO_COMPLETED,
 
     // DATA NAV MENU (WEB LAYOUT)
-    NAV_MENU_ITEMS
+    NAV_MENU_ITEMS,
+
+    // DATA QUESTION (INTRODUCE LAYOUT)
+    DATA_QUESTION
 };

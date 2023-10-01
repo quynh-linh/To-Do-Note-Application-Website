@@ -1,6 +1,18 @@
 .wrapper {
+    &__slider,
+    &__work,
+    &__manager{
+        padding: 2%;
+        display: flex;
+        align-items: center;
+        background-color: white;
+        &-Left,
+        &-Right{
+            width: 50%;
+        }
+    }
     &__slider{
-        padding: 0 2%;
+        padding: 2%;
         display: flex;
         align-items: center;
         background-color: white;
@@ -11,7 +23,206 @@
         &-Right{
             & img {
                 width: 100%;
+                padding: 10px;
             }
         }
+        &-Left{
+            &-title,
+            &-des,
+            &-btn{
+                padding-left: 30px;
+            }
+            &-title{
+                color: var(--background-color);
+                font-size: 2.5rem;
+                margin-bottom: 20px;            
+            }
+            &-des{
+                margin-bottom: 20px;
+                margin-left: 10px;
+                font-weight: 600;
+            }
+            &-btn{
+                &-OpenApp,
+                &-DownApp{
+                    padding: 15px 10px;
+                    width: 170px;
+                    border-radius: 5px;
+                    font-weight: 600;
+                    font-size: 1.4rem;
+                }
+                &-OpenApp{
+                    background-color: var(--background-color);
+                    border: none;
+                    color: white;
+                    &:hover{
+                        cursor: pointer;
+                        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                    }
+                }
+                &-DownApp{
+                    border: 2px solid var(--background-color);
+                    background: white;
+                    margin-left: 30px;
+                    &:hover{
+                        background-color: rgb(118 65 126 / 30%);
+                        cursor: pointer;
+                        color: var(--background-color);
+                    }
+                }
+            }
+        }
+    }
+    &__work{
+        background-color: var(--background-color);
+        &-Left{
+            & img {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+        &-Right{
+            &-title,
+            &-des{
+                color: white;
+            }
+            &-des{
+                line-height: 1.7;
+                margin-top: 15px;
+            }
+        }
+    }
+    &__manager{
+        &-Left{
+            &-des{
+                line-height: 1.7;
+                margin-top: 15px;
+            }
+        }
+        &-Right{
+            
+            & img {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    }
+    
+    &__SeeMore{
+        margin:50px 0;
+        &-title{
+            padding: 50px 30px 30px 30px;
+            text-align: center;
+        }
+        &-content{
+            display: flex;
+            align-items: center;
+            &-Left,
+            &-Right{
+                text-align: center;
+                width: 50%;
+                padding: 20px;
+            }
+            &-Left{
+                &-icon{
+                    font-size: 3.5rem !important;
+                    color: var(--background-color);
+                }
+                &-title{
+                    font-size: 1.9rem;
+                    font-weight: 600;
+                    margin: 10px 0;
+                }
+            }
+            &-Right{
+                &-icon{
+                    font-size: 3.5rem !important;
+                    color: var(--background-color);
+                }
+                &-title{
+                    font-size: 1.9rem;
+                    font-weight: 600;
+                    margin: 10px 0;
+                }
+            }
+        }
+    }
+    &__Question{
+        padding: 35px;
+        background-color: white;
+        &-title{
+            font-size: 2.5rem;
+        }
+        &-content{
+            &-menu{
+                margin-top: 20px;
+                padding: 10px 0 40px 0;
+                border-bottom: 1px solid #ccc;
+                &-Line,
+                &-Unbent,
+                &-Retract{
+                    font-weight: 600;
+                }
+                &-Line{
+                    padding: 0 5px;
+                }
+                &-Unbent,
+                &-Retract{
+                    padding: 10px;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
+                &-checked{
+                    color: var(--background-color) !important;
+                    border: 2px dashed var(--background-color) !important;
+                    cursor: pointer;
+                }
+                &-check{
+                    text-decoration: underline !important;
+                    color: var(--background-color) !important;
+                    cursor: pointer;
+                }
+            }
+            &-listQuestion{
+                &-item{
+                    margin: 0 10px;
+                    padding-bottom: 20px;
+                    border-bottom: 1px solid #ccc;
+                    cursor: pointer;
+                    &-title{
+                        padding: 15px 0;
+                        font-size: 1.5rem;
+                        font-weight: 600;
+                        display: flex;
+                        align-items: center;
+                        margin: 5px 0;
+                        & span {
+                            padding-left: 20px;
+                        }
+                        &-icon{
+                            animation: slideFadeDown 250ms forwards;
+                        }
+                    }
+                    &-des{
+                        padding-left: 20px;
+                        line-height: 1.7;
+                        font-size: 1.4rem;
+                        animation: slideFadeDown 250ms forwards;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes slideFadeDown {
+    0% {
+      transform: translate3d(0, -100%, 0);
+      opacity: 0;
+    }
+    100% {
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
     }
 }
