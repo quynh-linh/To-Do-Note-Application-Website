@@ -30,16 +30,15 @@ The application was built to help users take notes on daily work and plan future
 ## Some features of the site:
 Home Page                   |                   Introduce Page
 :---------------------------------:        |      :------------------------------:
-<img src="./src/assets/images/HomePage.png" height="200">  | <img src="./src/assets/images/IntroducePage.png" 
-height="200">
+<img src="./src/assets/images/HomePage.png" height="200">  | <img src="./src/assets/images/IntroducePage.png" height="200">
 
 Login Page                   |                   Overview Page
 :---------------------------------:        |      :------------------------------:
-<img src="./src/assets/images/LoginPage.png" height="200">  | <img src="./src/assets/images/OverviewPage.png" 
-height="200">
+<img src="./src/assets/images/LoginPage.png" height="200">  | <img src="./src/assets/images/OverviewPage.png" height="200">
 
-Demo                                     
-:---------------------------------:        
-<img src="./src/assets/images/Demo1Page.png" height="400"> 
+Demo Page                   |                   MyDay Page
+:---------------------------------:        |      :------------------------------:
+<img src="./src/assets/images/Demo1Page.png" height="200">  | <img src="./src/assets/images/MydayPage.png" height="200">
+
 ### Make sure to star the repository if you find it helpful!
 <a href="https://github.com/Quynh-Linh-IT/To-Do-Note-Application-Website/stargazers"><img src="https://img.shields.io/github/stars/Quynh-Linh-IT/To-Do-Note-Application-Website?color=yellow" alt="Stars Badge"/></a>
