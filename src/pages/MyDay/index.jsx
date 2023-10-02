@@ -340,6 +340,28 @@ function MyDay() {
         }
     };
 
+        // HANDLE CHANGE TITLE TODO
+    const handleChangeTitleTodo = (e) => {
+        const newTitle = e.target.value;
+        setSelectedTodoTitle(newTitle);
+        const id = selectedTodo.id;
+        if(selectedTodo.title !== ''){
+            const updatedTodo = {
+                title : newTitle
+            };   
+            const updateSelected = {
+                ...selectedTodo,
+                title : newTitle
+            };
+            setSelectedTodo(updateSelected);   
+            if(selectedTodo.type === 'waiting'){
+                dispatch(updateTodoWaiting({id,updatedTodo}));
+            } else if(selectedTodo.type === 'completed'){
+                dispatch(updateTodoCompleted({id,updatedTodo}))
+            }
+        }
+    };
+
         // HANDLE REMOVE REMIND DRAWER TODO SELECTED
     const removeRemindSelectedTodo = (item) =>{
         setUpdateValueDrawerRemind(item);
@@ -624,11 +646,6 @@ function MyDay() {
     // HANDLE CLOSE MENU TODO ITEM
     const handleCloseHideTodo = () => {
         setClickHandleTodo(false);
-    };
-
-    // HANDLE CHANGE TITLE TODO
-    const handleChangeTitleTodo = (e) => {
-        setSelectedTodoTitle(e.target.value);
     };
     
     useEffect(() => {
