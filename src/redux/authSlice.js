@@ -1,4 +1,5 @@
 import { URL_API } from "~/config";
+import { saveTokenToLocalStorage } from "~/const/tokenToLocalStorage";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const  initialState = {
     msg : '',
@@ -30,6 +31,7 @@ const authSlice = createSlice({
             localStorage.removeItem('email');
             localStorage.removeItem('password');
             localStorage.removeItem('token');
+            localStorage.removeItem('tokenExpiration');
             state.email = email;
             state.password = password;
             state.token = token;
@@ -50,7 +52,7 @@ const authSlice = createSlice({
             // SET LOCAL STORAGE
             localStorage.setItem('email', action.payload.email);
             localStorage.setItem('password', action.payload.password);
-            localStorage.setItem('token', action.payload.token);
+            saveTokenToLocalStorage(action.payload.token);
         });
         builder.addCase(signInUser.rejected,(state,action) => {
             state.isLoading = true;

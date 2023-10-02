@@ -4,8 +4,18 @@ import images from '~/assets/images';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWindowRestore } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 function Home() {
     const cx = className.bind(styles);
+    const [checkUserToken,setCheckUserToken] = useState(false);
+    useEffect(() => {
+        const userToken = localStorage.getItem('token');
+        if(userToken !== '') {
+            setCheckUserToken(true);
+        } else {
+            setCheckUserToken(false);
+        }
+    },[]);
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -24,7 +34,7 @@ function Home() {
                         </p>
                     </div>
                     <div className={cx('content__center-starts')}>
-                        <Link to='/login'>
+                        <Link to={checkUserToken ? '/overview' : '/login'}>
                             <button type='button'>
                                 Bắt đầu
                             </button>
