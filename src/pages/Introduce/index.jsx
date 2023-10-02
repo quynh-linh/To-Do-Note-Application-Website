@@ -7,6 +7,8 @@ import BrowserUpdatedIcon from '@mui/icons-material/BrowserUpdated';
 import { useState } from "react";
 import { DATA_QUESTION } from "~/const";
 import QuestionItem from "./QuestionItem";
+import { Toast } from "~/components/toast";
+import { Link } from "react-router-dom";
 function Introduce() {
     const cx=classNames.bind(styles);
     const [isCheckQuestionCLick,setCheckQuestionClick] = useState('');
@@ -24,6 +26,11 @@ function Introduce() {
         setUnbentQuestion(false);
     };
 
+    // HANDLE CLICK DOWNLOAD APP
+    const handleCLickDownLoadApp = () => {
+        Toast({type:'info',title: "Tải xuống",position:'bottom-left',autoClose:1000,limit:1,des:'function'});
+    };
+
     return ( 
         <div className={cx('wrapper')}>
             <div className={cx('wrapper__slider')}>
@@ -36,8 +43,8 @@ function Introduce() {
                         </span>
                     </div>
                     <div className={cx('wrapper__slider-Left-btn')}>
-                        <button type="button" className={cx('wrapper__slider-Left-btn-OpenApp')}>Mở ứng dụng web</button>
-                        <button type="button" className={cx('wrapper__slider-Left-btn-DownApp')}>Tải xuống ứng dụng </button>
+                        <Link to={'/'}><button type="button" className={cx('wrapper__slider-Left-btn-OpenApp')}>Mở ứng dụng web</button></Link>
+                        <button type="button" className={cx('wrapper__slider-Left-btn-DownApp')}  onClick={handleCLickDownLoadApp}>Tải xuống ứng dụng </button>
                     </div>
                 </div>
                 <div className={cx('wrapper__slider-Right')}>

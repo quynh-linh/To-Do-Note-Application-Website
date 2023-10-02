@@ -1,24 +1,91 @@
 .wrapper{
     background-color: var(--background-color);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 0 2%;
-    .wrapper-left{
+    &__container{
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        &-left{
+            display: flex;
+            align-items: center;
+            &-nav{
+                list-style: none;
+                display: flex;
+                color: white;
+                margin-left : 15px;
+                &-item{
+                    font-size: 13px;
+                    font-weight: var(--var-font-weight);
+                    padding: 16px 20px;
+                    
+                }
+            }
+        }
+        &-controls{
+            color: white;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            &-item,
+            &_user{
+                padding: 0 10px;
+            }
+            &_user{
+                font-size: 30px;
+                &-link{
+                    color: white;
+                    &:hover{
+                        cursor: pointer;
+                        color: #e8bcef;
+                        transform: translateY(-3px);
+                    }
+                }
+            }
+        }
     }
-    .header-nav{
-        list-style: none;
+    &__scroll{
         display: flex;
-        color: white;
-        margin-left : 15px;
-    }
-    .nav-menu_item{
-        font-size: 13px;
-        font-weight: var(--var-font-weight);
-        padding: 16px 20px;
-        
+        align-items: center;
+        justify-content: space-between;
+        &-title{
+            font-size: 1.9rem;
+            color: var(--background-color);
+            font-weight: 600;
+            line-height: 3;
+        }
+        &-menu{
+            display: flex;
+            align-items: center;
+            &-downloadApp,
+            &-openApp{
+                padding: 10px;
+                &:hover{
+                    box-shadow: rgba(118, 65, 126, 0.4) 0px 0px 0px 2px, rgba(118, 65, 126, 0.65) 0px 4px 6px -1px, rgba(118, 65, 126, 0.08) 0px 1px 0px inset;
+                }
+                &-link{
+                    font-size: 1.4rem;
+                    &:hover{
+                        text-decoration: revert;
+                        cursor: pointer;
+                    }
+                }
+            }
+            &-openApp{
+                background: var(--background-color);
+                border: 3px solid var(--background-color);
+                margin-right: 10px;
+                &-link{
+                    color: white;
+                    text-decoration: none;   
+                }
+            }
+            &-downloadApp{
+                border: 3px solid var(--background-color);
+                &-link{
+                    text-decoration: none;   
+                }
+            }
+        }
     }
     .selected{
         padding: 16px 20px;
@@ -34,26 +101,12 @@
         &:hover{
             cursor: pointer;
         }
-    }
-    .header-controls{
-        color: white;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-    }
-    .menuItem-control,
-    .menuItem-control_user{
-        padding: 0 10px;
-    }
-    .menuItem-control_user{
-        font-size: 30px;
-    }
-    .menuItem-control_user-link{
-        color: white;
-        &:hover{
-            cursor: pointer;
-            color: #e8bcef;
-            transform: translateY(-3px);
-        }
-    }
+    } 
+}
+.scroll{
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    background: white;
+    box-shadow: rgba(118, 65, 126, 0.4) 0px 0px 0px 2px, rgba(118, 65, 126, 0.65) 0px 4px 6px -1px, rgba(118, 65, 126, 0.08) 0px 1px 0px inset;
 }
