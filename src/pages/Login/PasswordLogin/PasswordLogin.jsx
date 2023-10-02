@@ -4,6 +4,7 @@ import styles from './PasswordLogin.module.scss';
 import { useState } from 'react';
 import AuthInput from '~/components/input/auth';
 import { useNavigate } from 'react-router-dom';
+import { Toast } from '~/components/toast';
 function PassWordLogin() {
     const cx = className.bind(styles);
     const navigate = useNavigate();
@@ -20,6 +21,11 @@ function PassWordLogin() {
         }
     };
 
+    // HANDLING UNDEVELOPED FUNCTION
+    const handleNotSuccessFunction = () => {
+        Toast({type:'error',title: '',position:'top-right',autoClose:3000,limit:1,des:'function'});
+    };
+
     return (  
         <Form title={'Nhập mật khẩu'} validError={validError}>
             <AuthInput 
@@ -30,7 +36,7 @@ function PassWordLogin() {
                 validInput={(e) => setInputPasswordValue(e)}
                 localStorageValue = {inputPasswordValue}
             />
-            <div className={cx('forgot-password')}>Quên mật khẩu?</div>
+            <div className={cx('forgot-password')} onClick={handleNotSuccessFunction}>Quên mật khẩu?</div>
             <div className={cx('wrapper-btn')}>
                 <button onClick={signInHandleUser}  type='button'>Đăng nhập</button>
             </div>

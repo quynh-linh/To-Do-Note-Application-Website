@@ -8,6 +8,7 @@ import PassWordLogin from './PasswordLogin/PasswordLogin';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInUser } from '~/redux/authSlice';
 import AuthLoading from '~/components/layouts/components/LoadingPage/authLoading';
+import { Toast } from '~/components/toast';
 function Login() {
     const cx = className.bind(styles);
     const [isValidError, setValidError] = useState(''); 
@@ -28,6 +29,11 @@ function Login() {
         } else {
             setValidError('Không được để trống email!');
         }
+    };
+
+    // HANDLING UNDEVELOPED FUNCTION
+    const handleNotSuccessFunction = () => {
+        Toast({type:'error',title: '',position:'top-right',autoClose:3000,limit:1,des:'function'});
     };
 
     useEffect(() => {
@@ -62,11 +68,11 @@ function Login() {
                     <div>
                         <div className={cx('question-register')}>
                             <p>Bạn không có tài khoản?</p>
-                            <Link className={cx('to-register')} to='/register'>
+                            <Link className={cx('to-register')} onClick={handleNotSuccessFunction}>
                                 Hãy tạo tài khoản!
                             </Link>
                         </div>
-                        <div className={cx('new-email')}> Bạn không truy cập vào được tài khoản?</div>
+                        <div className={cx('new-email')} onClick={handleNotSuccessFunction}> Bạn không truy cập vào được tài khoản?</div>
                     </div>
                     <div className={cx('wrapper-input')}>
                     </div>
