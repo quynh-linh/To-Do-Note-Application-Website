@@ -11,7 +11,7 @@ const  initialState = {
     error: '',
 }
 const signInUser = createAsyncThunk('signInUser',async(body)=> {
-    const res = await fetch(URL_API+'v3/48a042a2-b67b-4ea0-8da5-55f5bb50448a',{
+    const res = await fetch(URL_API+'v3/615aedbc-5057-4b6c-a66a-b13fd285d069',{
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -26,7 +26,6 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logOut : (state,action) => {
-            console.log(action.payload);
             const {email , password , token} = action.payload;
             localStorage.removeItem('email');
             localStorage.removeItem('password');
@@ -43,9 +42,10 @@ const authSlice = createSlice({
             state.isLoading = true;
         });
         builder.addCase(signInUser.fulfilled,(state,action) => {
+            console.log(action.payload);
             state.isLoading = false;
             state.isAuthenticated = true;
-            state.msg = action.payload.message;
+            state.msg = action.payload.msg;
             state.email = action.payload.email;
             state.password = action.payload.password;
             state.token = action.payload.token;
@@ -56,7 +56,6 @@ const authSlice = createSlice({
         });
         builder.addCase(signInUser.rejected,(state,action) => {
             state.isLoading = true;
-            state.error = action.payload.error;
         });
     }
 });
